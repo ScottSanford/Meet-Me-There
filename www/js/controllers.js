@@ -1,9 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope) {
 
-.controller('GoogleMapCtrl', function($scope, Chats) {
-    $scope.map = { 
+})
+
+.controller('GoogleMapCtrl', function($scope, Chats, $cordovaGeolocation) {
+   $scope.map = { 
       center: { 
           latitude: 41.881832, 
           longitude: -87.623177
