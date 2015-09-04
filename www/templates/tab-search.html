@@ -1,4 +1,7 @@
 <ion-view view-title="Dashboard">
-  <ion-content class="padding">
+  <ion-content>
+      	<ion-toggle  ng-repeat="place in places" ng-model="settings.enableFriends">
+        	{{place.type}}
+    	</ion-toggle>
   </ion-content>
 </ion-view>
