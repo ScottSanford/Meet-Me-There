@@ -1,14 +1,18 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope, $location) {
     $scope.places = [
                 {"type": "Coffee","checked": false},
                 {"type": "Food","checked": false},
                 {"type": "Drinks", "checked": false}
             ]
+
+    $scope.gotoMap = function() {
+        $location.url('/tab/map');
+    }
 })
 
-.controller('GoogleMapCtrl', function($scope, Chats, uiGmapGoogleMapApi) {
+.controller('GoogleMapCtrl', function($scope, uiGmapGoogleMapApi) {
        $scope.myLocation = {
         lng : '',
         lat: ''
@@ -37,6 +41,22 @@ angular.module('starter.controllers', [])
               longitude: $scope.myLocation.lng
             }
           }; 
+
+          $scope.searchbox = {
+            template:'searchbox.tpl.html', 
+            position:'top-center', 
+            options: { bounds: {} }, 
+            events: {
+              places_changed: function(searchBox){
+                console.log(searchBox);
+                var places = searchBox.getPlaces(); 
+
+                if (places.length == 0) {
+                  return;
+                }
+              }
+            }
+          }
            
         });
       }

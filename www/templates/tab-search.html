@@ -1,7 +1,17 @@
-<ion-view view-title="Dashboard">
-  <ion-content>
-      	<ion-toggle  ng-repeat="place in places" ng-model="settings.enableFriends">
+<ion-view view-title="Search">
+  <ion-content class="padding">
+        <div class="list list-inset">
+          <ion-google-place placeholder="Your Location" ng-model="pointA" />
+        </div>        
+        <div class="list list-inset">
+          <ion-google-place placeholder="Point B" ng-model="pointB" />
+        </div>
+      	<ion-toggle class="meeting-places" ng-repeat="place in places" ng-model="settings.enableFriends">
         	{{place.type}}
     	</ion-toggle>
+	  <button class="button button-full button-positive meet-me-there-btn" ng-click="gotoMap()">
+	  	Meet Me There
+	  </button>
   </ion-content>
+
 </ion-view>

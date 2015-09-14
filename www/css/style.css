@@ -1,4 +1,47 @@
-/*place styles here*/
+/*===============================================================
+						Search Tab
+================================================================*/
+.item-input {
+	border-bottom:none;
+	border-left: none;
+	border-right: none;
+}
+
+.your-location {
+	border-top:none;
+}
+
+input[type="text"] {
+	font-size:20px;
+	line-height: 34px;
+}
+
+input.ion-google-place[readonly] {
+	margin-left:15px;
+	width:100%;
+}
+
+.item-toggle {
+	border:none;
+}
+
+.meeting-places {
+	font-size:18px;
+}
+
+.button.button-positive {
+	margin-top:75px;
+	background-color:#465568;
+	border-color:#456568;
+	font-size: 20px;
+}
+/*===============================================================
+						Map Tab
+================================================================*/
 .angular-google-map-container { 
   height: 600px; 
 }
+
+/*===============================================================
+						Settings Tab
+================================================================*/

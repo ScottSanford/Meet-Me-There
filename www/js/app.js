@@ -10,7 +10,8 @@ angular.module('mmtApp', [
   'starter.controllers', 
   'starter.services', 
   'uiGmapgoogle-maps',
-  'ngCordova'
+  'ngCordova', 
+  'ion-google-place'
 ])
 
 
@@ -30,7 +31,14 @@ angular.module('mmtApp', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+
+  uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.20', //defaults to latest 3.X anyhow
+      libraries: 'places' // Required for SearchBox.
+  });
+
   $stateProvider
     .state('tab', {
     url: '/tab',
@@ -73,6 +81,16 @@ angular.module('mmtApp', [
       'tab-settings': {
         templateUrl: 'templates/tab-settings.html',
         controller: 'AccountCtrl'
+      }
+    }
+  })
+
+  .state('.distance-units', {
+    url: '/distance', 
+    views: {
+      'distance-units': {
+        templateUrl: 'templates/distance-units.html',
+        controller: 'DistanceUnitsCtrl'
       }
     }
   });

@@ -1,10 +1,16 @@
 <ion-view view-title="Meet Me There">
      <ion-content data-tap-disabled="true">
-    
+		<script type="text/ng-template" id="searchbox.tpl.html">
+		    <input type="text" placeholder="Search Box">
+		</script>
         <ui-gmap-google-map center='map.center' zoom='map.zoom' events="map.markersEvents">
-          <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" closeClick="hideMarkerPopup()" onClicked="showMarkerPopup()">
- 
-          </ui-gmap-marker>        
+          <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" closeClick="hideMarkerPopup()" onClicked="showMarkerPopup()"></ui-gmap-marker>  
+	        <ui-gmap-search-box 
+	          	options="searchbox.options" 
+	          	template="searchbox.template"
+	            events="searchbox.events" 
+	            position="searchbox.position">
+	        </ui-gmap-search-box>      
         </ui-gmap-google-map>
         
       </ion-content>
