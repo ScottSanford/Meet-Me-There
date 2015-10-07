@@ -41,6 +41,10 @@ input.ion-google-place[readonly] {
 .angular-google-map-container { 
 	height:600px;
 }
+
+#map {
+	height:500px;
+}
 /*===============================================================
 						Settings Tab
 ================================================================*/
