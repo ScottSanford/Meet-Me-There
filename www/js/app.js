@@ -51,7 +51,7 @@ angular.module('mmtApp', [
     views: {
       'tab-search': {
         templateUrl: 'templates/tab-search.html',
-        controller: 'DashCtrl'
+        controller: 'SearchCtrl'
       }
     }
   })
@@ -80,7 +80,7 @@ angular.module('mmtApp', [
     views: {
       'tab-settings': {
         templateUrl: 'templates/tab-settings.html',
-        controller: 'AccountCtrl'
+        controller: 'SettingsCtrl'
       }
     }
   })

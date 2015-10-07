@@ -1,14 +1,21 @@
-<ion-view view-title="Search">
+<ion-view view-title="Search" hide-nav-bar="true">
+
   <ion-content class="padding">
+
+        <!-- Your Location -->
         <div class="list list-inset">
           <ion-google-place placeholder="Your Location" ng-model="pointA" />
         </div>        
+
+        <!-- Second Location -->
         <div class="list list-inset">
           <ion-google-place placeholder="Point B" ng-model="pointB" />
         </div>
-      	<ion-toggle class="meeting-places" ng-repeat="place in places" ng-model="settings.enableFriends">
+
+        <!--  -->
+      	<ion-toggle class="meeting-places" ng-repeat="place in places" ng-model="place.checked">
         	{{place.type}}
-    	</ion-toggle>
+        </ion-toggle>
 	  <button class="button button-full button-positive meet-me-there-btn" ng-click="gotoMap()">
 	  	Meet Me There
 	  </button>
