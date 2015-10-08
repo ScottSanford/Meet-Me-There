@@ -157,6 +157,7 @@ angular.module('starter.controllers', [])
           console.log('there was an error', err);
         });
 
+
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

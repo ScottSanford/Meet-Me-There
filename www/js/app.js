@@ -12,7 +12,9 @@ angular.module('mmtApp', [
   'uiGmapgoogle-maps',
   'ngCordova', 
   'ion-google-place',
-  'ui.bootstrap'
+  'ui.bootstrap', 
+  'ngAnimate', 
+  'ionic.contrib.drawer.vertical'
 ])
 
 

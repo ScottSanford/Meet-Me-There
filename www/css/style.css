@@ -38,13 +38,17 @@ input.ion-google-place[readonly] {
 /*===============================================================
 						Map Tab
 ================================================================*/
-.angular-google-map-container { 
-	height:600px;
-}
-
 #map {
 	height:500px;
 }
+
+.vertical-list {
+	overflow: scroll;
+}
+
+/*.ion-drawer-vertical-wrapper.up.has-tabs {
+	bottom:-198px;
+}*/
 
 .glyphicon-star {
 	color:#E7731E;
