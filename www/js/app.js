@@ -11,7 +11,8 @@ angular.module('mmtApp', [
   'starter.services', 
   'uiGmapgoogle-maps',
   'ngCordova', 
-  'ion-google-place'
+  'ion-google-place',
+  'ui.bootstrap'
 ])
 
 

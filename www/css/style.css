@@ -45,6 +45,14 @@ input.ion-google-place[readonly] {
 #map {
 	height:500px;
 }
+
+.glyphicon-star {
+  color:#E7731E;
+}
+
+.glyphicon-star-empty {
+	color:#cfcfcf;
+}
 /*===============================================================
 						Settings Tab
 ================================================================*/

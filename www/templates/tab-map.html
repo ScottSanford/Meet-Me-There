@@ -1,29 +1,25 @@
 <ion-view view-title="Meet Me There" hide-nav-bar="true">
 
      <ion-content data-tap-disabled="true">
-<!-- 		    <ui-gmap-google-map 
-			        center='map.center' 
-			        zoom='map.zoom' 
-			        events="map.events">
-		          <ui-gmap-marker 
-		          	coords="marker.coords" 
-		          	idkey="marker.id">
-		          </ui-gmap-marker>      
-		    </ui-gmap-google-map> -->
-		<div id="map"></div>
-	    <!-- Your Location -->
-        <div class="list list-inset">
-          <ion-google-place placeholder="Your Location" ng-model="pointA" />
-        </div>        
+
+		<div id="map"></div>  
 
         <!-- Second Location -->
         <div class="list list-inset">
           <ion-google-place placeholder="Point B" ng-model="pointB" />
         </div>
 
-	  	<button class="button button-positive meet-me-there-btn" ng-click="getDirections()">
+	  	<button class="button button-positive meet-me-there-btn" ng-click="getDirections(pointB)">
 	  		Create Directions
 	  	</button>
+
+        <div>
+          <span>Coffee</span>
+            <div ng-repeat="result in results">
+                <div>{{result.name}}</div> 
+                <rating ng-model="result.rating" readonly="true"></rating> - <rating ng-model="result.price_level" readonly="true" rating-states="ratingStates"></rating> {{result.price_level}}
+            </div>
+        </div>
         
       </ion-content>
 </ion-view>
