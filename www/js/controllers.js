@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
             service.nearbySearch({
               location: myLatLng,
               radius: 500,
-              types: ['cafe']
+              types: ['cafe', 'restaurant', 'bar']
             }, callback);
             
             infowindow = new google.maps.InfoWindow();
@@ -71,20 +71,24 @@ angular.module('starter.controllers', [])
             function callback(results, status) {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
-                  if (i <= 4) {
                     console.log(results[i]);
+                    console.log("Types = ", results[i].types);
                     createMarker(results[i]);
                     $scope.results = results;
-                  }
                 }
               }
             }
 
             function createMarker(place) {
               var placeLoc = place.geometry.location;
+              // var image = 'http://maps.google.com/mapfiles/ms/icons/coffeehouse.png';
               var marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location
+                position: place.geometry.location,
+                icon: {
+                  url: place.icon,
+                  scaledSize: new google.maps.Size(25, 25)
+                }
               });
 
               google.maps.event.addListener(marker, 'click', function() {

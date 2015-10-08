@@ -39,16 +39,21 @@ input.ion-google-place[readonly] {
 						Map Tab
 ================================================================*/
 #map {
-	height:500px;
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	height:95vh;
 }
 
 .vertical-list {
-	overflow: scroll;
+	height:500px;
 }
 
-/*.ion-drawer-vertical-wrapper.up.has-tabs {
-	bottom:-198px;
-}*/
+ion-scroll[direction=y] {
+  height: 100px;
+}
 
 .glyphicon-star {
 	color:#E7731E;
