@@ -47,11 +47,20 @@ input.ion-google-place[readonly] {
 }
 
 .glyphicon-star {
-  color:#E7731E;
+	color:#E7731E;
+	letter-spacing: -3px;
+	font-size:1.2em;
 }
 
 .glyphicon-star-empty {
 	color:#cfcfcf;
+	letter-spacing: -3px;
+	font-size:1.2em;
+}
+
+.glyphicon-usd {
+	letter-spacing: -7px;
+	font-size:1em;
 }
 /*===============================================================
 						Settings Tab

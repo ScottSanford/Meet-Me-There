@@ -32,6 +32,10 @@ angular.module('starter.controllers', [])
           var longitude = position.coords.longitude
 
           $scope.ratingStates = [
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
           ]
 

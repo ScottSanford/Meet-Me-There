@@ -17,7 +17,7 @@
           <span>Coffee</span>
             <div ng-repeat="result in results">
                 <div>{{result.name}}</div> 
-                <rating ng-model="result.rating" readonly="true"></rating> - <rating ng-model="result.price_level" readonly="true" rating-states="ratingStates"></rating> {{result.price_level}}
+                <rating ng-model="result.rating" readonly="true"></rating> - <rating ng-model="result.price_level" readonly="true" state-on="'glyphicon-usd'" state-off="'null'"></rating>
             </div>
         </div>
         
