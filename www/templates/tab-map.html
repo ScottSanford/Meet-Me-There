@@ -1,7 +1,10 @@
 <ion-view view-title="Meet Me There" hide-nav-bar="true">
-
+    <div id="tools">
+      Start: <input type="text" name="start" id="start" value="Chicago">
+      End: <input type="text" name="end" id="end" value="St. Louis">
+    </div>
     <ion-content data-tap-disabled="true">
-		    <div id="map"></div>  
+        <div id="map"></div> 
     </ion-content>
 
     <ion-drawer-vertical-wrapper class="has-tabs" direction="up" state="closed" autoclose-on-scroll>
@@ -12,18 +15,30 @@
             <div class="item item-divider">
               Coffee
             </div>
-            <div class="item" ng-repeat="result in results | limitTo:5">
-              <div>{{result.name}}</div> 
-              <rating 
-                  ng-model="result.rating" 
-                  readonly="true">
-              </rating> - 
-              <rating 
-                  ng-model="result.price_level" 
-                  readonly="true" 
-                  state-on="'glyphicon-usd'" 
-                  state-off="'null'">
-              </rating>
+            <div class="item padding-right" ng-repeat="result in results">
+              <div class="row">
+                <div class="col col-50">
+                  <div>{{result.name}}</div> 
+                  <rating 
+                      ng-model="result.rating" 
+                      readonly="true">
+                  </rating> - 
+                  <rating 
+                      ng-model="result.price_level" 
+                      readonly="true" 
+                      state-on="'glyphicon-usd'" 
+                      state-off="'null'">
+                  </rating>
+                </div>
+                <div class="col">
+                  <span class="icon ion-ios-upload-outline share-icon"></span>
+                  <div class="icon-text">Share</div>
+                </div>
+                <div class="col">
+                  <span class="icon ion-map map-icon"></span>
+                  <div class="icon-text">Directions</div>
+                </div>
+              </div>
             </div>
           </div>
         </ion-scroll>

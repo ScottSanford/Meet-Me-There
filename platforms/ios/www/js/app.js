@@ -5,7 +5,18 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('mmtApp', [
+  'ionic', 
+  'starter.controllers', 
+  'starter.services', 
+  'uiGmapgoogle-maps',
+  'ngCordova', 
+  'ion-google-place',
+  'ui.bootstrap', 
+  'ngAnimate', 
+  'ionic.contrib.drawer.vertical'
+])
+
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,63 +34,71 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
+  uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.20', //defaults to latest 3.X anyhow
+      libraries: 'places' // Required for SearchBox.
+  });
+
   $stateProvider
-
-  // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
 
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.search', {
+    url: '/search',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-search': {
+        templateUrl: 'templates/tab-search.html',
+        controller: 'SearchCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.map', {
+      url: '/map',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-map': {
+          templateUrl: 'templates/tab-map.html',
+          controller: 'GoogleMapCtrl'
         }
       }
     })
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+      url: '/map/:chatId',
       views: {
-        'tab-chats': {
+        'tab-map': {
           templateUrl: 'templates/chat-detail.html',
           controller: 'ChatDetailCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.settings', {
+    url: '/settings',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-settings': {
+        templateUrl: 'templates/tab-settings.html',
+        controller: 'SettingsCtrl'
+      }
+    }
+  })
+
+  .state('.distance-units', {
+    url: '/distance', 
+    views: {
+      'distance-units': {
+        templateUrl: 'templates/distance-units.html',
+        controller: 'DistanceUnitsCtrl'
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/map');
 
 });

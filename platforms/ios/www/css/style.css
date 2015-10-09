@@ -1,1 +1,90 @@
-/* Empty. Add your own CSS if you like */
+/*===============================================================
+						Search Tab
+================================================================*/
+.item-input {
+	border-bottom:none;
+	border-left: none;
+	border-right: none;
+}
+
+.your-location {
+	border-top:none;
+}
+
+input[type="text"] {
+	font-size:20px;
+	line-height: 34px;
+}
+
+input.ion-google-place[readonly] {
+	margin-left:15px;
+	width:100%;
+}
+
+.item-toggle {
+	border:none;
+}
+
+.meeting-places {
+	font-size:18px;
+}
+
+.button.button-positive {
+	margin-top:75px;
+	background-color:#465568;
+	border-color:#456568;
+	font-size: 20px;
+}
+/*===============================================================
+						Map Tab
+================================================================*/
+#map {
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	height:95vh;
+}
+
+.vertical-list {
+	height:500px;
+}
+
+ion-scroll[direction=y] {
+  height: 100px;
+}
+
+.padding-right {
+	padding-right: 0;
+}
+
+.share-icon, .map-icon {
+	display: block;
+	text-align: center;
+	font-size: 2.5em;
+}
+
+.icon-text {
+	text-align:center;
+}
+
+.glyphicon-star {
+	color:#E7731E;
+	letter-spacing: -3px;
+	font-size:1.2em;
+}
+
+.glyphicon-star-empty {
+	color:#cfcfcf;
+	letter-spacing: -3px;
+	font-size:1.2em;
+}
+
+.glyphicon-usd {
+	letter-spacing: -7px;
+	font-size:1em;
+}
+/*===============================================================
+						Settings Tab
+================================================================*/

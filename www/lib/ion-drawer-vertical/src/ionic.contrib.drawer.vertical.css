@@ -5,6 +5,7 @@ ion-drawer-vertical-wrapper {
 	right: 0;
 	/*height: 200px;*/
 	min-height: 50px;
+	max-height: 60%;
 	outline: 1px solid #666;
 	box-shadow: 0 0 10px #333;
 	z-index: 8; /* the ion-header-bar is 9, so we need to stay below that */
