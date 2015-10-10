@@ -20,8 +20,7 @@ angular.module('starter.controllers', [])
   $cordovaGeolocation, 
   $ionicLoading) {
 
-          initialize();
-      // $scope.loading = $ionicLoading.show();
+          $scope.loading = $ionicLoading.show();
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
@@ -32,6 +31,21 @@ angular.module('starter.controllers', [])
           ]
 
 
+        // get position of user and then set the center of the map to that position
+        $cordovaGeolocation
+          .getCurrentPosition()
+          .then(function (position) {
+
+
+          // get coordinates of user
+          var geoLatitude  = position.coords.latitude
+          var geoLongitude = position.coords.longitude
+          var userLocation = {
+              lat: geoLatitude, 
+              lng: geoLongitude
+            };
+
+          initialize(userLocation);
           var directionDisplay;
           var map;
           var polyline = null;
@@ -56,28 +70,27 @@ angular.module('starter.controllers', [])
               return marker;
           }
 
-          function initialize() {
+          function initialize(userLocation) {
             directionsDisplay = new google.maps.DirectionsRenderer();
-            var chicago = new google.maps.LatLng(41.850033, -87.6500523);
             var myOptions = {
               zoom: 6,
               mapTypeId: google.maps.MapTypeId.ROADMAP,
-              center: chicago
+              center: userLocation
             }
             map = new google.maps.Map(document.getElementById("map"), myOptions);
             polyline = new google.maps.Polyline({
               path: [],
               strokeColor: '#FF0000',
-              strokeWeight: 3
+              strokeWeight: 0
             });
             directionsDisplay.setMap(map);
-            calcRoute(polyline);
+            calcRoute(polyline, userLocation);
+            $ionicLoading.hide();
           }
   
-          function calcRoute(polyline) {
-
+          function calcRoute(polyline, userLocation) {
             var directionsService = new google.maps.DirectionsService();
-            var start = 'Chicago, IL';
+            var start = userLocation;
             var end = 'St. Louis, MO';
             var travelMode = google.maps.DirectionsTravelMode.DRIVING
 
@@ -157,6 +170,8 @@ angular.module('starter.controllers', [])
                 console.log('false');
         }
       }
+
+    });
 
 
 })
