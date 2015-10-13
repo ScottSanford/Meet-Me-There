@@ -16,9 +16,9 @@ angular.module('starter.controllers', [])
 
 .controller('GoogleMapCtrl', function(
   $scope, 
-  uiGmapGoogleMapApi, 
   $cordovaGeolocation, 
-  $ionicLoading) {
+  $ionicLoading, 
+  GoogleMaps) {
 
           $scope.loading = $ionicLoading.show();
 
@@ -173,7 +173,6 @@ angular.module('starter.controllers', [])
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            console.log(results.length);
             var place = results[i];
             addMarker(results[i], map);
           }
@@ -207,19 +206,16 @@ angular.module('starter.controllers', [])
                 marker = createMarker(polyline.GetPointAtDistance(distance),"time: "+time,"marker");
         } else {
 
-                var midLat = polyline.GetPointAtDistance(distance).J;
-                var midLng = polyline.GetPointAtDistance(distance).M;
-                var midpoint = new google.maps.LatLng(midLat, midLng);
+                var midpoint = polyline.GetPointAtDistance(distance);
 
-                marker.setPosition(polyline.GetPointAtDistance(distance));
-                marker.setTitle("time:"+time);
-
+                marker.setPosition(midpoint);
                 googlePlaceSearch(midpoint, map);
                 
         }
       }
 
     });
+
 
 
 })

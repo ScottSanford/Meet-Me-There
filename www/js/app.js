@@ -8,7 +8,7 @@
 angular.module('mmtApp', [
   'ionic', 
   'starter.controllers', 
-  'starter.services', 
+  'GoogleMapsService', 
   'uiGmapgoogle-maps',
   'ngCordova', 
   'ion-google-place',
