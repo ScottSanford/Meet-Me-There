@@ -42,13 +42,32 @@ angular.module('starter.controllers', [])
           var userLocation = {
               lat: geoLatitude, 
               lng: geoLongitude
-            };
-
-          initialize(userLocation);
+          };
           var directionDisplay;
           var map;
           var polyline = null;
-          var infowindow = new google.maps.InfoWindow();
+
+          initialize(userLocation);
+
+          function initialize(userLocation) {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            var myOptions = {
+              zoom: 6,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              center: userLocation
+            }
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            polyline = new google.maps.Polyline({
+              path: [],
+              strokeColor: '#FF0000',
+              strokeWeight: 0
+            });
+
+            directionsDisplay.setMap(map);
+            GoogleMaps.calcRoute(polyline, userLocation, map);
+
+            $ionicLoading.hide();
+          }
 
           function createMarker(latlng, label, html) {
               // console.log(latlng+", " + label + ", " + html + ")");
@@ -68,26 +87,6 @@ angular.module('starter.controllers', [])
                   console.log(marker.position);
                   });
               return marker;
-          }
-
-          function initialize(userLocation) {
-            directionsDisplay = new google.maps.DirectionsRenderer();
-            var myOptions = {
-              zoom: 6,
-              mapTypeId: google.maps.MapTypeId.ROADMAP,
-              center: userLocation
-            }
-            map = new google.maps.Map(document.getElementById("map"), myOptions);
-            polyline = new google.maps.Polyline({
-              path: [],
-              strokeColor: '#FF0000',
-              strokeWeight: 0
-            });
-
-            directionsDisplay.setMap(map);
-            calcRoute(polyline, userLocation);
-
-            $ionicLoading.hide();
           }
   
           function calcRoute(polyline, userLocation) {
@@ -180,10 +179,10 @@ angular.module('starter.controllers', [])
       }
 
       function addMarker(place, map) {
-         var placeLoc = place.geometry.location;
+         var placeLoc = place.geometry.locatiotry.n;
          var marker = new google.maps.Marker({
           map: map,
-          position: place.geometry.location,
+          position: place.geomelocation,
           icon: {
             url: place.icon,
             scaledSize: new google.maps.Size(25, 25)
@@ -208,7 +207,9 @@ angular.module('starter.controllers', [])
 
                 var midpoint = polyline.GetPointAtDistance(distance);
 
+                // sets midpoint marker on map
                 marker.setPosition(midpoint);
+                // google search for midpoint places
                 googlePlaceSearch(midpoint, map);
                 
         }
