@@ -130,9 +130,10 @@ angular.module('GoogleMapsService', [])
         scaledSize: new google.maps.Size(25, 25)
       }
     });
-    var infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
+        infowindow.close();
         infowindow.setContent(POI.name);
         infowindow.open(map, this);
     });

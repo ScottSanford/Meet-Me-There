@@ -47,9 +47,9 @@ angular.module('starter.controllers', [])
           var map;
           var polyline = null;
           var service;
+          var infowindow;
 
           $scope.getDirections = function (pointB) {
-              console.log(pointB);
               initialize(userLocation, pointB);
           }
 
