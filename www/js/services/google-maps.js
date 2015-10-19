@@ -3,10 +3,10 @@ angular.module('GoogleMapsService', [])
 .factory('GoogleMaps', function() {
   
   return {
-      calcRoute:  function calcRoute(polyline, userLocation, map) {
+      calcRoute:  function calcRoute(polyline, userLocation, map, pointB) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
-          var end = '5820 N Sheridan Rd, Chicago, IL 60660';
+          var end = pointB.formatted_address;
           var travelMode = google.maps.DirectionsTravelMode.DRIVING
           var request = {
               origin: start,
@@ -17,7 +17,6 @@ angular.module('GoogleMapsService', [])
 
           directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-              console.log(response);
               polyline.setPath([]);
               var bounds = new google.maps.LatLngBounds();
             
@@ -43,16 +42,6 @@ angular.module('GoogleMapsService', [])
 
             } 
           });                     
-      }, 
-      computeTotalDistance: function computeTotalDistance(polyline, response, map) {
-          totalDist = 0;
-          var myroute = result.routes[0];
-          for (i = 0; i < myroute.legs.length; i++) {
-            totalDist += myroute.legs[i].distance.value;
-          }
-          putMarkerOnRoute(polyline, 50, map);
-
-          // totalDist = totalDist / 1000;
       }
   } 
 
@@ -111,12 +100,11 @@ angular.module('GoogleMapsService', [])
     var service;
     var request = {
       location: midpoint, 
-      radius: 700, 
+      radius: 800, // .50 mile radius
       types: ['cafe', 'restaurant', 'bar']
     }
 
     service = new google.maps.places.PlacesService(map);
-    console.log(map);
     service.nearbySearch(request, function(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {

@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
   $ionicLoading, 
   GoogleMaps) {
 
-          $scope.loading = $ionicLoading.show();
+          // $scope.loading = $ionicLoading.show();
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
@@ -29,6 +29,7 @@ angular.module('starter.controllers', [])
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
           ]
+
 
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
@@ -47,9 +48,14 @@ angular.module('starter.controllers', [])
           var polyline = null;
           var service;
 
-          initialize(userLocation);
+          $scope.getDirections = function (pointB) {
+              console.log(pointB);
+              initialize(userLocation, pointB);
+          }
 
-          function initialize(userLocation) {
+
+
+          function initialize(userLocation, pointB) {
             directionsDisplay = new google.maps.DirectionsRenderer();
             var myOptions = {
               zoom: 6,
@@ -66,7 +72,7 @@ angular.module('starter.controllers', [])
             });
 
             directionsDisplay.setMap(map);
-            GoogleMaps.calcRoute(polyline, userLocation, map);
+            GoogleMaps.calcRoute(polyline, userLocation, map, pointB);
             // GoogleMaps.computeTotalDistance(polyline, response, map);
 
             $ionicLoading.hide();
