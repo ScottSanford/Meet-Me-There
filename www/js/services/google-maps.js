@@ -3,7 +3,35 @@ angular.module('GoogleMapsService', [])
 .factory('GoogleMaps', function() {
   
   return {
-      calcRoute:  function calcRoute(polyline, userLocation, map, pointB) {
+
+      initGoogleMap: function initGoogleMap(userLocation, polyline) {
+          directionsDisplay = new google.maps.DirectionsRenderer();
+          var myOptions = {
+            zoom: 6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: userLocation
+          }
+          map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+
+          polyline = new google.maps.Polyline({
+            path: [],
+            strokeColor: '#FF0000',
+            strokeWeight: 0
+          });
+
+          directionsDisplay.setMap(map);
+
+          pLine = polyline;
+          map = map;
+
+          return googleMap = {
+              pLine: pLine,
+              map: map
+          };  
+      },
+
+      calcRoute:  function calcRoute(pLine, userLocation, map, pointB) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
           var end = pointB.formatted_address;
@@ -17,7 +45,7 @@ angular.module('GoogleMapsService', [])
 
           directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-              polyline.setPath([]);
+              pLine.setPath([]);
               var bounds = new google.maps.LatLngBounds();
             
               directionsDisplay.setDirections(response);
@@ -30,15 +58,15 @@ angular.module('GoogleMapsService', [])
                 for (j=0;j<steps.length;j++) {
                   var nextSegment = steps[j].path;
                   for (k=0;k<nextSegment.length;k++) {
-                    polyline.getPath().push(nextSegment[k]);
+                    pLine.getPath().push(nextSegment[k]);
                     bounds.extend(nextSegment[k]);
                   }
                 }
               }
 
-              polyline.setMap(map);
+              pLine.setMap(map);
 
-              computeTotalDistance(polyline, response, map);
+              computeTotalDistance(pLine, response, map);
 
             } 
           });                     
@@ -65,22 +93,22 @@ angular.module('GoogleMapsService', [])
   }
 
   var totalDist = 0;
-  function computeTotalDistance(polyline, response, map) {
+  function computeTotalDistance(pLine, response, map) {
       totalDist = 0;
       var myroute = response.routes[0];
       for (i = 0; i < myroute.legs.length; i++) {
         totalDist += myroute.legs[i].distance.value;
       }
-      putMarkerOnRoute(polyline, 50, map);
+      putMarkerOnRoute(pLine, 50, map);
 
       // totalDist = totalDist / 1000;
   }
 
-  function putMarkerOnRoute(polyline, percentage, map) {
+  function putMarkerOnRoute(pLine, percentage, map) {
 
     var distance = (percentage/100) * totalDist;
     var marker;
-    var midpoint = polyline.GetPointAtDistance(distance);
+    var midpoint = pLine.GetPointAtDistance(distance);
 
     if (!marker) {
 

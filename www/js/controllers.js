@@ -56,26 +56,13 @@ angular.module('starter.controllers', [])
 
 
           function initialize(userLocation, pointB) {
-            directionsDisplay = new google.maps.DirectionsRenderer();
-            var myOptions = {
-              zoom: 6,
-              mapTypeId: google.maps.MapTypeId.ROADMAP,
-              center: userLocation
-            }
-            map = new google.maps.Map(document.getElementById("map"), myOptions);
 
+            GoogleMaps.initGoogleMap(userLocation);
 
-            polyline = new google.maps.Polyline({
-              path: [],
-              strokeColor: '#FF0000',
-              strokeWeight: 0
-            });
-
-            directionsDisplay.setMap(map);
-            GoogleMaps.calcRoute(polyline, userLocation, map, pointB);
-            // GoogleMaps.computeTotalDistance(polyline, response, map);
+            GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB);
 
             $ionicLoading.hide();
+
           }
 
     });
