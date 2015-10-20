@@ -4,27 +4,46 @@ angular.module('GoogleMapsService', [])
   
   return {
 
-      initGoogleMap: function initGoogleMap(userLocation, polyline) {
+      initGoogleMap: function initGoogleMap(userLocation) {
           directionsDisplay = new google.maps.DirectionsRenderer();
+
+          // options for Google Maps
           var myOptions = {
-            zoom: 6,
+            zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: userLocation
           }
+
+          // google map
           map = new google.maps.Map(document.getElementById("map"), myOptions);
 
+          // place marker on GeoLocation
+          marker = new google.maps.Marker({
+            position: userLocation, 
+            map: map
+          });
 
+          var infowindow = new google.maps.InfoWindow();
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent("You are here!"); 
+            infowindow.open(map,marker);
+          });
+
+          // polyline for later use of MidPoint
           polyline = new google.maps.Polyline({
             path: [],
             strokeColor: '#FF0000',
             strokeWeight: 0
           });
 
+          // // show directions
           directionsDisplay.setMap(map);
 
           pLine = polyline;
           map = map;
 
+          // return variables for other functions
           return googleMap = {
               pLine: pLine,
               map: map
@@ -146,7 +165,6 @@ angular.module('GoogleMapsService', [])
     });
 
   }
-
 
   function addPOIMarker(POI, map) {
     var placeLoc = POI.geometry.location;

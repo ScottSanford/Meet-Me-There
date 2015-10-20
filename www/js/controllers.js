@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
   $ionicLoading, 
   GoogleMaps) {
 
-          // $scope.loading = $ionicLoading.show();
+          $scope.loading = $ionicLoading.show();
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
@@ -36,30 +36,28 @@ angular.module('starter.controllers', [])
           .getCurrentPosition()
           .then(function (position) {
 
-
-          // get coordinates of user
+          // set global variables
+          var directionDisplay;
+          var map;
+          var marker;
+          var service;
+          var infowindow;
+          var polyline = null;
           var userLocation = {
               lat: position.coords.latitude, 
               lng: position.coords.longitude
           };
 
-          var directionDisplay;
-          var map;
-          var polyline = null;
-          var service;
-          var infowindow;
+          // init Google Maps 
+          initialize(userLocation);
 
-          $scope.getDirections = function (pointB) {
-              initialize(userLocation, pointB);
-          }
-
-
-
-          function initialize(userLocation, pointB) {
+          function initialize(userLocation) {
 
             GoogleMaps.initGoogleMap(userLocation);
 
-            GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB);
+            $scope.getDirections = function (pointB) {
+                GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB);
+            }
 
             $ionicLoading.hide();
 
