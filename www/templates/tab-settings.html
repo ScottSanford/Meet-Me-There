@@ -4,12 +4,12 @@
 
 	  <a href="#" class="item item-icon-left">
 	    <i class="icon ion-home"></i>
-	    <ion-google-place placeholder="Enter home address" ng-model="location" class="homeAddress"/>
+	    <ion-google-place placeholder="{{userHomeAddress}}" ng-model="homeAddress" class="homeAddress"/>
 	  </a>
 
 	  <a href="#" class="item item-icon-left">
 	    <i class="icon ion-ios-briefcase"></i>
-	    <ion-google-place placeholder="Enter work address" ng-model="location2" class="workAddress"/>
+	    <ion-google-place placeholder="{{userWorkAddress}}" ng-model="workAddress" class="workAddress"/>
 	  </a>	  
 
 	  <a ui-sref="settings.distance-units" class="item">
@@ -28,6 +28,10 @@
 	    Rate Meet Me There
 	  </a>	  
 
+	<button class="button button-full button-positive" ng-show="homeAddress || workAddress" ng-click="saveChanges(homeAddress, workAddress)">
+	  	Save Changes
+	</button>
 	</div>
+
   </ion-content>
 </ion-view>

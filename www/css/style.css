@@ -44,8 +44,8 @@ input.ion-google-place[readonly] {
 	left:0;
 	right:0;
 	bottom:0;
-	/*height:95vh;*/
-	height:50vh;
+	height:95vh;
+	/*height:50vh;*/
 	z-index: 100;
 }
 

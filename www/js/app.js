@@ -14,7 +14,9 @@ angular.module('mmtApp', [
   'ion-google-place',
   'ui.bootstrap', 
   'ngAnimate', 
-  'ionic.contrib.drawer.vertical'
+  'ionic.contrib.drawer.vertical', 
+  'LocalStorageModule', 
+  'localstorage'
 ])
 
 
@@ -44,59 +46,37 @@ angular.module('mmtApp', [
 
   $stateProvider
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  .state('tab.search', {
-    url: '/search',
-    views: {
-      'tab-search': {
-        templateUrl: 'templates/tab-search.html',
-        controller: 'SearchCtrl'
-      }
-    }
-  })
-
-  .state('tab.map', {
-      url: '/map',
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
+    .state('tab.search', {
+      url: '/search',
       views: {
-        'tab-map': {
-          templateUrl: 'templates/tab-map.html',
-          controller: 'GoogleMapCtrl'
+        'tab-search': {
+          templateUrl: 'templates/tab-search.html',
+          controller: 'SearchCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/map/:chatId',
+    .state('tab.map', {
+        url: '/map?pointB',
+        views: {
+          'tab-map': {
+            templateUrl: 'templates/tab-map.html',
+            controller: 'GoogleMapCtrl'
+          }
+        }
+      })
+    .state('tab.settings', {
+      url: '/settings',
       views: {
-        'tab-map': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-settings': {
+          templateUrl: 'templates/tab-settings.html',
+          controller: 'SettingsCtrl'
         }
       }
-    })
-
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
-        controller: 'SettingsCtrl'
-      }
-    }
-  })
-
-  .state('.distance-units', {
-    url: '/distance', 
-    views: {
-      'distance-units': {
-        templateUrl: 'templates/distance-units.html',
-        controller: 'DistanceUnitsCtrl'
-      }
-    }
-  });
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/map');

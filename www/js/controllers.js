@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('SearchCtrl', function($scope, $location) {
+.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage) {
 
     $scope.places = [
                 {"type": "Coffee","checked": false},
@@ -8,14 +8,25 @@ angular.module('starter.controllers', [])
                 {"type": "Drinks", "checked": false}
             ]
 
-    $scope.gotoMap = function() {
-        $location.url('/tab/map');
-    }
+    $scope.getDirections = function(pointB) {
+
+      var workAdd = localStorage.getItem('work').formatted_address;
+
+      if (pointB === 'work') {
+        return pointB = workAdd;
+        console.log('pointB :: ', pointB);
+      }
+
+        // $location.url('/tab/map?pointB=' + pointB.formatted_address);
+    };
 
 })
 
 .controller('GoogleMapCtrl', function(
   $scope, 
+  $state,
+  $window,
+  $stateParams,
   $cordovaGeolocation, 
   $ionicLoading, 
   GoogleMaps) {
@@ -48,6 +59,7 @@ angular.module('starter.controllers', [])
               lng: position.coords.longitude
           };
 
+          var pointB = $stateParams.pointB;
           // init Google Maps 
           initialize(userLocation);
 
@@ -55,8 +67,8 @@ angular.module('starter.controllers', [])
 
             GoogleMaps.initGoogleMap(userLocation);
 
-            $scope.getDirections = function (pointB) {
-                GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB);
+            if ($stateParams.pointB) {
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB); 
             }
 
             $ionicLoading.hide();
@@ -69,13 +81,33 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+.controller('SettingsCtrl', function($scope, localStorage) {
 
-.controller('SettingsCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+  var home = localStorage.getItem('home');
+  var work = localStorage.getItem('work');
+
+  if (home == undefined) {
+    $scope.userHomeAddress = 'Enter your home address';
+  } 
+
+  if (work == undefined) {
+    $scope.userWorkAddress = 'Enter your work address'; 
+  } else {
+
+    var homeAdd = localStorage.getItem('home').formatted_address;
+    var workAdd = localStorage.getItem('work').formatted_address;
+
+    $scope.userHomeAddress = homeAdd;
+    $scope.userWorkAddress = workAdd;
+
+  }
+
+
+  $scope.saveChanges = function(homeAddress, workAddress) {
+    console.log("Home Address :: " , homeAddress);
+    console.log("Work Address :: " , workAddress);
+    localStorage.submit('home', homeAddress);
+    localStorage.submit('work', workAddress);
+  }
 
 });

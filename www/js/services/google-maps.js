@@ -53,20 +53,19 @@ angular.module('GoogleMapsService', [])
       calcRoute:  function calcRoute(pLine, userLocation, map, pointB) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
-          var end = pointB.formatted_address;
+          var end = pointB;
           var travelMode = google.maps.DirectionsTravelMode.DRIVING
           var request = {
               origin: start,
               destination: end,
               travelMode: travelMode
           };
-          var marker;
 
           directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               pLine.setPath([]);
               var bounds = new google.maps.LatLngBounds();
-            
+
               directionsDisplay.setDirections(response);
 
               // set PolyLine on Google Map
@@ -83,10 +82,13 @@ angular.module('GoogleMapsService', [])
                 }
               }
 
+
               pLine.setMap(map);
 
               computeTotalDistance(pLine, response, map);
 
+            } else {
+              console.log("Directions query failed: " + status, request);
             } 
           });                     
       }
@@ -155,7 +157,6 @@ angular.module('GoogleMapsService', [])
     service.nearbySearch(request, function(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-        
           var POI = results[i];
           addPOIMarker(POI, map);
 
@@ -167,8 +168,14 @@ angular.module('GoogleMapsService', [])
   }
 
   function addPOIMarker(POI, map) {
+    var marker;
+    // var markers = [];
     var placeLoc = POI.geometry.location;
-    var marker   = new google.maps.Marker({
+    // if (marker) {
+    //   setMapOnAll(null);
+    //   markers = [];
+    // }
+    marker   = new google.maps.Marker({
       map: map,
       position: placeLoc,
       icon: {
@@ -184,6 +191,12 @@ angular.module('GoogleMapsService', [])
         infowindow.open(map, this);
     });
 
+  }
+
+  function setMapOnAll(map) {
+     for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
   }
 
 
