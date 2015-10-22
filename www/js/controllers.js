@@ -55,31 +55,9 @@ angular.module('starter.controllers', [])
   $stateParams,
   $cordovaGeolocation, 
   $ionicLoading, 
-  GoogleMaps) {
+  GoogleMaps, 
+  queryString) {
 
-        function QueryStringToJSON() {
-
-          var url = $window.location.href;
-          var queryString = url.substring(url.indexOf('?') + 1);
-          var pairs = queryString.split('&');
-          
-          var result = {};
-          pairs.forEach(function(pair){
-            pair = pair.split('=');
-            result[pair[0]] = decodeURIComponent(pair[1] || '');
-          })
-
-          return JSON.parse(JSON.stringify(result));
-          
-        }
-
-        function selectedTypeArray() {
-
-          var query_string = QueryStringToJSON();
-          var placeArray = query_string.selectedPlaces.split(',');
-          return placeArray;
-         
-        }
 
           $scope.loading = $ionicLoading.show();
 
@@ -110,7 +88,7 @@ angular.module('starter.controllers', [])
           };
 
           var pointB = $stateParams.pointB;
-          var selectedPlaces = selectedTypeArray();
+          var selectedPlaces = queryString.selectedTypeArray();
           // init Google Maps 
           initialize(userLocation, selectedPlaces);
 

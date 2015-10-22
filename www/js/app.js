@@ -17,7 +17,8 @@ angular.module('mmtApp', [
   'ionic.contrib.drawer.vertical', 
   'LocalStorageModule', 
   'localstorage', 
-  'ngCordova.plugins.appRate'
+  'ngCordova.plugins.appRate', 
+  'queryString'
 ])
 
 
