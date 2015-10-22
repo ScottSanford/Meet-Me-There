@@ -50,7 +50,7 @@ angular.module('GoogleMapsService', [])
           };  
       },
 
-      calcRoute:  function calcRoute(pLine, userLocation, map, pointB) {
+      calcRoute:  function calcRoute(pLine, userLocation, map, pointB, selectedPlaces) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
           var end = pointB;
@@ -85,7 +85,7 @@ angular.module('GoogleMapsService', [])
 
               pLine.setMap(map);
 
-              computeTotalDistance(pLine, response, map);
+              computeTotalDistance(pLine, response, map, selectedPlaces);
 
             } else {
               console.log("Directions query failed: " + status, request);
@@ -114,18 +114,18 @@ angular.module('GoogleMapsService', [])
   }
 
   var totalDist = 0;
-  function computeTotalDistance(pLine, response, map) {
+  function computeTotalDistance(pLine, response, map, selectedPlaces) {
       totalDist = 0;
       var myroute = response.routes[0];
       for (i = 0; i < myroute.legs.length; i++) {
         totalDist += myroute.legs[i].distance.value;
       }
-      putMarkerOnRoute(pLine, 50, map);
+      putMarkerOnRoute(pLine, 50, map, selectedPlaces);
 
       // totalDist = totalDist / 1000;
   }
 
-  function putMarkerOnRoute(pLine, percentage, map) {
+  function putMarkerOnRoute(pLine, percentage, map, selectedPlaces) {
 
     var distance = (percentage/100) * totalDist;
     var marker;
@@ -134,23 +134,23 @@ angular.module('GoogleMapsService', [])
     if (!marker) {
 
         marker = createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
-        googlePlaceSearch(midpoint, map);
+        googlePlaceSearch(midpoint, map, selectedPlaces);
 
     } else {                
 
         marker.setPosition(midpoint);
-        googlePlaceSearch(midpoint, map);
+        googlePlaceSearch(midpoint, map, selectedPlaces);
 
     }
   }
 
-  function googlePlaceSearch(midpoint, map) {
+  function googlePlaceSearch(midpoint, map, selectedPlaces) {
     
     var service;
     var request = {
       location: midpoint, 
       radius: 800, // .50 mile radius
-      types: ['cafe', 'restaurant', 'bar']
+      types: selectedPlaces
     }
 
     service = new google.maps.places.PlacesService(map);
@@ -158,6 +158,7 @@ angular.module('GoogleMapsService', [])
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           var POI = results[i];
+          console.log(POI);
           addPOIMarker(POI, map);
 
         }

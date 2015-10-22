@@ -34,8 +34,6 @@ angular.module('starter.controllers', [])
         return place.type;
       });
 
-      console.log(selectedPlaces);
-
       var workAdd = localStorage.getItem('work').formatted_address;
 
       //local storage
@@ -58,6 +56,30 @@ angular.module('starter.controllers', [])
   $cordovaGeolocation, 
   $ionicLoading, 
   GoogleMaps) {
+
+        function QueryStringToJSON() {
+
+          var url = $window.location.href;
+          var queryString = url.substring(url.indexOf('?') + 1);
+          var pairs = queryString.split('&');
+          
+          var result = {};
+          pairs.forEach(function(pair){
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+          })
+
+          return JSON.parse(JSON.stringify(result));
+          
+        }
+
+        function selectedTypeArray() {
+
+          var query_string = QueryStringToJSON();
+          var placeArray = query_string.selectedPlaces.split(',');
+          return placeArray;
+         
+        }
 
           $scope.loading = $ionicLoading.show();
 
@@ -87,19 +109,17 @@ angular.module('starter.controllers', [])
               lng: position.coords.longitude
           };
 
-          var pointB         = $stateParams.pointB;
-          var selectedPlaces = $stateParams.selectedPlaces
-
-          console.log(selectedPlaces);
+          var pointB = $stateParams.pointB;
+          var selectedPlaces = selectedTypeArray();
           // init Google Maps 
-          initialize(userLocation);
+          initialize(userLocation, selectedPlaces);
 
-          function initialize(userLocation) {
+          function initialize(userLocation, selectedPlaces) {
 
-            GoogleMaps.initGoogleMap(userLocation);
+            GoogleMaps.initGoogleMap(userLocation, selectedPlaces);
 
             if ($stateParams.pointB) {
-              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB); 
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, selectedPlaces); 
             }
 
             $ionicLoading.hide();
