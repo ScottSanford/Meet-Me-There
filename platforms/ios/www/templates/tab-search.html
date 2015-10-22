@@ -16,7 +16,7 @@
       	<ion-toggle class="meeting-places" ng-repeat="place in places" ng-model="place.checked">
         	{{place.type}}
         </ion-toggle>
-	  <button class="button button-full button-positive meet-me-there-btn" ng-click="gotoMap()">
+	  <button class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointB)">
 	  	Meet Me There
 	  </button>
   </ion-content>

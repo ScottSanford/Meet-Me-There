@@ -45,6 +45,22 @@ input.ion-google-place[readonly] {
 	right:0;
 	bottom:0;
 	height:95vh;
+	/*height:50vh;*/
+	z-index: 100;
+}
+
+.pointB {
+	border:1px solid green;
+	margin-top:150px;
+}
+
+.button.button-positive {
+	margin-top:200px;
+}
+
+.field-test {
+	position: relative;
+	top:400px;
 }
 
 .vertical-list {
@@ -52,7 +68,7 @@ input.ion-google-place[readonly] {
 }
 
 ion-scroll[direction=y] {
-  height: 100px;
+  	height: 100px;
 }
 
 .padding-right {

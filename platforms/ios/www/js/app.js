@@ -8,13 +8,16 @@
 angular.module('mmtApp', [
   'ionic', 
   'starter.controllers', 
-  'starter.services', 
+  'GoogleMapsService', 
   'uiGmapgoogle-maps',
   'ngCordova', 
   'ion-google-place',
   'ui.bootstrap', 
   'ngAnimate', 
-  'ionic.contrib.drawer.vertical'
+  'ionic.contrib.drawer.vertical', 
+  'LocalStorageModule', 
+  'localstorage', 
+  'ngCordova.plugins.appRate'
 ])
 
 
@@ -34,7 +37,7 @@ angular.module('mmtApp', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider, $cordovaAppRateProvider) {
 
   uiGmapGoogleMapApiProvider.configure({
       //    key: 'your api key',
@@ -44,61 +47,51 @@ angular.module('mmtApp', [
 
   $stateProvider
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  .state('tab.search', {
-    url: '/search',
-    views: {
-      'tab-search': {
-        templateUrl: 'templates/tab-search.html',
-        controller: 'SearchCtrl'
-      }
-    }
-  })
-
-  .state('tab.map', {
-      url: '/map',
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
+    .state('tab.search', {
+      url: '/search',
       views: {
-        'tab-map': {
-          templateUrl: 'templates/tab-map.html',
-          controller: 'GoogleMapCtrl'
+        'tab-search': {
+          templateUrl: 'templates/tab-search.html',
+          controller: 'SearchCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/map/:chatId',
+    .state('tab.map', {
+        url: '/map?pointB',
+        views: {
+          'tab-map': {
+            templateUrl: 'templates/tab-map.html',
+            controller: 'GoogleMapCtrl'
+          }
+        }
+      })
+    .state('tab.settings', {
+      url: '/settings',
       views: {
-        'tab-map': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-settings': {
+          templateUrl: 'templates/tab-settings.html',
+          controller: 'SettingsCtrl'
         }
       }
-    })
-
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
-        controller: 'SettingsCtrl'
-      }
-    }
-  })
-
-  .state('.distance-units', {
-    url: '/distance', 
-    views: {
-      'distance-units': {
-        templateUrl: 'templates/distance-units.html',
-        controller: 'DistanceUnitsCtrl'
-      }
-    }
-  });
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/map');
+
+  document.addEventListener("deviceready", function () {
+
+   var prefs = {
+     language: 'en',
+     appName: 'MY APP',
+     iosURL: '<my_app_id>'
+   };
+
+   $cordovaAppRateProvider.setPreferences(prefs)
+
+ }, false);
 
 });

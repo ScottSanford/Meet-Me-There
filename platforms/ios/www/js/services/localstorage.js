@@ -1,18 +1,15 @@
-angular.module('mmtApp', [])
+angular.module('localstorage', [])
 
-.factory('$localstorage', ['$window', function($window) {
+.factory('localStorage', ['localStorageService', function(localStorageService) {
   return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    }
+      submit: function(key, val) {
+        return localStorageService.set(key,val);
+      }, 
+      getItem: function(key) {
+        return localStorageService.get(key);
+      },
+      keyList: function() {
+        return localStorageService.keys();
+      }
   }
 }]);

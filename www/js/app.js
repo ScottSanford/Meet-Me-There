@@ -16,7 +16,8 @@ angular.module('mmtApp', [
   'ngAnimate', 
   'ionic.contrib.drawer.vertical', 
   'LocalStorageModule', 
-  'localstorage'
+  'localstorage', 
+  'ngCordova.plugins.appRate'
 ])
 
 
@@ -36,7 +37,7 @@ angular.module('mmtApp', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider, $cordovaAppRateProvider) {
 
   uiGmapGoogleMapApiProvider.configure({
       //    key: 'your api key',
@@ -60,7 +61,7 @@ angular.module('mmtApp', [
       }
     })
     .state('tab.map', {
-        url: '/map?pointB',
+        url: '/map?pointB&selectedPlaces',
         views: {
           'tab-map': {
             templateUrl: 'templates/tab-map.html',
@@ -80,5 +81,17 @@ angular.module('mmtApp', [
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/map');
+
+  document.addEventListener("deviceready", function () {
+
+   var prefs = {
+     language: 'en',
+     appName: 'MY APP',
+     iosURL: '<my_app_id>'
+   };
+
+   $cordovaAppRateProvider.setPreferences(prefs)
+
+ }, false);
 
 });
