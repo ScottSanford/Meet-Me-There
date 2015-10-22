@@ -153,12 +153,14 @@ angular.module('GoogleMapsService', [])
       types: selectedPlaces
     }
 
+    console.log(request);
+
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, function(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           var POI = results[i];
-          console.log(POI);
+          console.log(POI.types);
           addPOIMarker(POI, map);
 
         }

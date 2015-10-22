@@ -5,15 +5,15 @@ angular.module('starter.controllers', [])
 
     $scope.places = [
         {
-          "type": "Cafe",
+          "type": "cafe",
           "checked": false, 
         },
         {
-          "type": "Restaurant",
+          "type": "restaurant",
           "checked": false, 
         },
         {
-          "type": "Bar",
+          "type": "bar",
            "checked": false, 
          }
     ]
