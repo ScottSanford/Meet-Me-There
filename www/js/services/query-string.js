@@ -6,7 +6,7 @@ angular.module('queryString', [])
         selectedTypeArray: function selectedTypeArray() {
 
           var query_string = QueryStringToJSON();
-          var placeArray = query_string.selectedPlaces.split(',');
+          var placeArray = query_string.typeID.split(',');
           return placeArray;
          
         }

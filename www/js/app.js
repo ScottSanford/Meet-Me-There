@@ -18,7 +18,8 @@ angular.module('mmtApp', [
   'LocalStorageModule', 
   'localstorage', 
   'ngCordova.plugins.appRate', 
-  'queryString'
+  'queryString', 
+  'meetups'
 ])
 
 
@@ -68,7 +69,7 @@ angular.module('mmtApp', [
       }
     })
     .state('tab.map', {
-        url: '/map?pointB&selectedPlaces',
+        url: '/map?pointB&typeID',
         views: {
           'tab-map': {
             templateUrl: 'templates/tab-map.html',
@@ -84,10 +85,19 @@ angular.module('mmtApp', [
           controller: 'SettingsCtrl'
         }
       }
+    })
+    .state('tab.settings.meetups', {
+      url: '/meetups',
+      views: {
+        'meetups': {
+          templateUrl: 'templates/meetups.html',
+          controller: 'MeetupsCtrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/map');
+  $urlRouterProvider.otherwise('/tab/search');
 
   document.addEventListener("deviceready", function () {
 

@@ -1,24 +1,20 @@
 angular.module('starter.controllers', [])
 
-.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage) {
+.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
 
+    console.log(Meetups.types);
 
-    $scope.places = [
-        {
-          "type": "cafe",
-          "checked": false, 
-        },
-        {
-          "type": "restaurant",
-          "checked": false, 
-        },
-        {
-          "type": "bar",
-           "checked": false, 
-         }
-    ]
+    function activeMeetups() {
+      var activeMeetups = [];
+      for (var i = 0; i < Meetups.types.length; i++) {
+        if (Meetups.types[i].checked) {
+          activeMeetups.push(Meetups.types[i])
+        }
+      }
+      return activeMeetups;
+    }
 
-    
+    $scope.places = activeMeetups();
 
     $scope.getDirections = function(pointB) {
 
@@ -30,8 +26,8 @@ angular.module('starter.controllers', [])
         }
       }
 
-      var selectedPlaces = placesObj.filter(isPlaceSelected).map(function(place){
-        return place.type;
+      var typeID = placesObj.filter(isPlaceSelected).map(function(place){
+        return place.id;
       });
 
       var workAdd = localStorage.getItem('work').formatted_address;
@@ -43,7 +39,7 @@ angular.module('starter.controllers', [])
       }
 
       // reroute user to map page with query string
-      $location.url('/tab/map?pointB=' + pointB.formatted_address + '&selectedPlaces=' + selectedPlaces);
+      $location.url('/tab/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
     };
 
 })
@@ -88,16 +84,16 @@ angular.module('starter.controllers', [])
           };
 
           var pointB = $stateParams.pointB;
-          var selectedPlaces = queryString.selectedTypeArray();
+          var typeID = queryString.selectedTypeArray();
           // init Google Maps 
-          initialize(userLocation, selectedPlaces);
+          initialize(userLocation, typeID);
 
-          function initialize(userLocation, selectedPlaces) {
+          function initialize(userLocation, typeID) {
 
-            GoogleMaps.initGoogleMap(userLocation, selectedPlaces);
+            GoogleMaps.initGoogleMap(userLocation, typeID);
 
             if ($stateParams.pointB) {
-              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, selectedPlaces); 
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, typeID); 
             }
 
             $ionicLoading.hide();
@@ -166,4 +162,16 @@ angular.module('starter.controllers', [])
     AppRate.promptForRating(true);
   }
 
+})
+
+.controller('MeetupsCtrl', function($scope, Meetups) {
+
+    $scope.meetups = Meetups.types;
+
 });
+
+
+
+
+
+

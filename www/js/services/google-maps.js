@@ -50,7 +50,7 @@ angular.module('GoogleMapsService', [])
           };  
       },
 
-      calcRoute:  function calcRoute(pLine, userLocation, map, pointB, selectedPlaces) {
+      calcRoute:  function calcRoute(pLine, userLocation, map, pointB, typeID) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
           var end = pointB;
@@ -85,7 +85,7 @@ angular.module('GoogleMapsService', [])
 
               pLine.setMap(map);
 
-              computeTotalDistance(pLine, response, map, selectedPlaces);
+              computeTotalDistance(pLine, response, map, typeID);
 
             } else {
               console.log("Directions query failed: " + status, request);
@@ -114,18 +114,18 @@ angular.module('GoogleMapsService', [])
   }
 
   var totalDist = 0;
-  function computeTotalDistance(pLine, response, map, selectedPlaces) {
+  function computeTotalDistance(pLine, response, map, typeID) {
       totalDist = 0;
       var myroute = response.routes[0];
       for (i = 0; i < myroute.legs.length; i++) {
         totalDist += myroute.legs[i].distance.value;
       }
-      putMarkerOnRoute(pLine, 50, map, selectedPlaces);
+      putMarkerOnRoute(pLine, 50, map, typeID);
 
       // totalDist = totalDist / 1000;
   }
 
-  function putMarkerOnRoute(pLine, percentage, map, selectedPlaces) {
+  function putMarkerOnRoute(pLine, percentage, map, typeID) {
 
     var distance = (percentage/100) * totalDist;
     var marker;
@@ -134,35 +134,34 @@ angular.module('GoogleMapsService', [])
     if (!marker) {
 
         marker = createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
-        googlePlaceSearch(midpoint, map, selectedPlaces);
+        googlePlaceSearch(midpoint, map, typeID);
 
     } else {                
 
         marker.setPosition(midpoint);
-        googlePlaceSearch(midpoint, map, selectedPlaces);
+        googlePlaceSearch(midpoint, map, typeID);
 
     }
   }
 
-  function googlePlaceSearch(midpoint, map, selectedPlaces) {
+  function googlePlaceSearch(midpoint, map, typeID) {
     
     var service;
     var request = {
       location: midpoint, 
       radius: 800, // .50 mile radius
-      types: selectedPlaces
+      types: typeID
     }
-
-    console.log(request);
 
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, function(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
+          
           var POI = results[i];
-          console.log(POI.types);
+          console.log(results[i]);
           addPOIMarker(POI, map);
-
+          
         }
       }
 

@@ -1,0 +1,7 @@
+<ion-content>
+	<a href="#/tab/settings">Go Back</a>
+	<h3>Additional Meetups</h3>
+	<ion-toggle class="meeting-places" ng-repeat="meetup in meetups | orderBy: 'name'" ng-model="meetup.checked">
+	    {{meetup.name}}
+	</ion-toggle>
+</ion-content>
