@@ -2,19 +2,10 @@ angular.module('starter.controllers', [])
 
 .controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
 
-    console.log(Meetups.types);
+    var activeMeetups = localStorage.getItem('addMeetup');
 
-    function activeMeetups() {
-      var activeMeetups = [];
-      for (var i = 0; i < Meetups.types.length; i++) {
-        if (Meetups.types[i].checked) {
-          activeMeetups.push(Meetups.types[i])
-        }
-      }
-      return activeMeetups;
-    }
+    $scope.places = activeMeetups;
 
-    $scope.places = activeMeetups();
 
     $scope.getDirections = function(pointB) {
 
@@ -84,15 +75,15 @@ angular.module('starter.controllers', [])
           };
 
           var pointB = $stateParams.pointB;
-          var typeID = queryString.selectedTypeArray();
           // init Google Maps 
-          initialize(userLocation, typeID);
+          initialize(userLocation);
 
-          function initialize(userLocation, typeID) {
+          function initialize(userLocation) {
 
-            GoogleMaps.initGoogleMap(userLocation, typeID);
+            GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
+              var typeID = queryString.selectedTypeArray();
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, typeID); 
             }
 
@@ -107,8 +98,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SettingsCtrl', function($scope, localStorage, $cordovaAppRate, $cordovaDialogs) {
-
-  console.log($cordovaDialogs);
 
   var home = localStorage.getItem('home');
   var work = localStorage.getItem('work');
@@ -164,9 +153,22 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MeetupsCtrl', function($scope, Meetups) {
+.controller('MeetupsCtrl', function($scope, Meetups, localStorage) {
 
-    $scope.meetups = Meetups.types;
+  $scope.meetups = Meetups.types;
+
+function saveMeetUpOnChange() {
+
+  var savedMeetups = [];
+  for (var i = 0; i < Meetups.types.length; i++) {
+    if (Meetups.types[i].checked) {
+      savedMeetups.push(Meetups.types[i]);
+    }
+  }
+  return savedMeetups;
+}
+
+localStorage.submit('addMeetup', saveMeetUpOnChange());
 
 });
 

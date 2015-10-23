@@ -159,7 +159,6 @@ angular.module('GoogleMapsService', [])
         for (var i = 0; i < results.length; i++) {
           
           var POI = results[i];
-          console.log(results[i]);
           addPOIMarker(POI, map);
           
         }
