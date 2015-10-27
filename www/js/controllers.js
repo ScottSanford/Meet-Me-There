@@ -153,22 +153,33 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MeetupsCtrl', function($scope, Meetups, localStorage) {
+.controller('MeetupsCtrl', function($scope, localStorage, Meetups) {
 
   $scope.meetups = Meetups.types;
 
-function saveMeetUpOnChange() {
 
-  var savedMeetups = [];
-  for (var i = 0; i < Meetups.types.length; i++) {
-    if (Meetups.types[i].checked) {
-      savedMeetups.push(Meetups.types[i]);
+  var lsArr = [];
+  function addMeetupsToLocalStorage() {
+
+    for (var i = 0; i < Meetups.types.length; i++) {
+      if (Meetups.types[i].checked) {
+        lsArr.push(Meetups.types[i]);
+      }
     }
-  }
-  return savedMeetups;
-}
+    return localStorage.submit('addMeetup', lsArr);
 
-localStorage.submit('addMeetup', saveMeetUpOnChange());
+  }
+
+  addMeetupsToLocalStorage();
+
+
+  $scope.updateLS = function(meetup) {
+      if (meetup.checked) {
+        lsArr.push(meetup);
+      } 
+      return localStorage.submit('addMeetup', lsArr);
+  }
+
 
 });
 

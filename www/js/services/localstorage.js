@@ -10,6 +10,12 @@ angular.module('localstorage', [])
       },
       keyList: function() {
         return localStorageService.keys();
+      }, 
+      bind: function(key, val) {
+        return localStorageService.bind(key,val);
+      }, 
+      removeItem: function(key) {
+        return localStorageService.remove(key);
       }
   }
 }]);
