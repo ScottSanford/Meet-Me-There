@@ -2,7 +2,9 @@ angular.module('GoogleMapsService', [])
 
 .factory('GoogleMaps', function() {
   
-  return {
+  var totalDist = 0;
+
+  var GoogleMaps = {
 
       initGoogleMap: function initGoogleMap(userLocation) {
           directionsDisplay = new google.maps.DirectionsRenderer();
@@ -50,7 +52,7 @@ angular.module('GoogleMapsService', [])
           };  
       },
 
-      calcRoute:  function calcRoute(pLine, userLocation, map, pointB, typeID) {
+      calcRoute: function calcRoute(pLine, userLocation, map, pointB, typeID) {
           var directionsService = new google.maps.DirectionsService();
           var start = userLocation;
           var end = pointB;
@@ -85,16 +87,15 @@ angular.module('GoogleMapsService', [])
 
               pLine.setMap(map);
 
-              computeTotalDistance(pLine, response, map, typeID);
+              GoogleMaps.computeTotalDistance(pLine, response, map, typeID);
 
             } else {
               console.log("Directions query failed: " + status, request);
             } 
           });                     
-      }
-  } 
+      }, 
 
-  function createMarker(latlng, label, html, map) {
+      createMarker: function createMarker(latlng, label, html, map) {
         // console.log(latlng+", " + label + ", " + html + ")");
         var contentString = '<b>'+label+'</b><br>'+ html;
         var marker        = new google.maps.Marker({
@@ -111,95 +112,92 @@ angular.module('GoogleMapsService', [])
             infowindow.open(map,marker);
             });
         return marker;
-  }
+      }, 
 
-  var totalDist = 0;
-  function computeTotalDistance(pLine, response, map, typeID) {
-      totalDist = 0;
-      var myroute = response.routes[0];
-      for (i = 0; i < myroute.legs.length; i++) {
-        totalDist += myroute.legs[i].distance.value;
-      }
-      putMarkerOnRoute(pLine, 50, map, typeID);
+      computeTotalDistance: function computeTotalDistance(pLine, response, map, typeID) {
+        
+          totalDist = 0;
+          var myroute = response.routes[0];
+          for (i = 0; i < myroute.legs.length; i++) {
+            totalDist += myroute.legs[i].distance.value;
+          }
+          GoogleMaps.putMarkerOnRoute(pLine, 50, map, typeID);
 
-      // totalDist = totalDist / 1000;
-  }
+          // totalDist = totalDist / 1000;
+      },
 
-  function putMarkerOnRoute(pLine, percentage, map, typeID) {
+      putMarkerOnRoute: function putMarkerOnRoute(pLine, percentage, map, typeID) {
 
-    var distance = (percentage/100) * totalDist;
-    var marker;
-    var midpoint = pLine.GetPointAtDistance(distance);
+        var distance = (percentage/100) * totalDist;
+        var marker;
+        var midpoint = pLine.GetPointAtDistance(distance);
 
-    if (!marker) {
+        if (!marker) {
 
-        marker = createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
-        googlePlaceSearch(midpoint, map, typeID);
+            marker = GoogleMaps.createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
+            GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
 
-    } else {                
+        } else {                
 
-        marker.setPosition(midpoint);
-        googlePlaceSearch(midpoint, map, typeID);
+            marker.setPosition(midpoint);
+            GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
 
-    }
-  }
-
-  function googlePlaceSearch(midpoint, map, typeID) {
-    
-    var service;
-    var request = {
-      location: midpoint, 
-      radius: 800, // .50 mile radius
-      types: typeID
-    }
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, function(results, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          
-          var POI = results[i];
-          addPOIMarker(POI, map);
-          
         }
+      }, 
+
+      googlePlaceSearch:  function googlePlaceSearch(midpoint, map, typeID) {
+        
+        var service;
+        var request = {
+          location: midpoint, 
+          radius: 800, // .50 mile radius
+          types: typeID
+        }
+
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, function(results, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              
+              var POI = results[i];
+              console.log(POI);
+              GoogleMaps.addPOIMarker(POI, map);
+              
+            }
+          }
+
+        });
+
+      }, 
+
+      addPOIMarker: function addPOIMarker(POI, map) {
+          var marker;
+          // var markers = [];
+          var placeLoc = POI.geometry.location;
+          // if (marker) {
+          //   setMapOnAll(null);
+          //   markers = [];
+          // }
+          marker   = new google.maps.Marker({
+            map: map,
+            position: placeLoc,
+            icon: {
+              url: POI.icon,
+              scaledSize: new google.maps.Size(25, 25)
+            }
+          });
+          infowindow = new google.maps.InfoWindow();
+
+          google.maps.event.addListener(marker, 'click', function() {
+              infowindow.close();
+              infowindow.setContent(POI.name);
+              infowindow.open(map, this);
+          });
+
       }
 
-    });
+  } 
 
-  }
-
-  function addPOIMarker(POI, map) {
-    var marker;
-    // var markers = [];
-    var placeLoc = POI.geometry.location;
-    // if (marker) {
-    //   setMapOnAll(null);
-    //   markers = [];
-    // }
-    marker   = new google.maps.Marker({
-      map: map,
-      position: placeLoc,
-      icon: {
-        url: POI.icon,
-        scaledSize: new google.maps.Size(25, 25)
-      }
-    });
-    infowindow = new google.maps.InfoWindow();
-
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.close();
-        infowindow.setContent(POI.name);
-        infowindow.open(map, this);
-    });
-
-  }
-
-  function setMapOnAll(map) {
-     for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-      }
-  }
-
-
+  return GoogleMaps;
 
 });

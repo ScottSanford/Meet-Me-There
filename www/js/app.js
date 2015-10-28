@@ -19,7 +19,8 @@ angular.module('mmtApp', [
   'localstorage', 
   'ngCordova.plugins.appRate', 
   'queryString', 
-  'meetups'
+  'meetups', 
+  'ngMessages'
 ])
 
 

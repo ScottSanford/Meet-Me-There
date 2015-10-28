@@ -4,4 +4,8 @@
 	<ion-toggle class="meeting-places" ng-repeat="meetup in meetups | orderBy: 'name'" ng-model="meetup.checked" ng-change="updateLS(meetup)">
 	    {{meetup.name}}
 	</ion-toggle>
+
+	<button class="button button-full button-positive" ng-click="removeLSItem()">
+	  	Remove LS Item
+	</button>
 </ion-content>

@@ -11,8 +11,8 @@ angular.module('localstorage', [])
       keyList: function() {
         return localStorageService.keys();
       }, 
-      bind: function(key, val) {
-        return localStorageService.bind(key,val);
+      bind: function(scope, property, value, key) {
+        return localStorageService.bind(scope, property, value, key);
       }, 
       removeItem: function(key) {
         return localStorageService.remove(key);

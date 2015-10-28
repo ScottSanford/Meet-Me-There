@@ -26,7 +26,7 @@ angular.module('meetups', [])
         {
           "name": "Gym",
           "id": "gym",
-          "checked": true, 
+          "checked": false, 
         },
         {
           "name": "Movie Theater",
@@ -36,17 +36,17 @@ angular.module('meetups', [])
          {
           "name": "Cafe",
           "id": "cafe",
-           "checked": false, 
+           "checked": true, 
          },        
          {
           "name": "Restaurant",
           "id": "restaurant",
-           "checked": false, 
+           "checked": true, 
          },        
          {
           "name": "Bar",
           "id": "bar",
-           "checked": false, 
+           "checked": true, 
          }, 
         ] 
   }

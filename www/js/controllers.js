@@ -3,24 +3,11 @@ angular.module('starter.controllers', [])
 .controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
 
     var activeMeetups = localStorage.getItem('addMeetup');
-
     $scope.places = activeMeetups;
 
 
     $scope.getDirections = function(pointB) {
-
-      var placesObj = $scope.places;
-
-      function isPlaceSelected(place) {
-        if (place.checked) {
-          return place;
-        }
-      }
-
-      var typeID = placesObj.filter(isPlaceSelected).map(function(place){
-        return place.id;
-      });
-
+      // user types in 'work', brings up work address
       var workAdd = localStorage.getItem('work').formatted_address;
 
       //local storage
@@ -28,6 +15,22 @@ angular.module('starter.controllers', [])
         return pointB = workAdd;
         console.log('pointB :: ', pointB);
       }
+
+      // obj for meetups on Search View
+      var placesObj = $scope.places;
+
+      // if meetup is true, return 
+      function isPlaceSelected(place) {
+        if (place.checked) {
+          return place;
+        }
+      }
+
+      // taking place object, filtering, and just returning id
+      var typeID = placesObj.filter(isPlaceSelected).map(function(place){
+        return place.id;
+      });
+
 
       // reroute user to map page with query string
       $location.url('/tab/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
@@ -88,6 +91,7 @@ angular.module('starter.controllers', [])
             }
 
             $ionicLoading.hide();
+
 
           }
 
@@ -155,31 +159,51 @@ angular.module('starter.controllers', [])
 
 .controller('MeetupsCtrl', function($scope, localStorage, Meetups) {
 
-  $scope.meetups = Meetups.types;
+  localStorage.submit('meetupList', Meetups.types);
+  var lsList = localStorage.getItem('addMeetup');
 
-
+  var ls = localStorage.getItem('addMeetup');
   var lsArr = [];
-  function addMeetupsToLocalStorage() {
 
+  function addMeetupsToLocalStorage() {
     for (var i = 0; i < Meetups.types.length; i++) {
       if (Meetups.types[i].checked) {
         lsArr.push(Meetups.types[i]);
       }
     }
     return localStorage.submit('addMeetup', lsArr);
-
   }
 
-  addMeetupsToLocalStorage();
+  // if LStorage is empty use premade array of objects 
+  function initMeetupList() {
+    addMeetupsToLocalStorage();
+    $scope.meetups = Meetups.types;
+  }
+  if (ls === null) {
+    initMeetupList();
+  } else {
+    $scope.meetups = localStorage.getItem('meetupList');
+  }
+
 
 
   $scope.updateLS = function(meetup) {
+    for (var i = 0; i < lsList.length; i++) {
+
       if (meetup.checked) {
         lsArr.push(meetup);
-      } 
-      return localStorage.submit('addMeetup', lsArr);
+        localStorage.submit('addMeetup', lsArr);
+        console.log(lsArr);
+      } else {
+        console.log(lsList);
+      }
+    }
+
   }
 
+  $scope.removeLSItem = function() {
+    localStorage.bind($scope, 'addMeetup');
+  }
 
 });
 
