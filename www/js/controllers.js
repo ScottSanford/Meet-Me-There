@@ -86,8 +86,12 @@ angular.module('starter.controllers', [])
             GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
+
               var typeID = queryString.selectedTypeArray();
+
+              // Calculate route, midpoint, all that jazz!
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, typeID); 
+
             }
 
             $ionicLoading.hide();
@@ -101,7 +105,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, localStorage, $cordovaAppRate, $cordovaDialogs) {
+.controller('SettingsCtrl', function($scope, localStorage, $cordovaAppRate, $cordovaDialogs, Meetups) {
 
   var home = localStorage.getItem('home');
   var work = localStorage.getItem('work');
@@ -137,8 +141,8 @@ angular.module('starter.controllers', [])
      
     // 2
     var popupInfo = {};
-    popupInfo.title = "Rate YOUR APPTITLE";
-    popupInfo.message = "You like YOUR APPTITLE? We would be glad if you share your experience with others. Thanks for your support!";
+    popupInfo.title = "Rate Meet Me There";
+    popupInfo.message = "You like Meet Me There? We would be glad if you share your experience with others. Thanks for your support!";
     popupInfo.cancelButtonLabel = "No, thanks";
     popupInfo.laterButtonLabel = "Remind Me Later";
     popupInfo.rateButtonLabel = "Rate Now";
@@ -155,11 +159,7 @@ angular.module('starter.controllers', [])
     AppRate.promptForRating(true);
   }
 
-})
-
-.controller('MeetupsCtrl', function($scope, localStorage, Meetups) {
-
-  localStorage.submit('meetupList', Meetups.types);
+   localStorage.submit('meetupList', Meetups.types);
   var lsList = localStorage.getItem('addMeetup');
 
   var ls = localStorage.getItem('addMeetup');
@@ -185,8 +185,6 @@ angular.module('starter.controllers', [])
     $scope.meetups = localStorage.getItem('meetupList');
   }
 
-
-
   $scope.updateLS = function(meetup) {
     for (var i = 0; i < lsList.length; i++) {
 
@@ -205,8 +203,11 @@ angular.module('starter.controllers', [])
     localStorage.bind($scope, 'addMeetup');
   }
 
-});
+  $scope.goBack = function() {
+    $location.url('/tab/settings');
+  }
 
+});
 
 
 

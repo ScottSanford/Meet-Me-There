@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function() {
+.factory('GoogleMaps', function($q) {
   
   var totalDist = 0;
 
@@ -115,7 +115,7 @@ angular.module('GoogleMapsService', [])
       }, 
 
       computeTotalDistance: function computeTotalDistance(pLine, response, map, typeID) {
-        
+
           totalDist = 0;
           var myroute = response.routes[0];
           for (i = 0; i < myroute.legs.length; i++) {
@@ -146,7 +146,7 @@ angular.module('GoogleMapsService', [])
       }, 
 
       googlePlaceSearch:  function googlePlaceSearch(midpoint, map, typeID) {
-        
+      
         var service;
         var request = {
           location: midpoint, 
@@ -160,14 +160,12 @@ angular.module('GoogleMapsService', [])
             for (var i = 0; i < results.length; i++) {
               
               var POI = results[i];
-              console.log(POI);
-              GoogleMaps.addPOIMarker(POI, map);
               
+              GoogleMaps.addPOIMarker(POI, map);
             }
           }
 
         });
-
       }, 
 
       addPOIMarker: function addPOIMarker(POI, map) {
@@ -194,6 +192,10 @@ angular.module('GoogleMapsService', [])
               infowindow.open(map, this);
           });
 
+      }, 
+
+      midPoint: function midPoint(midpoint) {
+        return midpoint;
       }
 
   } 

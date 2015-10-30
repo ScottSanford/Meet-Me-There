@@ -1,11 +1,13 @@
-<ion-content>
-	<a href="#/tab/settings">Go Back</a>
-	<h3 class="padding">Additional Meetups</h3>
-	<ion-toggle class="meeting-places" ng-repeat="meetup in meetups | orderBy: 'name'" ng-model="meetup.checked" ng-change="updateLS(meetup)">
-	    {{meetup.name}}
-	</ion-toggle>
+<ion-view view-title="Meetups" hide-nav-bar="true">
+	<ion-content>
+		<a class="button button-positive icon ion-ios-arrow-back meetups-backbtn" ui-sref="tabs.settings"> Go Back</a>
+		<h3 class="padding">Additional Meetups</h3>
+		<ion-toggle class="meeting-places" ng-repeat="meetup in meetups | orderBy: 'name'" ng-model="meetup.checked" ng-change="updateLS(meetup)">
+		    {{meetup.name}}
+		</ion-toggle>
 
-	<button class="button button-full button-positive" ng-click="removeLSItem()">
-	  	Remove LS Item
-	</button>
-</ion-content>
+		<button class="button button-full button-positive" ng-click="removeLSItem()">
+		  	Remove LS Item
+		</button>
+	</ion-content>
+</ion-view>

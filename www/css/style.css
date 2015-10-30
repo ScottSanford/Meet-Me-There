@@ -30,10 +30,13 @@ input.ion-google-place[readonly] {
 }
 
 .button.button-positive {
-	margin-top:75px;
 	background-color:#465568;
 	border-color:#456568;
 	font-size: 20px;
+}
+
+.meet-me-there-btn {
+	margin-top:75px;
 }
 /*===============================================================
 						Map Tab
@@ -52,10 +55,6 @@ input.ion-google-place[readonly] {
 .pointB {
 	border:1px solid green;
 	margin-top:150px;
-}
-
-.button.button-positive {
-	margin-top:200px;
 }
 
 .field-test {
@@ -104,3 +103,10 @@ ion-scroll[direction=y] {
 /*===============================================================
 						Settings Tab
 ================================================================*/
+
+/*===============================================================
+						Meetups Tab
+================================================================*/
+.meetups-backbtn {
+	margin:15px 0 0 10px;
+}

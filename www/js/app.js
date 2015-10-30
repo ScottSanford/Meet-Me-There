@@ -55,50 +55,49 @@ angular.module('mmtApp', [
   });
 
   $stateProvider
-    .state('tab', {
-      url: '/tab',
+    .state('tabs', {
+      url:'/tabs',
       abstract: true,
       templateUrl: 'templates/tabs.html'
     })
-    .state('tab.search', {
+    .state('tabs.search', {
       url: '/search',
       views: {
-        'tab-search': {
+        'tabs-search': {
           templateUrl: 'templates/tab-search.html',
           controller: 'SearchCtrl'
         }
       }
     })
-    .state('tab.map', {
+    .state('tabs.map', {
         url: '/map?pointB&typeID',
         views: {
-          'tab-map': {
+          'tabs-map': {
             templateUrl: 'templates/tab-map.html',
             controller: 'GoogleMapCtrl'
           }
         }
       })
-    .state('tab.settings', {
-      url: '/settings',
+    .state('tabs.meetups', {
+      url: '/meetups',
       views: {
-        'tab-settings': {
-          templateUrl: 'templates/tab-settings.html',
-          controller: 'SettingsCtrl'
+        'tabs-settings': {
+          templateUrl: 'templates/meetups.html'
         }
       }
     })
-    .state('tab.settings.meetups', {
-      url: '/meetups',
+    .state('tabs.settings', {
+      url: '/settings',
       views: {
-        'meetups': {
-          templateUrl: 'templates/meetups.html',
-          controller: 'MeetupsCtrl'
+        'tabs-settings': {
+          templateUrl: 'templates/tab-settings.html',
+          controller: 'SettingsCtrl'
         }
       }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/search');
+  $urlRouterProvider.otherwise('/tabs/search');
 
   document.addEventListener("deviceready", function () {
 
