@@ -82,7 +82,8 @@ angular.module('mmtApp', [
       url: '/meetups',
       views: {
         'tabs-settings': {
-          templateUrl: 'templates/meetups.html'
+          templateUrl: 'templates/meetups.html', 
+          controller: 'SettingsCtrl'
         }
       }
     })

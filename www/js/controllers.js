@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
 
     $scope.getDirections = function(pointB) {
       // user types in 'work', brings up work address
+      console.log('clicked');
       var workAdd = localStorage.getItem('work').formatted_address;
 
       //local storage
@@ -33,7 +34,7 @@ angular.module('starter.controllers', [])
 
 
       // reroute user to map page with query string
-      $location.url('/tab/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
+      $location.url('/tabs/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
     };
 
 })
@@ -49,7 +50,10 @@ angular.module('starter.controllers', [])
   queryString) {
 
 
-          $scope.loading = $ionicLoading.show();
+          $scope.loading = $ionicLoading.show({
+            template: '<img src="img/logo_blank.png" class="loading-icon">' +
+                       '<p class="loading-text">Preparing Map...</p>'
+          });
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
@@ -95,7 +99,6 @@ angular.module('starter.controllers', [])
             }
 
             $ionicLoading.hide();
-
 
           }
 
@@ -159,31 +162,16 @@ angular.module('starter.controllers', [])
     AppRate.promptForRating(true);
   }
 
-   localStorage.submit('meetupList', Meetups.types);
-  var lsList = localStorage.getItem('addMeetup');
+  // Meetup Logic Starts here
+
+  localStorage.submit('meetupList', Meetups.types);
+  var lsList = localStorage.getItem('meetupList');
+  
+  $scope.meetups = lsList;
 
   var ls = localStorage.getItem('addMeetup');
   var lsArr = [];
 
-  function addMeetupsToLocalStorage() {
-    for (var i = 0; i < Meetups.types.length; i++) {
-      if (Meetups.types[i].checked) {
-        lsArr.push(Meetups.types[i]);
-      }
-    }
-    return localStorage.submit('addMeetup', lsArr);
-  }
-
-  // if LStorage is empty use premade array of objects 
-  function initMeetupList() {
-    addMeetupsToLocalStorage();
-    $scope.meetups = Meetups.types;
-  }
-  if (ls === null) {
-    initMeetupList();
-  } else {
-    $scope.meetups = localStorage.getItem('meetupList');
-  }
 
   $scope.updateLS = function(meetup) {
     for (var i = 0; i < lsList.length; i++) {

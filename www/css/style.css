@@ -41,6 +41,19 @@ input.ion-google-place[readonly] {
 /*===============================================================
 						Map Tab
 ================================================================*/
+.loading-container .loading {
+	padding:10px 15px;
+}
+
+.loading-icon {
+	width:100px;
+	height:auto;
+}
+
+.loading-text {
+	font-weight: 600;
+}
+
 #map {
 	position: absolute;
 	top:0;
