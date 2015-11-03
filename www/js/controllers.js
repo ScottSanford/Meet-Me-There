@@ -2,9 +2,18 @@ angular.module('starter.controllers', [])
 
 .controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
 
-    var activeMeetups = localStorage.getItem('addMeetup');
-    $scope.places = activeMeetups;
+    function displayOnlyActiveMeetups() {
+      var activeMeetups = localStorage.getItem('meetupList');
+      var aMeetups = [];
+      for (var i = 0; i < activeMeetups.length; i++) {
+        if (activeMeetups[i].checked) {
+          aMeetups.push(activeMeetups[i]);
+        }
+      }
+      return aMeetups;
+    }
 
+    $scope.places = displayOnlyActiveMeetups();
 
     $scope.getDirections = function(pointB) {
       // user types in 'work', brings up work address
@@ -108,7 +117,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, localStorage, $cordovaAppRate, $cordovaDialogs, Meetups) {
+.controller('SettingsCtrl', function($scope, localStorage, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
+
+
+  $scope.goBack = function() {
+    $location.url('/tabs/settings');
+  }
+
+  // Save Work and Home Address
 
   var home = localStorage.getItem('home');
   var work = localStorage.getItem('work');
@@ -129,7 +145,6 @@ angular.module('starter.controllers', [])
 
   }
 
-
   $scope.saveChanges = function(homeAddress, workAddress) {
     console.log("Home Address :: " , homeAddress);
     console.log("Work Address :: " , workAddress);
@@ -137,63 +152,56 @@ angular.module('starter.controllers', [])
     localStorage.submit('work', workAddress);
   }
 
-  // Rate the App
-  $scope.rateApp = function() {
-    // 1
-    AppRate.preferences.useLanguage = 'en';
-     
-    // 2
-    var popupInfo = {};
-    popupInfo.title = "Rate Meet Me There";
-    popupInfo.message = "You like Meet Me There? We would be glad if you share your experience with others. Thanks for your support!";
-    popupInfo.cancelButtonLabel = "No, thanks";
-    popupInfo.laterButtonLabel = "Remind Me Later";
-    popupInfo.rateButtonLabel = "Rate Now";
-    AppRate.preferences.customLocale = popupInfo;
-     
-    // 3
-    AppRate.preferences.openStoreInApp = true;
-     
-    // 4
-    AppRate.preferences.storeAppURL.ios = '849930087';
-    // AppRate.preferences.storeAppURL.android = 'market://details?id=<package_name>';
-     
-    // 5 
-    AppRate.promptForRating(true);
-  }
 
   // Meetup Logic Starts here
 
-  localStorage.submit('meetupList', Meetups.types);
-  var lsList = localStorage.getItem('meetupList');
-  
-  $scope.meetups = lsList;
-
-  var ls = localStorage.getItem('addMeetup');
-  var lsArr = [];
-
-
-  $scope.updateLS = function(meetup) {
-    for (var i = 0; i < lsList.length; i++) {
-
-      if (meetup.checked) {
-        lsArr.push(meetup);
-        localStorage.submit('addMeetup', lsArr);
-        console.log(lsArr);
+  function initMeetupList() {
+    var lsKeys = localStorage.getKeys();
+    for (var i=0; i< lsKeys.length; i++) {
+      if (lsKeys[i] === 'meetupList') {
+        var lsList = localStorage.getItem('meetupList');
+        return lsList;
       } else {
-        console.log(lsList);
+        localStorage.submit('meetupList', Meetups.types);
+        return Meetups.types;
       }
-    }
+    }    
+  }
+
+  $scope.meetups = initMeetupList();
+
+  $scope.updateLocalStorage = function(meetup) {
+    localStorage.removeKey('meetupList');
+    localStorage.submit('meetupList', Meetups.types);
+  }
+  
+
+
+  // Rate the App
+  $scope.rateApp = function() {
+    console.log(AppRate);
+    $cordovaAppRate.promptForRating(true).then(function(){
+
+      $cordovaAppRate.setPreferences(AppRate);
+
+    }, function() {
+      console.log('Oops! Something went wrong :(');
+    });
+  }
+
+
+  // Give Feedback 
+  $scope.giveFeedback = function() {
+
+    $cordovaEmailComposer.isAvailable().then(function(){
+      console.log('Success, the plugin is available!');
+      $cordovaEmailComposer.open(EmailComposer);
+    }, function(){
+      console.log('Error, the plugin is not available');
+    })
 
   }
 
-  $scope.removeLSItem = function() {
-    localStorage.bind($scope, 'addMeetup');
-  }
-
-  $scope.goBack = function() {
-    $location.url('/tab/settings');
-  }
 
 });
 

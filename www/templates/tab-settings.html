@@ -21,13 +21,14 @@
 	    Meetups
 	  </a>
 
+	  <div ng-click="rateApp()" class="item">
+	    Rate this App
+	  </div>	
+	    
 	  <div ng-click="giveFeedback()" class="item">
 	    Give Feedback
 	  </div>
 
-	  <div ng-click="rateApp()" class="item">
-	    Rate Meet Me There
-	  </div>	  
 
 	<button class="button button-full button-positive" ng-show="homeAddress || workAddress" ng-click="saveChanges(homeAddress, workAddress)">
 	  	Save Changes

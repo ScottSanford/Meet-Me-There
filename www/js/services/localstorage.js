@@ -14,8 +14,11 @@ angular.module('localstorage', [])
       bind: function(scope, property, value, key) {
         return localStorageService.bind(scope, property, value, key);
       }, 
-      removeItem: function(key) {
+      removeKey: function(key) {
         return localStorageService.remove(key);
+      }, 
+      getKeys: function() {
+        return localStorageService.keys();
       }
   }
 }]);
