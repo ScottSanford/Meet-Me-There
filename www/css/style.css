@@ -1,6 +1,25 @@
+@font-face {
+	font-family:'SF-UI-Display-Regular';
+	src:url('../fonts/SF-UI-Display-Regular.otf');
+}
+
+@font-face {
+	font-family:'SF-UI-Display-Semibold';
+	src:url('../fonts/SF-UI-Display-Semibold.otf');
+}
+
+body {
+	font-family: 'SF-UI-Display-Regular';
+}
+
 /*===============================================================
 						Search Tab
 ================================================================*/
+.main-header {
+	background-color: #465568;
+	color:#fff;
+}
+
 .item-input {
 	border-bottom:none;
 	border-left: none;
@@ -36,6 +55,7 @@ input.ion-google-place[readonly] {
 }
 
 .meet-me-there-btn {
+	font-family: 'SF-UI-Display-Semibold';
 	margin-top:75px;
 }
 /*===============================================================

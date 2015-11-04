@@ -49,29 +49,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GoogleMapCtrl', function(
-  $scope, 
-  $state,
-  $window,
-  $stateParams,
-  $cordovaGeolocation, 
-  $ionicLoading, 
-  GoogleMaps, 
-  queryString) {
-
-
-          $scope.loading = $ionicLoading.show({
-            template: '<img src="img/logo_blank.png" class="loading-icon">' +
-                       '<p class="loading-text">Preparing Map...</p>'
-          });
-
-          $scope.ratingStates = [
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
-          ]
-
+  $scope, $state, $window,
+  $stateParams, $cordovaGeolocation, $ionicLoading, 
+  GoogleMaps, queryString) {
 
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
@@ -110,8 +90,24 @@ angular.module('starter.controllers', [])
             $ionicLoading.hide();
 
           }
+        });
 
-    });
+
+          $scope.loading = $ionicLoading.show({
+            template: '<img src="img/logo_blank.png" class="loading-icon">' +
+                       '<p class="loading-text">Preparing Map...</p>'
+          });
+
+          $scope.ratingStates = [
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
+          ]
+
+
+        
 
 
 
@@ -171,8 +167,7 @@ angular.module('starter.controllers', [])
   $scope.meetups = initMeetupList();
 
   $scope.updateLocalStorage = function(meetup) {
-    localStorage.removeKey('meetupList');
-    localStorage.submit('meetupList', Meetups.types);
+    localStorage.bind($scope, 'meetups', null, 'meetupList');
   }
   
 

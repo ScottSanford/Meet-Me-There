@@ -9,6 +9,8 @@ angular.module('mmtApp', [
   'ionic', 
   'starter.controllers', 
   'GoogleMapsService', 
+  'AppRateService',
+  'EmailComposerService',
   'uiGmapgoogle-maps',
   'ngCordova', 
   'ion-google-place',
@@ -17,7 +19,10 @@ angular.module('mmtApp', [
   'ionic.contrib.drawer.vertical', 
   'LocalStorageModule', 
   'localstorage', 
-  'ngCordova.plugins.appRate'
+  'ngCordova.plugins.appRate', 
+  'queryString', 
+  'meetups', 
+  'ngMessages'
 ])
 
 
@@ -37,6 +42,12 @@ angular.module('mmtApp', [
   });
 })
 
+.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+})
+
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider, $cordovaAppRateProvider) {
 
   uiGmapGoogleMapApiProvider.configure({
@@ -46,33 +57,42 @@ angular.module('mmtApp', [
   });
 
   $stateProvider
-    .state('tab', {
-      url: '/tab',
+    .state('tabs', {
+      url:'/tabs',
       abstract: true,
       templateUrl: 'templates/tabs.html'
     })
-    .state('tab.search', {
+    .state('tabs.search', {
       url: '/search',
       views: {
-        'tab-search': {
+        'tabs-search': {
           templateUrl: 'templates/tab-search.html',
           controller: 'SearchCtrl'
         }
       }
     })
-    .state('tab.map', {
-        url: '/map?pointB',
+    .state('tabs.map', {
+        url: '/map?pointB&typeID',
         views: {
-          'tab-map': {
+          'tabs-map': {
             templateUrl: 'templates/tab-map.html',
             controller: 'GoogleMapCtrl'
           }
         }
       })
-    .state('tab.settings', {
+    .state('tabs.meetups', {
+      url: '/meetups',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'templates/meetups.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
+    })
+    .state('tabs.settings', {
       url: '/settings',
       views: {
-        'tab-settings': {
+        'tabs-settings': {
           templateUrl: 'templates/tab-settings.html',
           controller: 'SettingsCtrl'
         }
@@ -80,7 +100,7 @@ angular.module('mmtApp', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/map');
+  $urlRouterProvider.otherwise('/tabs/search');
 
   document.addEventListener("deviceready", function () {
 

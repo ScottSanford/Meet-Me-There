@@ -19,6 +19,9 @@ angular.module('localstorage', [])
       }, 
       getKeys: function() {
         return localStorageService.keys();
+      }, 
+      bind: function (scope, property, value, key) {
+        return localStorageService.bind(scope, property, value, key);
       }
   }
 }]);
