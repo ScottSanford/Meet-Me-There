@@ -8,8 +8,30 @@
 	src:url('../fonts/SF-UI-Display-Semibold.otf');
 }
 
+@font-face {
+	font-family:'SF-UI-Display-Light';
+	src:url('../fonts/SF-UI-Display-Light.otf');
+}
+
 body {
 	font-family: 'SF-UI-Display-Regular';
+}
+
+.item-divider {
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	background-color:#fff;
+	font-family: 'SF-UI-Display-Light';
+}
+
+.bar .title {
+	font-size:17pt;
+}
+
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+	color:#465568;
+	text-decoration: none;
 }
 
 /*===============================================================
@@ -27,7 +49,8 @@ body {
 }
 
 .your-location {
-	border-top:none;
+	border-bottom: 3px solid #ccc;
+	margin-bottom: 10px;
 }
 
 input[type="text"] {
@@ -40,12 +63,20 @@ input.ion-google-place[readonly] {
 	width:100%;
 }
 
+.meetup-places {
+	margin-bottom: 10px;
+}
+
 .item-toggle {
 	border:none;
 }
 
+ion-content.meeting-places {
+	margin-top:50px;
+}
+
 .meeting-places {
-	font-size:18px;
+	font-size:15pt;
 }
 
 .button.button-positive {
@@ -56,7 +87,6 @@ input.ion-google-place[readonly] {
 
 .meet-me-there-btn {
 	font-family: 'SF-UI-Display-Semibold';
-	margin-top:75px;
 }
 /*===============================================================
 						Map Tab
@@ -136,7 +166,14 @@ ion-scroll[direction=y] {
 /*===============================================================
 						Settings Tab
 ================================================================*/
+.homeAddress-container {
+	border-top:none;
+}
 
+.item {
+	font-family: 'SF-UI-Display-Regular';
+	font-size:15pt;
+}
 /*===============================================================
 						Meetups Tab
 ================================================================*/
@@ -153,4 +190,13 @@ ion-scroll[direction=y] {
 	border: 2px solid #465568;
 	border-radius: 5px;
 	color:#fff;
+}
+
+.meeting-places:first-of-type {
+	border-top:none;
+}
+
+.back-button {
+	border:none;
+	margin-left: 5px;
 }

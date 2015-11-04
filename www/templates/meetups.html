@@ -1,9 +1,9 @@
 <ion-view view-title="Meetups" hide-nav-bar="true">
-	<ion-content>
-
-		<a class="button icon ion-ios-arrow-back meetups-backbtn" ui-sref="tabs.settings"> Settings</a>
-
-		<h3 class="padding">Additional Meetups</h3>
+	<div class="bar bar-header">
+	  <span ui-sref="tabs.settings" class="button icon ion-ios-arrow-left back-button"></span>
+	  <div class="title">Additional Meetups</div>
+	</div>
+	<ion-content class="meeting-places">
 
 		<ion-toggle 
 			class="meeting-places" 
@@ -12,5 +12,6 @@
 			ng-change="updateLocalStorage(meetup)">
 		    {{meetup.name}}
 		</ion-toggle>
+
 	</ion-content>
 </ion-view>

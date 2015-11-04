@@ -53,23 +53,7 @@ angular.module('starter.controllers', [])
   $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, queryString) {
 
-          init();
-
-          $scope.loading = $ionicLoading.show({
-            template: '<img src="img/logo_blank.png" class="loading-icon">' +
-                       '<p class="loading-text">Preparing Map...</p>'
-          });
-
-          $scope.ratingStates = [
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
-          ]
-
-        function init() {
-// get position of user and then set the center of the map to that position
+        // get position of user and then set the center of the map to that position
         $cordovaGeolocation
           .getCurrentPosition()
           .then(function (position) {
@@ -106,9 +90,22 @@ angular.module('starter.controllers', [])
             $ionicLoading.hide();
 
           }
+        });
 
-    });
-        }
+
+          $scope.loading = $ionicLoading.show({
+            template: '<img src="img/logo_blank.png" class="loading-icon">' +
+                       '<p class="loading-text">Preparing Map...</p>'
+          });
+
+          $scope.ratingStates = [
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
+          ]
+
 
         
 

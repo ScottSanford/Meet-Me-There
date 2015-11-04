@@ -4,21 +4,6 @@ angular.module('meetups', [])
   return {
       types:[
         {
-          "name": "Atm",
-          "id": "atm",
-          "checked": false, 
-        },
-        {
-          "name": "Church",
-          "id": "church",
-          "checked": false, 
-        },
-        {
-          "name": "Gas Station",
-          "id": "gas_station",
-           "checked": false, 
-         },
-        {
           "name": "Grocery",
           "id": "grocery_or_supermarket",
           "checked": false, 

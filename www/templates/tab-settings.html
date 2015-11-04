@@ -2,9 +2,9 @@
 <ion-view view-title="Settings">
   <ion-nav-bar class="main-header"></ion-nav-bar>
   <ion-content>
-	<div class="list card">
+	<div class="list">
 
-	  <div class="item item-icon-left">
+	  <div class="item item-icon-left homeAddress-container">
 	    <i class="icon ion-home"></i>
 	    <ion-google-place placeholder="{{userHomeAddress}}" ng-model="homeAddress" class="homeAddress"/>
 	  </div>
@@ -16,11 +16,16 @@
 
 	</div>
 
-	<div class="list card">
+	<div class="list">
 
 	  <a href="#/tabs/meetups" class="item">
 	    Meetups
 	  </a>
+
+	</div>
+
+	<div class="list ">
+
 
 	  <div ng-click="rateApp()" class="item">
 	    Rate this App

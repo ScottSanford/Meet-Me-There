@@ -1,11 +1,12 @@
 <ion-view view-title="Search">
   <ion-nav-bar class="main-header"></ion-nav-bar>
   <ion-content class="padding">
-        
-        <form name="searchForm" novalidate>
+          <div class="item item-divider">
+             Locations
+          </div>
         <!-- Your Location -->
           <div class="list list-inset">
-            <ion-google-place placeholder="Your Location" ng-model="pointA" />
+            <ion-google-place placeholder="Your Location" ng-model="pointA" class="your-location"/>
           </div>        
 
           <!-- Second Location -->
@@ -13,19 +14,18 @@
             <ion-google-place placeholder="Point B" ng-model="pointB" name="pointBinput" required/>
           </div>
 
-          <!--  -->
+          <!--  Meeting Places -->
+          <div class="item item-divider meetup-places">
+            Meetup Places
+          </div>   
+
         	<ion-toggle class="meeting-places" ng-repeat="place in places | orderBy: 'name'" ng-model="place.checked">
           	{{place.name}}
-          </ion-toggle>
+          </ion-toggle>          
 
-          <div ng-messages="myForm.pointBinput.$error" role="alert">
-            <div ng-message="required">Please enter your friend's address</div>
-          </div>
-
-          <button type="submit" class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointB)">
+          <button class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointB)">
             Meet Me There
           </button>
-        </form>
   </ion-content>
 
 </ion-view>

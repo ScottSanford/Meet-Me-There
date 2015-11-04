@@ -1,6 +1,47 @@
+@font-face {
+	font-family:'SF-UI-Display-Regular';
+	src:url('../fonts/SF-UI-Display-Regular.otf');
+}
+
+@font-face {
+	font-family:'SF-UI-Display-Semibold';
+	src:url('../fonts/SF-UI-Display-Semibold.otf');
+}
+
+@font-face {
+	font-family:'SF-UI-Display-Light';
+	src:url('../fonts/SF-UI-Display-Light.otf');
+}
+
+body {
+	font-family: 'SF-UI-Display-Regular';
+}
+
+.item-divider {
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	background-color:#fff;
+	font-family: 'SF-UI-Display-Light';
+}
+
+.bar .title {
+	font-size:17pt;
+}
+
+.tabs:active, .tabs:hover {
+	text-decoration: none;
+}
+
+
 /*===============================================================
 						Search Tab
 ================================================================*/
+.main-header {
+	background-color: #465568;
+	color:#fff;
+}
+
 .item-input {
 	border-bottom:none;
 	border-left: none;
@@ -8,7 +49,8 @@
 }
 
 .your-location {
-	border-top:none;
+	border-bottom: 3px solid #ccc;
+	margin-bottom: 10px;
 }
 
 input[type="text"] {
@@ -21,12 +63,16 @@ input.ion-google-place[readonly] {
 	width:100%;
 }
 
+.meetup-places {
+	margin-bottom: 10px;
+}
+
 .item-toggle {
 	border:none;
 }
 
 .meeting-places {
-	font-size:18px;
+	font-size:15pt;
 }
 
 .button.button-positive {
@@ -36,7 +82,7 @@ input.ion-google-place[readonly] {
 }
 
 .meet-me-there-btn {
-	margin-top:75px;
+	font-family: 'SF-UI-Display-Semibold';
 }
 /*===============================================================
 						Map Tab
@@ -116,7 +162,10 @@ ion-scroll[direction=y] {
 /*===============================================================
 						Settings Tab
 ================================================================*/
-
+.item {
+	font-family: 'SF-UI-Display-Regular';
+	font-size:15pt;
+}
 /*===============================================================
 						Meetups Tab
 ================================================================*/
@@ -133,4 +182,13 @@ ion-scroll[direction=y] {
 	border: 2px solid #465568;
 	border-radius: 5px;
 	color:#fff;
+}
+
+.meeting-places:first-of-type {
+	border-top:none;
+}
+
+.back-button {
+	border:none;
+	margin-left: 5px;
 }

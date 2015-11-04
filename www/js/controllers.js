@@ -1,30 +1,25 @@
 angular.module('starter.controllers', [])
 
-.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
+.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorageService, Meetups) {
 
     function displayOnlyActiveMeetups() {
-      var activeMeetups = localStorage.getItem('meetupList');
-      var aMeetups = [];
-      for (var i = 0; i < activeMeetups.length; i++) {
-        if (activeMeetups[i].checked) {
-          aMeetups.push(activeMeetups[i]);
-        }
-      }
-      return aMeetups;
+      return localStorageService.get('meetupList').filter(function(meetup){
+        return meetup.checked;
+      });
     }
 
     $scope.places = displayOnlyActiveMeetups();
 
     $scope.getDirections = function(pointB) {
       // user types in 'work', brings up work address
-      console.log('clicked');
-      var workAdd = localStorage.getItem('work').formatted_address;
+      // console.log('clicked');
+      // var workAdd = localStorage.getItem('work').formatted_address;
 
-      //local storage
-      if (pointB === 'work') {
-        return pointB = workAdd;
-        console.log('pointB :: ', pointB);
-      }
+      // //local storage
+      // if (pointB === 'work') {
+      //   return pointB = workAdd;
+      //   console.log('pointB :: ', pointB);
+      // }
 
       // obj for meetups on Search View
       var placesObj = $scope.places;
@@ -113,7 +108,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, localStorage, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
+.controller('SettingsCtrl', function($scope, localStorageService, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
 
 
   $scope.goBack = function() {
@@ -122,8 +117,8 @@ angular.module('starter.controllers', [])
 
   // Save Work and Home Address
 
-  var home = localStorage.getItem('home');
-  var work = localStorage.getItem('work');
+  var home = localStorageService.get('home');
+  var work = localStorageService.get('work');
 
   if (home == undefined) {
     $scope.userHomeAddress = 'Enter your home address';
@@ -133,8 +128,8 @@ angular.module('starter.controllers', [])
     $scope.userWorkAddress = 'Enter your work address'; 
   } else {
 
-    var homeAdd = localStorage.getItem('home').formatted_address;
-    var workAdd = localStorage.getItem('work').formatted_address;
+    var homeAdd = localStorageService.get('home').formatted_address;
+    var workAdd = localStorageService.get('work').formatted_address;
 
     $scope.userHomeAddress = homeAdd;
     $scope.userWorkAddress = workAdd;
@@ -144,21 +139,21 @@ angular.module('starter.controllers', [])
   $scope.saveChanges = function(homeAddress, workAddress) {
     console.log("Home Address :: " , homeAddress);
     console.log("Work Address :: " , workAddress);
-    localStorage.submit('home', homeAddress);
-    localStorage.submit('work', workAddress);
+    localStorageService.set('home', homeAddress);
+    localStorageService.set('work', workAddress);
   }
 
 
   // Meetup Logic Starts here
 
   function initMeetupList() {
-    var lsKeys = localStorage.getKeys();
+    var lsKeys = localStorageService.deriveKey();
     for (var i=0; i< lsKeys.length; i++) {
       if (lsKeys[i] === 'meetupList') {
-        var lsList = localStorage.getItem('meetupList');
+        var lsList = localStorageService.get('meetupList');
         return lsList;
       } else {
-        localStorage.submit('meetupList', Meetups.types);
+        localStorageService.set('meetupList', Meetups.types);
         return Meetups.types;
       }
     }    
@@ -167,7 +162,13 @@ angular.module('starter.controllers', [])
   $scope.meetups = initMeetupList();
 
   $scope.updateLocalStorage = function(meetup) {
-    localStorage.bind($scope, 'meetups', null, 'meetupList');
+    var meetupList = localStorageService.get('meetupList');
+    meetupList.forEach(function(m){
+      if (m.id === meetup.id) {
+        m.checked = meetup.checked;
+      }
+    })
+    localStorageService.set('meetupList', meetupList);
   }
   
 

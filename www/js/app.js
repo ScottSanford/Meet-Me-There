@@ -63,6 +63,7 @@ angular.module('mmtApp', [
       templateUrl: 'templates/tabs.html'
     })
     .state('tabs.search', {
+      cache: false,
       url: '/search',
       views: {
         'tabs-search': {
@@ -72,6 +73,7 @@ angular.module('mmtApp', [
       }
     })
     .state('tabs.map', {
+        cache: false,
         url: '/map?pointB&typeID',
         views: {
           'tabs-map': {
