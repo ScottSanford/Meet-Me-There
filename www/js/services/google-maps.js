@@ -52,9 +52,9 @@ angular.module('GoogleMapsService', [])
           };  
       },
 
-      calcRoute: function calcRoute(pLine, userLocation, map, pointB, typeID) {
+      calcRoute: function calcRoute(pLine, userLocation, map, pointA, pointB, typeID) {
           var directionsService = new google.maps.DirectionsService();
-          var start = userLocation;
+          var start = pointA != "undefined" ? pointA : userLocation;
           var end = pointB;
           var travelMode = google.maps.DirectionsTravelMode.DRIVING
           var request = {

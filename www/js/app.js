@@ -74,7 +74,7 @@ angular.module('mmtApp', [
     })
     .state('tabs.map', {
         cache: false,
-        url: '/map?pointB&typeID',
+        url: '/map?pointA&pointB&typeID',
         views: {
           'tabs-map': {
             templateUrl: 'templates/tab-map.html',
@@ -87,6 +87,15 @@ angular.module('mmtApp', [
       views: {
         'tabs-settings': {
           templateUrl: 'templates/meetups.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
+    })
+    .state('tabs.favorites', {
+      url: '/favorites',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'templates/favorites.html', 
           controller: 'SettingsCtrl'
         }
       }

@@ -29,16 +29,26 @@ body {
 	font-size:17pt;
 }
 
+a:active, a:hover {
+	text-decoration: none;
+	color:#e55433;
+}
+
+.tab-item .activated {
+	color:#e55433;
+}
+
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
-	color:#465568;
+	color:#e55433;
 	text-decoration: none;
 }
+
 
 /*===============================================================
 						Search Tab
 ================================================================*/
 .main-header {
-	background-color: #465568;
+	background-color: #e55433;
 	color:#fff;
 }
 
@@ -80,9 +90,14 @@ ion-content.meeting-places {
 }
 
 .button.button-positive {
-	background-color:#465568;
-	border-color:#456568;
+	background-color:#e55433;
+	border-color:#e55433;
 	font-size: 20px;
+}
+
+.button:active {
+	background-color: :#e03619;
+	border-color: :#e03619;
 }
 
 .meet-me-there-btn {
@@ -92,7 +107,9 @@ ion-content.meeting-places {
 						Map Tab
 ================================================================*/
 .loading-container .loading {
-	padding:10px 15px;
+	padding:10px 15px 0 15px;
+	background-color: #e55433;
+	opacity: .9;
 }
 
 .loading-icon {
@@ -102,6 +119,7 @@ ion-content.meeting-places {
 
 .loading-text {
 	font-weight: 600;
+	margin-top:10px;
 }
 
 #map {
@@ -166,10 +184,6 @@ ion-scroll[direction=y] {
 /*===============================================================
 						Settings Tab
 ================================================================*/
-.homeAddress-container {
-	border-top:none;
-}
-
 .item {
 	font-family: 'SF-UI-Display-Regular';
 	font-size:15pt;
@@ -177,6 +191,10 @@ ion-scroll[direction=y] {
 /*===============================================================
 						Meetups Tab
 ================================================================*/
+.favorites {
+	border-top:none;
+}
+
 .meetups-backbtn {
 	margin:15px 0 0 10px;
 	color: #333;
@@ -199,4 +217,17 @@ ion-scroll[direction=y] {
 .back-button {
 	border:none;
 	margin-left: 5px;
+}
+
+/*===============================================================
+						Favorites Tab
+================================================================*/
+.homeAddress-container {
+	border-top:none;
+	margin-top:50px;
+}
+
+.favorites-description {
+	padding:0 20px;
+	font-size:11pt;
 }

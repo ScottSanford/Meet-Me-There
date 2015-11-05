@@ -10,17 +10,8 @@ angular.module('starter.controllers', [])
 
     $scope.places = displayOnlyActiveMeetups();
 
-    $scope.getDirections = function(pointB) {
-      // user types in 'work', brings up work address
-      // console.log('clicked');
-      // var workAdd = localStorage.getItem('work').formatted_address;
-
-      // //local storage
-      // if (pointB === 'work') {
-      //   return pointB = workAdd;
-      //   console.log('pointB :: ', pointB);
-      // }
-
+    $scope.getDirections = function(pointA, pointB) {
+      console.log(pointA);
       // obj for meetups on Search View
       var placesObj = $scope.places;
 
@@ -36,9 +27,12 @@ angular.module('starter.controllers', [])
         return place.id;
       });
 
-
       // reroute user to map page with query string
-      $location.url('/tabs/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
+      if (pointA === undefined) {
+        $location.url('/tabs/map?pointA=' + pointA + '&pointB=' + pointB.formatted_address + '&typeID=' + typeID);
+      } else {
+        $location.url('/tabs/map?pointA=' + pointA.formatted_address + '&pointB=' + pointB.formatted_address + '&typeID=' + typeID); 
+      }
     };
 
 })
@@ -65,6 +59,8 @@ angular.module('starter.controllers', [])
               lng: position.coords.longitude
           };
 
+
+          var pointA = $stateParams.pointA;
           var pointB = $stateParams.pointB;
           // init Google Maps 
           initialize(userLocation);
@@ -78,7 +74,9 @@ angular.module('starter.controllers', [])
               var typeID = queryString.selectedTypeArray();
 
               // Calculate route, midpoint, all that jazz!
-              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, typeID); 
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID); 
+
+              // $scope.results = 
 
             }
 
@@ -89,8 +87,8 @@ angular.module('starter.controllers', [])
 
 
           $scope.loading = $ionicLoading.show({
-            template: '<img src="img/logo_blank.png" class="loading-icon">' +
-                       '<p class="loading-text">Preparing Map...</p>'
+            template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
+                       '<p class="loading-text">Finding meetups...</p>'
           });
 
           $scope.ratingStates = [
