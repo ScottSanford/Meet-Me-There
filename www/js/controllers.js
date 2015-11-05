@@ -11,7 +11,6 @@ angular.module('starter.controllers', [])
     $scope.places = displayOnlyActiveMeetups();
 
     $scope.getDirections = function(pointA, pointB) {
-      console.log(pointA);
       // obj for meetups on Search View
       var placesObj = $scope.places;
 
@@ -40,7 +39,7 @@ angular.module('starter.controllers', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $window,
   $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, queryString) {
+  GoogleMaps, queryString, $timeout) {
 
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
@@ -74,9 +73,9 @@ angular.module('starter.controllers', [])
               var typeID = queryString.selectedTypeArray();
 
               // Calculate route, midpoint, all that jazz!
-              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID); 
-
-              // $scope.results = 
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
+                $scope.results = results;
+              }); 
 
             }
 

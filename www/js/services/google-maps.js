@@ -5,8 +5,10 @@ angular.module('GoogleMapsService', [])
   var totalDist = 0;
 
   var GoogleMaps = {
+    POI: null
+  }; 
 
-      initGoogleMap: function initGoogleMap(userLocation) {
+      GoogleMaps.initGoogleMap = function(userLocation) {
           directionsDisplay = new google.maps.DirectionsRenderer();
 
           // options for Google Maps
@@ -50,9 +52,10 @@ angular.module('GoogleMapsService', [])
               pLine: pLine,
               map: map
           };  
-      },
+      };
 
-      calcRoute: function calcRoute(pLine, userLocation, map, pointA, pointB, typeID) {
+      GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
+          var deferred = $q.defer();
           var directionsService = new google.maps.DirectionsService();
           var start = pointA != "undefined" ? pointA : userLocation;
           var end = pointB;
@@ -87,15 +90,16 @@ angular.module('GoogleMapsService', [])
 
               pLine.setMap(map);
 
-              GoogleMaps.computeTotalDistance(pLine, response, map, typeID);
+              deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
 
             } else {
               console.log("Directions query failed: " + status, request);
             } 
-          });                     
-      }, 
+          });    
+          return deferred.promise;                 
+      };
 
-      createMarker: function createMarker(latlng, label, html, map) {
+      GoogleMaps.createMarker = function(latlng, label, html, map) {
         // console.log(latlng+", " + label + ", " + html + ")");
         var contentString = '<b>'+label+'</b><br>'+ html;
         var marker        = new google.maps.Marker({
@@ -112,21 +116,21 @@ angular.module('GoogleMapsService', [])
             infowindow.open(map,marker);
             });
         return marker;
-      }, 
+      }; 
 
-      computeTotalDistance: function computeTotalDistance(pLine, response, map, typeID) {
+      GoogleMaps.computeTotalDistance = function(pLine, response, map, typeID) {
 
           totalDist = 0;
           var myroute = response.routes[0];
           for (i = 0; i < myroute.legs.length; i++) {
             totalDist += myroute.legs[i].distance.value;
           }
-          GoogleMaps.putMarkerOnRoute(pLine, 50, map, typeID);
+          return GoogleMaps.putMarkerOnRoute(pLine, 50, map, typeID);
 
           // totalDist = totalDist / 1000;
-      },
+      };
 
-      putMarkerOnRoute: function putMarkerOnRoute(pLine, percentage, map, typeID) {
+      GoogleMaps.putMarkerOnRoute = function(pLine, percentage, map, typeID) {
 
         var distance = (percentage/100) * totalDist;
         var marker;
@@ -135,18 +139,18 @@ angular.module('GoogleMapsService', [])
         if (!marker) {
 
             marker = GoogleMaps.createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
-            GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
+            return GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
 
         } else {                
 
             marker.setPosition(midpoint);
-            GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
+            return GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
 
         }
-      }, 
+      };
 
-      googlePlaceSearch:  function googlePlaceSearch(midpoint, map, typeID) {
-      
+      GoogleMaps.googlePlaceSearch = function(midpoint, map, typeID) {
+        var deffered = $q.defer();
         var service;
         var request = {
           location: midpoint, 
@@ -160,15 +164,19 @@ angular.module('GoogleMapsService', [])
             for (var i = 0; i < results.length; i++) {
               
               var POI = results[i];
+              var scopePOI = results;
+
+              deffered.resolve(scopePOI);
               
               GoogleMaps.addPOIMarker(POI, map);
             }
           }
 
         });
-      }, 
+        return deffered.promise;
+      };
 
-      addPOIMarker: function addPOIMarker(POI, map) {
+      GoogleMaps.addPOIMarker = function(POI, map) {
           var marker;
           // var markers = [];
           var placeLoc = POI.geometry.location;
@@ -192,13 +200,11 @@ angular.module('GoogleMapsService', [])
               infowindow.open(map, this);
           });
 
-      }, 
+      };
 
-      midPoint: function midPoint(midpoint) {
+      GoogleMaps.midPoint = function(midpoint) {
         return midpoint;
-      }
-
-  } 
+      };
 
   return GoogleMaps;
 
