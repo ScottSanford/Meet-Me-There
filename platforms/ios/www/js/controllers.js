@@ -1,31 +1,16 @@
 angular.module('starter.controllers', [])
 
-.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorage, Meetups) {
+.controller('SearchCtrl', function($scope, $location, GoogleMaps, localStorageService, Meetups) {
 
     function displayOnlyActiveMeetups() {
-      var activeMeetups = localStorage.getItem('meetupList');
-      var aMeetups = [];
-      for (var i = 0; i < activeMeetups.length; i++) {
-        if (activeMeetups[i].checked) {
-          aMeetups.push(activeMeetups[i]);
-        }
-      }
-      return aMeetups;
+      return localStorageService.get('meetupList').filter(function(meetup){
+        return meetup.checked;
+      });
     }
 
     $scope.places = displayOnlyActiveMeetups();
 
-    $scope.getDirections = function(pointB) {
-      // user types in 'work', brings up work address
-      console.log('clicked');
-      var workAdd = localStorage.getItem('work').formatted_address;
-
-      //local storage
-      if (pointB === 'work') {
-        return pointB = workAdd;
-        console.log('pointB :: ', pointB);
-      }
-
+    $scope.getDirections = function(pointA, pointB) {
       // obj for meetups on Search View
       var placesObj = $scope.places;
 
@@ -41,9 +26,12 @@ angular.module('starter.controllers', [])
         return place.id;
       });
 
-
       // reroute user to map page with query string
-      $location.url('/tabs/map?pointB=' + pointB.formatted_address + '&typeID=' + typeID);
+      if (pointA === undefined) {
+        $location.url('/tabs/map?pointA=' + pointA + '&pointB=' + pointB.formatted_address + '&typeID=' + typeID);
+      } else {
+        $location.url('/tabs/map?pointA=' + pointA.formatted_address + '&pointB=' + pointB.formatted_address + '&typeID=' + typeID); 
+      }
     };
 
 })
@@ -51,52 +39,58 @@ angular.module('starter.controllers', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $window,
   $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, queryString) {
+  GoogleMaps, queryString, $timeout) {
+
+      var userLocation;
+      initialize(userLocation);
+      
+      function initialize(userLocation) {
+        // set global variables
+        var directionDisplay;
+        var map;
+        var marker;
+        var service;
+        var infowindow;
+        var polyline = null;
+
+        // set variables for parameters
+        var pointA = $stateParams.pointA;
+        var pointB = $stateParams.pointB;
+
+        // init loading message
+        $scope.loading = $ionicLoading.show({
+          template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
+                     '<p class="loading-text">Finding meetups...</p>'
+        });
 
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
           .getCurrentPosition()
           .then(function (position) {
 
-          // set global variables
-          var directionDisplay;
-          var map;
-          var marker;
-          var service;
-          var infowindow;
-          var polyline = null;
-          var userLocation = {
-              lat: position.coords.latitude, 
-              lng: position.coords.longitude
-          };
-
-          var pointB = $stateParams.pointB;
-          // init Google Maps 
-          initialize(userLocation);
-
-          function initialize(userLocation) {
-
-            GoogleMaps.initGoogleMap(userLocation);
+            userLocation = {
+                lat: position.coords.latitude, 
+                lng: position.coords.longitude
+            };
+            
+            $scope.map = GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
 
               var typeID = queryString.selectedTypeArray();
 
               // Calculate route, midpoint, all that jazz!
-              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointB, typeID); 
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
+                $scope.results = results;
+              }); 
 
             }
 
             $ionicLoading.hide();
 
-          }
         });
+      }
 
-
-          $scope.loading = $ionicLoading.show({
-            template: '<img src="img/logo_blank.png" class="loading-icon">' +
-                       '<p class="loading-text">Preparing Map...</p>'
-          });
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
@@ -113,7 +107,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, localStorage, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
+.controller('SettingsCtrl', function($scope, localStorageService, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
 
 
   $scope.goBack = function() {
@@ -122,8 +116,8 @@ angular.module('starter.controllers', [])
 
   // Save Work and Home Address
 
-  var home = localStorage.getItem('home');
-  var work = localStorage.getItem('work');
+  var home = localStorageService.get('home');
+  var work = localStorageService.get('work');
 
   if (home == undefined) {
     $scope.userHomeAddress = 'Enter your home address';
@@ -133,8 +127,8 @@ angular.module('starter.controllers', [])
     $scope.userWorkAddress = 'Enter your work address'; 
   } else {
 
-    var homeAdd = localStorage.getItem('home').formatted_address;
-    var workAdd = localStorage.getItem('work').formatted_address;
+    var homeAdd = localStorageService.get('home').formatted_address;
+    var workAdd = localStorageService.get('work').formatted_address;
 
     $scope.userHomeAddress = homeAdd;
     $scope.userWorkAddress = workAdd;
@@ -144,21 +138,21 @@ angular.module('starter.controllers', [])
   $scope.saveChanges = function(homeAddress, workAddress) {
     console.log("Home Address :: " , homeAddress);
     console.log("Work Address :: " , workAddress);
-    localStorage.submit('home', homeAddress);
-    localStorage.submit('work', workAddress);
+    localStorageService.set('home', homeAddress);
+    localStorageService.set('work', workAddress);
   }
 
 
   // Meetup Logic Starts here
 
   function initMeetupList() {
-    var lsKeys = localStorage.getKeys();
+    var lsKeys = localStorageService.deriveKey();
     for (var i=0; i< lsKeys.length; i++) {
       if (lsKeys[i] === 'meetupList') {
-        var lsList = localStorage.getItem('meetupList');
+        var lsList = localStorageService.get('meetupList');
         return lsList;
       } else {
-        localStorage.submit('meetupList', Meetups.types);
+        localStorageService.set('meetupList', Meetups.types);
         return Meetups.types;
       }
     }    
@@ -167,7 +161,13 @@ angular.module('starter.controllers', [])
   $scope.meetups = initMeetupList();
 
   $scope.updateLocalStorage = function(meetup) {
-    localStorage.bind($scope, 'meetups', null, 'meetupList');
+    var meetupList = localStorageService.get('meetupList');
+    meetupList.forEach(function(m){
+      if (m.id === meetup.id) {
+        m.checked = meetup.checked;
+      }
+    })
+    localStorageService.set('meetupList', meetupList);
   }
   
 

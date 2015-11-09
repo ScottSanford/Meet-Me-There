@@ -41,32 +41,39 @@ angular.module('starter.controllers', [])
   $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, queryString, $timeout) {
 
+      var userLocation;
+      ionic.Platform.ready(initialize);
+      
+      function initialize(userLocation) {
+        // set global variables
+        var directionDisplay;
+        var map;
+        var marker;
+        var service;
+        var infowindow;
+        var polyline = null;
+
+        // set variables for parameters
+        var pointA = $stateParams.pointA;
+        var pointB = $stateParams.pointB;
+
+        // init loading message
+        $scope.loading = $ionicLoading.show({
+          template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
+                     '<p class="loading-text">Finding meetups...</p>'
+        });
+
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
           .getCurrentPosition()
           .then(function (position) {
 
-          // set global variables
-          var directionDisplay;
-          var map;
-          var marker;
-          var service;
-          var infowindow;
-          var polyline = null;
-          var userLocation = {
-              lat: position.coords.latitude, 
-              lng: position.coords.longitude
-          };
+            userLocation = {
+                lat: position.coords.latitude, 
+                lng: position.coords.longitude
+            };
 
-
-          var pointA = $stateParams.pointA;
-          var pointB = $stateParams.pointB;
-          // init Google Maps 
-          initialize(userLocation);
-
-          function initialize(userLocation) {
-
-            GoogleMaps.initGoogleMap(userLocation);
+            $scope.map = GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
 
@@ -81,14 +88,9 @@ angular.module('starter.controllers', [])
 
             $ionicLoading.hide();
 
-          }
         });
+      }
 
-
-          $scope.loading = $ionicLoading.show({
-            template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
-                       '<p class="loading-text">Finding meetups...</p>'
-          });
 
           $scope.ratingStates = [
             {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
