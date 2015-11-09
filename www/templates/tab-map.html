@@ -1,14 +1,14 @@
 <ion-view view-title="Meet Me There" hide-nav-bar="true">
 
-    <ion-content>
-        <div id="map" data-tap-disabled="true"></div> 
+    <ion-content data-tap-disabled="true">
+        <div id="map"></div> 
     </ion-content>
 
 
-    <ion-drawer-vertical-wrapper class="has-tabs" direction="up" state="closed" autoclose-on-scroll>
+    <ion-drawer-vertical-wrapper class="has-tabs" direction="up" state="closed" autoclose-on-scroll ng-show="pointB">
       <ion-drawer-vertical-content>
 
-        <ion-scroll direction="y" style="height:500px">
+        <ion-scroll direction="y" style="height:50vh">
         <div>
           <div class="list">
           <div class="item item-divider">Nearby Locations</div>
@@ -17,7 +17,7 @@
             <div class="item padding-right" ng-repeat="result in results">
               <div class="row">
                 <div class="col col-50">
-                  <div>{{result.name}}</div> 
+                  <div class="ellipsis">{{result.name}}</div> 
                   <rating 
                       ng-model="result.rating" 
                       readonly="true">
@@ -29,11 +29,11 @@
                       state-off="'null'">
                   </rating>
                 </div>
-                <div class="col">
+                <div class="col" ng-click="sendTextMessage(result.name,result.vicinity)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>
                   <div class="icon-text">Share</div>
                 </div>
-                <div class="col">
+                <div class="col" ng-click="openGoogleMapsApp(result.vicinity)">
                   <span class="icon ion-map map-icon"></span>
                   <div class="icon-text">Directions</div>
                 </div>

@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $window,
   $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, queryString, $timeout) {
+  GoogleMaps, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability) {
 
       var userLocation;
       ionic.Platform.ready(initialize);
@@ -56,6 +56,8 @@ angular.module('starter.controllers', [])
         // set variables for parameters
         var pointA = $stateParams.pointA;
         var pointB = $stateParams.pointB;
+
+        $scope.pointB = pointB;
 
         // init loading message
         $scope.loading = $ionicLoading.show({
@@ -81,6 +83,7 @@ angular.module('starter.controllers', [])
 
               // Calculate route, midpoint, all that jazz!
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
+                $scope.letterLimit = 15;
                 $scope.results = results;
               }); 
 
@@ -88,18 +91,57 @@ angular.module('starter.controllers', [])
 
             $ionicLoading.hide();
 
+
+            $scope.openGoogleMapsApp = function(address) {
+
+              console.log('userLocation :: ' , userLocation);
+
+              var scheme = {
+                url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
+              }
+
+              $cordovaAppAvailability.check(scheme.url).then(function(){
+                console.log('open Google Maps Success!');
+              });
+
+            }
+
         });
       }
 
+      // star ratings (put in service)
+      $scope.ratingStates = [
+        {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+        {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+        {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+        {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
+        {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
+      ]
 
-          $scope.ratingStates = [
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
-            {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
-          ]
+      $scope.sendTextMessage = function(name, address) {
 
+        var sms = {
+          number: '', 
+          message: name + " :" + address
+        }
+
+        var options = {
+          replaceLineBreaks: false
+        }
+
+        $cordovaSms.send(sms.number, sms.message, options).then(function() {
+          // Success! SMS was sent
+          console.log('message sent!');
+
+          $cordovaToast.show('Your message was sent!', 'short', 'center').then(function(){
+            console.log('toast message sent success!');
+          })
+        }, function(error) {
+          // An error occurred
+          console.log('message failed');
+        });
+
+      }
 
         
 
