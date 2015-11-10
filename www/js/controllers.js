@@ -39,19 +39,30 @@ angular.module('starter.controllers', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $window,
   $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability) {
+  GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService) {
+
+      console.log("Not initialize");
 
       var userLocation;
-      ionic.Platform.ready(initialize);
+      var directionsDisplay;
+      var map;
+      var marker;
+      var service;
+      var infowindow;
+      var polyline = null;
       
-      function initialize(userLocation) {
+      // init loading message
+      $scope.loading = $ionicLoading.show({
+        template: '<img src="img/icon.png" class="loading-icon">' +
+                   '<p class="loading-text">Finding meetups...</p>'
+      });
+
+      google.maps.event.addDomListener(window, 'load', initialize(userLocation));
+      // initialize(userLocation);
+     function initialize(userLocation) {
+
+        console.log("Initialize");
         // set global variables
-        var directionDisplay;
-        var map;
-        var marker;
-        var service;
-        var infowindow;
-        var polyline = null;
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -59,11 +70,6 @@ angular.module('starter.controllers', [])
 
         $scope.pointB = pointB;
 
-        // init loading message
-        $scope.loading = $ionicLoading.show({
-          template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
-                     '<p class="loading-text">Finding meetups...</p>'
-        });
 
         // get position of user and then set the center of the map to that position
         $cordovaGeolocation
@@ -75,7 +81,12 @@ angular.module('starter.controllers', [])
                 lng: position.coords.longitude
             };
 
-            $scope.map = GoogleMaps.initGoogleMap(userLocation);
+            userLocation = {
+                lat: 41.8906316, 
+                lng: -87.62422939999999
+            }
+
+            GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
 
@@ -83,8 +94,18 @@ angular.module('starter.controllers', [])
 
               // Calculate route, midpoint, all that jazz!
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
-                $scope.letterLimit = 15;
                 $scope.results = results;
+
+                function displayOnlyActiveMeetups() {
+                  return localStorageService.get('meetupList').filter(function(meetup){
+                    return meetup.checked;
+                  });
+                }
+
+                $scope.titles = displayOnlyActiveMeetups();
+              }, function(error){
+                console.log(error);
+                $scope.noresults = "Sorry, there were no close meet up locations. Please try again!";
               }); 
 
             }
@@ -107,7 +128,7 @@ angular.module('starter.controllers', [])
             }
 
         });
-      }
+      };
 
       // star ratings (put in service)
       $scope.ratingStates = [
@@ -141,7 +162,7 @@ angular.module('starter.controllers', [])
           console.log('message failed');
         });
 
-      }
+      };
 
         
 

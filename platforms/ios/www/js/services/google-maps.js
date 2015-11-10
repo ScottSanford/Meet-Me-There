@@ -5,7 +5,8 @@ angular.module('GoogleMapsService', [])
   var totalDist = 0;
 
   var GoogleMaps = {
-    POI: null
+    POI: null, 
+    pLine: null
   }; 
 
       GoogleMaps.initGoogleMap = function(userLocation) {
@@ -34,24 +35,26 @@ angular.module('GoogleMapsService', [])
             infowindow.open(map,marker);
           });
 
-          // polyline for later use of MidPoint
-          polyline = new google.maps.Polyline({
-            path: [],
-            strokeColor: '#FF0000',
-            strokeWeight: 0
-          });
+          // // polyline for later use of MidPoint
+          // polyline = new google.maps.Polyline({
+          //   path: [],
+          //   strokeColor: '#FF0000',
+          //   strokeWeight: 0
+          // });
 
-          // // show directions
-          directionsDisplay.setMap(map);
+          // // // show directions
+          // directionsDisplay.setMap(map);
 
-          pLine = polyline;
-          map = map;
+          // pLine = polyline;
+          // map = map;
 
-          // return variables for other functions
-          return googleMap = {
-              pLine: pLine,
-              map: map
-          };  
+          // // return variables for other functions
+          // return googleMap = {
+          //     pLine: pLine,
+          //     map: map
+          // };  
+
+          // GoogleMaps.pLine = pline;
       };
 
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {

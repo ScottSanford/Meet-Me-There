@@ -5,17 +5,20 @@
     </ion-content>
 
 
-    <ion-drawer-vertical-wrapper class="has-tabs" direction="up" state="closed" autoclose-on-scroll>
+    <ion-drawer-vertical-wrapper class="has-tabs" direction="up" state="closed" autoclose-on-scroll ng-show="pointB">
       <ion-drawer-vertical-content>
+
+        <ion-scroll direction="y" style="height:50vh">
         <div>
           <div class="list">
-          <div class="item item-divider">Nearby Locations</div>
-            <div class="item item-divider">
-            </div>
-            <div class="item padding-right" ng-repeat="result in results">
+          <div class="item item-divider nearby-locations">Nearby Locations</div>
+<!--             <div class="item item-divider" ng-repeat="title in titles">
+              {{title.plural}}
+            </div> -->
+            <div class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
                 <div class="col col-50">
-                  <div>{{result.name}}</div> 
+                  <div class="ellipsis">{{result.name}}</div> 
                   <rating 
                       ng-model="result.rating" 
                       readonly="true">
@@ -27,18 +30,22 @@
                       state-off="'null'">
                   </rating>
                 </div>
-                <div class="col">
+                <div class="col" ng-click="sendTextMessage(result.name,result.vicinity)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>
                   <div class="icon-text">Share</div>
                 </div>
-                <div class="col">
+                <div class="col" ng-click="openGoogleMapsApp(result.vicinity)">
                   <span class="icon ion-map map-icon"></span>
                   <div class="icon-text">Directions</div>
                 </div>
               </div>
+              <div class="row">
+                  {{noresults}}
+              </div>
             </div>
           </div>
         </div>
+        </ion-scroll>
       </ion-drawer-vertical-content>
       <ion-drawer-vertical-handle />
     </ion-drawer-vertical-wrapper>

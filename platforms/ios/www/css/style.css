@@ -143,22 +143,25 @@ ion-content.meeting-places {
 	top:400px;
 }
 
-.vertical-list {
-	height:500px;
-}
-
-ion-scroll[direction=y] {
-  	height: 100px;
-}
-
 .padding-right {
 	padding-right: 0;
+}
+
+.nearby-locations {
+	font-size:17pt;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 
 .share-icon, .map-icon {
 	display: block;
 	text-align: center;
-	font-size: 2.5em;
+	font-size: 1.7em;
 }
 
 .icon-text {
@@ -168,18 +171,18 @@ ion-scroll[direction=y] {
 .glyphicon-star {
 	color:#E7731E;
 	letter-spacing: -3px;
-	font-size:1.2em;
+	font-size:1em;
 }
 
 .glyphicon-star-empty {
 	color:#cfcfcf;
 	letter-spacing: -3px;
-	font-size:1.2em;
+	font-size:1em;
 }
 
 .glyphicon-usd {
 	letter-spacing: -7px;
-	font-size:1em;
+	font-size:.8em;
 }
 /*===============================================================
 						Settings Tab
