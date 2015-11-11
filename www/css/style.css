@@ -34,10 +34,6 @@ a:active, a:hover {
 	color:#10C49D;
 }
 
-.tab-item .activated {
-	color:#10C49D;
-}
-
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 	color:#10C49D;
 	text-decoration: none;
@@ -95,9 +91,9 @@ ion-content.meeting-places {
 	font-size: 20px;
 }
 
-.button:active {
-	background-color: :#10C49D;
-	border-color: :#10C49D;
+.button.button-positive.activated {
+	background-color:#0c9577;
+	border-color:#0c9577;
 }
 
 .meet-me-there-btn {

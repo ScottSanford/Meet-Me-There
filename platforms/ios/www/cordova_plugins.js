@@ -1,10 +1,10 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.ionic.keyboard/www/keyboard.js",
-        "id": "com.ionic.keyboard.keyboard",
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
         "clobbers": [
-            "cordova.plugins.Keyboard"
+            "device"
         ]
     },
     {
@@ -22,13 +22,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
         "id": "cordova-plugin-splashscreen.SplashScreen",
         "clobbers": [
@@ -36,50 +29,50 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.pushandplay.cordova.apprate/www/AppRate.js",
-        "id": "org.pushandplay.cordova.apprate.AppRate",
+        "file": "plugins/com.ionic.keyboard/www/keyboard.js",
+        "id": "com.ionic.keyboard.keyboard",
         "clobbers": [
-            "AppRate"
+            "cordova.plugins.Keyboard"
         ]
     },
     {
-        "file": "plugins/org.pushandplay.cordova.apprate/www/locales.js",
-        "id": "org.pushandplay.cordova.apprate.locales",
-        "runs": true
-    },
-    {
-        "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
-        "id": "org.apache.cordova.dialogs.notification",
-        "merges": [
-            "navigator.notification"
+        "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+        "id": "cordova-plugin-geolocation.Coordinates",
+        "clobbers": [
+            "Coordinates"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.globalization/www/GlobalizationError.js",
-        "id": "org.apache.cordova.globalization.GlobalizationError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "id": "cordova-plugin-geolocation.PositionError",
         "clobbers": [
-            "window.GlobalizationError"
+            "PositionError"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.globalization/www/globalization.js",
-        "id": "org.apache.cordova.globalization.globalization",
+        "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+        "id": "cordova-plugin-geolocation.Position",
         "clobbers": [
-            "navigator.globalization"
+            "Position"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+        "id": "cordova-plugin-geolocation.geolocation",
+        "clobbers": [
+            "navigator.geolocation"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.ionic.keyboard": "1.0.4",
-    "cordova-plugin-console": "1.0.1",
     "cordova-plugin-device": "1.0.1",
-    "cordova-plugin-splashscreen": "2.1.0",
+    "cordova-plugin-console": "1.0.1",
     "cordova-plugin-whitelist": "1.0.0",
-    "org.pushandplay.cordova.apprate": "1.1.7",
-    "org.apache.cordova.dialogs": "0.3.0",
-    "org.apache.cordova.globalization": "0.3.4"
+    "cordova-plugin-splashscreen": "2.1.0",
+    "com.ionic.keyboard": "1.0.4",
+    "cordova-plugin-geolocation": "1.0.2-dev"
 }
 // BOTTOM OF METADATA
 });

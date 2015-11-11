@@ -31,15 +31,15 @@ body {
 
 a:active, a:hover {
 	text-decoration: none;
-	color:#e55433;
+	color:#10C49D;
 }
 
 .tab-item .activated {
-	color:#e55433;
+	color:#10C49D;
 }
 
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
-	color:#e55433;
+	color:#10C49D;
 	text-decoration: none;
 }
 
@@ -48,7 +48,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 						Search Tab
 ================================================================*/
 .main-header {
-	background-color: #e55433;
+	background-color: #10C49D;
 	color:#fff;
 }
 
@@ -90,14 +90,14 @@ ion-content.meeting-places {
 }
 
 .button.button-positive {
-	background-color:#e55433;
-	border-color:#e55433;
+	background-color:#10C49D;
+	border-color:#10C49D;
 	font-size: 20px;
 }
 
 .button:active {
-	background-color: :#e03619;
-	border-color: :#e03619;
+	background-color: :#10C49D;
+	border-color: :#10C49D;
 }
 
 .meet-me-there-btn {
@@ -108,7 +108,7 @@ ion-content.meeting-places {
 ================================================================*/
 .loading-container .loading {
 	padding:10px 15px 0 15px;
-	background-color: #e55433;
+	background-color: #10C49D;
 	opacity: .9;
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.app749812" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>app</name>
+  <name>Meet Me There</name>
   <description>
-        An Ionic Framework and Cordova project.
+        An app that takes the user's location and your friend's location and finds places to meet up in the middle.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="ssanford@mediafly.com" href="http://mediafly.com/">
+      Scott Sanford
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -18,6 +18,9 @@
   <preference name="SplashScreenDelay" value="3000"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <feature name="Geolocation">
+    <param name="ios-package" value="CDVLocation" />
   </feature>
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>

@@ -41,8 +41,6 @@ angular.module('starter.controllers', [])
   $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService) {
 
-      console.log("Not initialize");
-
       var userLocation;
       var directionsDisplay;
       var map;
@@ -57,12 +55,14 @@ angular.module('starter.controllers', [])
                    '<p class="loading-text">Finding meetups...</p>'
       });
 
-      google.maps.event.addDomListener(window, 'load', initialize(userLocation));
+      if (document.readyState === "complete") {
+        initialize(userLocation);
+      } else {
+        google.maps.event.addDomListener(window, 'load', initialize);
+      }
+      
       // initialize(userLocation);
      function initialize(userLocation) {
-
-        console.log("Initialize");
-        // set global variables
 
         // set variables for parameters
         var pointA = $stateParams.pointA;

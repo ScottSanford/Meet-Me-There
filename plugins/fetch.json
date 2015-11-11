@@ -39,29 +39,13 @@
         "is_top_level": true,
         "variables": {}
     },
-    "org.pushandplay.cordova.apprate": {
+    "cordova-plugin-geolocation": {
         "source": {
             "type": "git",
-            "url": "https://github.com/pushandplay/cordova-plugin-apprate.git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git",
             "subdir": "."
         },
         "is_top_level": true,
-        "variables": {}
-    },
-    "org.apache.cordova.dialogs": {
-        "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.dialogs"
-        },
-        "is_top_level": false,
-        "variables": {}
-    },
-    "org.apache.cordova.globalization": {
-        "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.globalization"
-        },
-        "is_top_level": false,
         "variables": {}
     }
 }

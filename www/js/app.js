@@ -22,7 +22,8 @@ angular.module('mmtApp', [
   'ngCordova.plugins.appRate', 
   'queryString', 
   'meetups', 
-  'ngMessages'
+  'ngMessages',
+  'ngIOS9UIWebViewPatch'
 ])
 
 

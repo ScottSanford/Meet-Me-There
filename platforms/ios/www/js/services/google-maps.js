@@ -35,26 +35,26 @@ angular.module('GoogleMapsService', [])
             infowindow.open(map,marker);
           });
 
-          // // polyline for later use of MidPoint
-          // polyline = new google.maps.Polyline({
-          //   path: [],
-          //   strokeColor: '#FF0000',
-          //   strokeWeight: 0
-          // });
+          // polyline for later use of MidPoint
+          polyline = new google.maps.Polyline({
+            path: [],
+            strokeColor: '#FF0000',
+            strokeWeight: 0
+          });
 
-          // // // show directions
-          // directionsDisplay.setMap(map);
+          // // show directions
+          directionsDisplay.setMap(map);
 
-          // pLine = polyline;
-          // map = map;
+          pLine = polyline;
+          map = map;
 
-          // // return variables for other functions
-          // return googleMap = {
-          //     pLine: pLine,
-          //     map: map
-          // };  
+          // return variables for other functions
+          return googleMap = {
+              pLine: pLine,
+              map: map
+          };  
 
-          // GoogleMaps.pLine = pline;
+          GoogleMaps.pLine = pline;
       };
 
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
@@ -109,13 +109,15 @@ angular.module('GoogleMapsService', [])
             position: latlng,
             map: map,
             title: label,
-            zIndex: Math.round(latlng.lat()*-100000)<<5
+            zIndex: Math.round(latlng.lat()*-100000)<<5, 
+            icon: 'img/marker.png'
         });
         marker.myname  = label;
         var infowindow = new google.maps.InfoWindow();
 
         google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6)); 
+            infowindow.setContent(contentString+"<br>"); 
+            console.log(marker);
             infowindow.open(map,marker);
             });
         return marker;
@@ -141,7 +143,7 @@ angular.module('GoogleMapsService', [])
 
         if (!marker) {
 
-            marker = GoogleMaps.createMarker(midpoint,"midPoint","this is the midpoint of the locations.", map);
+            marker = GoogleMaps.createMarker(midpoint,"Midpoint","This is the midpoint of the locations.", map);
             return GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
 
         } else {                

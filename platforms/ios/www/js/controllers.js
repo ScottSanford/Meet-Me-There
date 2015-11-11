@@ -41,8 +41,6 @@ angular.module('starter.controllers', [])
   $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService) {
 
-      console.log("Not initialize");
-
       var userLocation;
       var directionsDisplay;
       var map;
@@ -52,17 +50,19 @@ angular.module('starter.controllers', [])
       var polyline = null;
       
       // init loading message
-      // $scope.loading = $ionicLoading.show({
-      //   template: '<img src="img/meet-me-there-logo-no-background.png" class="loading-icon">' +
-      //              '<p class="loading-text">Finding meetups...</p>'
-      // });
+      $scope.loading = $ionicLoading.show({
+        template: '<img src="img/icon.png" class="loading-icon">' +
+                   '<p class="loading-text">Finding meetups...</p>'
+      });
 
-      google.maps.event.addDomListener(window, 'load', initialize(userLocation));
+      if (document.readyState === "complete") {
+        initialize(userLocation);
+      } else {
+        google.maps.event.addDomListener(window, 'load', initialize);
+      }
+      
       // initialize(userLocation);
      function initialize(userLocation) {
-
-        console.log("Initialize");
-        // set global variables
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -72,62 +72,62 @@ angular.module('starter.controllers', [])
 
 
         // get position of user and then set the center of the map to that position
-        // $cordovaGeolocation
-        //   .getCurrentPosition()
-        //   .then(function (position) {
+        $cordovaGeolocation
+          .getCurrentPosition()
+          .then(function (position) {
 
-        //     userLocation = {
-        //         lat: position.coords.latitude, 
-        //         lng: position.coords.longitude
-        //     };
+            userLocation = {
+                lat: position.coords.latitude, 
+                lng: position.coords.longitude
+            };
 
             userLocation = {
                 lat: 41.8906316, 
                 lng: -87.62422939999999
             }
 
-            $scope.map = GoogleMaps.initGoogleMap(userLocation);
+            GoogleMaps.initGoogleMap(userLocation);
 
-            // if ($stateParams.pointB) {
+            if ($stateParams.pointB) {
 
-            //   var typeID = queryString.selectedTypeArray();
+              var typeID = queryString.selectedTypeArray();
 
-            //   // Calculate route, midpoint, all that jazz!
-            //   GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
-            //     $scope.results = results;
+              // Calculate route, midpoint, all that jazz!
+              GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
+                $scope.results = results;
 
-            //     function displayOnlyActiveMeetups() {
-            //       return localStorageService.get('meetupList').filter(function(meetup){
-            //         return meetup.checked;
-            //       });
-            //     }
+                function displayOnlyActiveMeetups() {
+                  return localStorageService.get('meetupList').filter(function(meetup){
+                    return meetup.checked;
+                  });
+                }
 
-            //     $scope.titles = displayOnlyActiveMeetups();
-            //   }, function(error){
-            //     console.log(error);
-            //     $scope.noresults = "Sorry, there were no close meet up locations. Please try again!";
-            //   }); 
+                $scope.titles = displayOnlyActiveMeetups();
+              }, function(error){
+                console.log(error);
+                $scope.noresults = "Sorry, there were no close meet up locations. Please try again!";
+              }); 
 
-            // }
+            }
 
-            // $ionicLoading.hide();
+            $ionicLoading.hide();
 
 
-            // $scope.openGoogleMapsApp = function(address) {
+            $scope.openGoogleMapsApp = function(address) {
 
-            //   console.log('userLocation :: ' , userLocation);
+              console.log('userLocation :: ' , userLocation);
 
-            //   var scheme = {
-            //     url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
-            //   }
+              var scheme = {
+                url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
+              }
 
-            //   $cordovaAppAvailability.check(scheme.url).then(function(){
-            //     console.log('open Google Maps Success!');
-            //   });
+              $cordovaAppAvailability.check(scheme.url).then(function(){
+                console.log('open Google Maps Success!');
+              });
 
-            // }
+            }
 
-        // });
+        });
       };
 
       // star ratings (put in service)
