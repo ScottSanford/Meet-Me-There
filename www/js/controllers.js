@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $window,
   $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService) {
+  GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService, $timeout) {
 
       var userLocation;
       var directionsDisplay;
@@ -55,14 +55,14 @@ angular.module('starter.controllers', [])
                    '<p class="loading-text">Finding meetups...</p>'
       });
 
+      // init google maps
       if (document.readyState === "complete") {
-        initialize(userLocation);
+        initialize();
       } else {
         google.maps.event.addDomListener(window, 'load', initialize);
       }
-      
-      // initialize(userLocation);
-     function initialize(userLocation) {
+
+    function initialize(userLocation) {
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -80,11 +80,6 @@ angular.module('starter.controllers', [])
                 lat: position.coords.latitude, 
                 lng: position.coords.longitude
             };
-
-            userLocation = {
-                lat: 41.8906316, 
-                lng: -87.62422939999999
-            }
 
             GoogleMaps.initGoogleMap(userLocation);
 
@@ -110,7 +105,7 @@ angular.module('starter.controllers', [])
 
             }
 
-            $ionicLoading.hide();
+            $ionicLoading.hide(); 
 
 
             $scope.openGoogleMapsApp = function(address) {
@@ -125,12 +120,12 @@ angular.module('starter.controllers', [])
                 console.log('open Google Maps Success!');
               });
 
-            }
+            };
 
         });
       };
 
-      // star ratings (put in service)
+      // $$ expensive ratings (put in service)
       $scope.ratingStates = [
         {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},
         {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'},

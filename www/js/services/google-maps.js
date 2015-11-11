@@ -10,11 +10,12 @@ angular.module('GoogleMapsService', [])
   }; 
 
       GoogleMaps.initGoogleMap = function(userLocation) {
+
           directionsDisplay = new google.maps.DirectionsRenderer();
 
           var styles = [{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#C6E2FF"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#C5E3BF"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#D1D1B8"}]}];
 
-          // Create a new StyledMapType object
+          // // Create a new StyledMapType object
           var styledMap = new google.maps.StyledMapType(styles,
           {name: "Styled Map"});
           
@@ -22,13 +23,14 @@ angular.module('GoogleMapsService', [])
           var myOptions = {
             zoom: 14,
             mapTypeControlOptions: {
-              mapTypeId: [google.maps.MapTypeId.ROADMAP, 'map_style' ]      
+            mapTypeId: [google.maps.MapTypeId.ROADMAP,'map_style']
             },
             center: userLocation
           }
 
           // google map
           map = new google.maps.Map(document.getElementById("map"), myOptions);
+
           map.mapTypes.set('map_style', styledMap);
           map.setMapTypeId('map_style');
 
@@ -64,7 +66,6 @@ angular.module('GoogleMapsService', [])
               map: map
           };  
 
-          GoogleMaps.pLine = pline;
       };
 
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
