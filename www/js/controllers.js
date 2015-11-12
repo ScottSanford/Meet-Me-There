@@ -41,7 +41,6 @@ angular.module('starter.controllers', [])
   $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService, $timeout) {
 
-      var userLocation;
       var directionsDisplay;
       var map;
       var marker;
@@ -50,19 +49,17 @@ angular.module('starter.controllers', [])
       var polyline = null;
       
       // init loading message
-      $scope.loading = $ionicLoading.show({
-        template: '<img src="img/icon.png" class="loading-icon">' +
-                   '<p class="loading-text">Finding meetups...</p>'
-      });
+      // $scope.loading = $ionicLoading.show({
+      //   template: '<img src="img/icon.png" class="loading-icon">' +
+      //              '<p class="loading-text">Finding meetups...</p>'
+      // });
 
-      // init google maps
-      if (document.readyState === "complete") {
-        initialize();
-      } else {
-        google.maps.event.addDomListener(window, 'load', initialize);
-      }
+      // initalize() seems to work just fine...no need google.maps.event.addDomListener(w,l,i);
+      initialize();
 
-    function initialize(userLocation) {
+      function initialize() {
+
+        console.log('Init function');
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -76,7 +73,7 @@ angular.module('starter.controllers', [])
           .getCurrentPosition()
           .then(function (position) {
 
-            userLocation = {
+            var userLocation = {
                 lat: position.coords.latitude, 
                 lng: position.coords.longitude
             };
@@ -228,6 +225,10 @@ angular.module('starter.controllers', [])
     localStorageService.set('meetupList', meetupList);
   }
   
+  $scope.changedRadiusRange = function(range) {
+    console.log(range);
+    localStorageService.set('radiusRange', range);
+  }
 
 
   // Rate the App

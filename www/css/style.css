@@ -246,3 +246,15 @@ ion-content.meeting-places {
 	padding:0 20px;
 	font-size:11pt;
 }
+
+/*===============================================================
+						Radius Range Tab
+================================================================*/
+.range-balance {
+	color:#10C49D;
+}
+
+.range-result {
+	text-align: center;
+	margin-top:15px;
+}
