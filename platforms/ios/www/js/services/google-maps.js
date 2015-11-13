@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function($q) {
+.factory('GoogleMaps', function($q, localStorageService) {
   
   var totalDist = 0;
 
@@ -168,9 +168,10 @@ angular.module('GoogleMapsService', [])
       GoogleMaps.googlePlaceSearch = function(midpoint, map, typeID) {
         var deffered = $q.defer();
         var service;
+        var lsRadius = localStorageService.get('radiusRange');
         var request = {
           location: midpoint, 
-          radius: 800, // .50 mile radius
+          radius: lsRadius != null ? lsRadius : 800, // .50 mile radius
           types: typeID
         }
 

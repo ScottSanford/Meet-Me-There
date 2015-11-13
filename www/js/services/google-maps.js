@@ -175,8 +175,6 @@ angular.module('GoogleMapsService', [])
           types: typeID
         }
 
-        console.log(request.radius);
-
         service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {

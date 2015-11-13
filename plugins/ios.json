@@ -27,6 +27,14 @@
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Sms\"><param name=\"ios-package\" value=\"Sms\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppAvailability\"><param name=\"ios-package\" value=\"AppAvailability\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -42,6 +50,12 @@
                     "CoreLocation.framework": [
                         {
                             "xml": false,
+                            "count": 1
+                        }
+                    ],
+                    "MessageUI.framework": [
+                        {
+                            "xml": true,
                             "count": 1
                         }
                     ]
@@ -76,6 +90,12 @@
             "PACKAGE_NAME": "com.ionicframework.app749812"
         },
         "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.app749812"
+        },
+        "com.cordova.plugins.sms": {
+            "PACKAGE_NAME": "com.ionicframework.app749812"
+        },
+        "cordova-plugin-appavailability": {
             "PACKAGE_NAME": "com.ionicframework.app749812"
         }
     },

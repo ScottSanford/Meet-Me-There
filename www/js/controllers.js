@@ -37,9 +37,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GoogleMapCtrl', function(
-  $scope, $state, $window,
-  $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, Meetups, queryString, $cordovaSms, $cordovaToast, $cordovaAppAvailability, localStorageService, $timeout) {
+  $scope, $state, $stateParams, $cordovaGeolocation, $ionicLoading, 
+  GoogleMaps, Meetups, queryString, localStorageService,
+  $cordovaSms, $cordovaToast, $cordovaAppAvailability) {
 
       var directionsDisplay;
       var map;
@@ -47,19 +47,10 @@ angular.module('starter.controllers', [])
       var service;
       var infowindow;
       var polyline = null;
-      
-      // init loading message
-      // $scope.loading = $ionicLoading.show({
-      //   template: '<img src="img/icon.png" class="loading-icon">' +
-      //              '<p class="loading-text">Finding meetups...</p>'
-      // });
 
-      // initalize() seems to work just fine...no need google.maps.event.addDomListener(w,l,i);
       initialize();
 
       function initialize() {
-
-        console.log('Init function');
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -78,9 +69,15 @@ angular.module('starter.controllers', [])
                 lng: position.coords.longitude
             };
 
+            // $scope.loading = $ionicLoading.show({
+            //   template: '<img src="img/icon.png" class="loading-icon">' +
+            //            '<p class="loading-text">Finding meetups...</p>'
+            // });
+
             GoogleMaps.initGoogleMap(userLocation);
 
             if ($stateParams.pointB) {
+
 
               var typeID = queryString.selectedTypeArray();
 
@@ -102,20 +99,22 @@ angular.module('starter.controllers', [])
 
             }
 
-            $ionicLoading.hide(); 
+            // $ionicLoading.hide(); 
 
 
             $scope.openGoogleMapsApp = function(address) {
 
-              console.log('userLocation :: ' , userLocation);
+              document.addEventListener("deviceready, function()")
 
-              var scheme = {
-                url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
-              }
+                console.log('userLocation :: ' , userLocation);
 
-              $cordovaAppAvailability.check(scheme.url).then(function(){
-                console.log('open Google Maps Success!');
-              });
+                var scheme = {
+                  url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
+                }
+
+                $cordovaAppAvailability.check(scheme.url).then(function(){
+                  console.log('open Google Maps Success!');
+                });
 
             };
 
@@ -131,30 +130,28 @@ angular.module('starter.controllers', [])
         {stateOn: 'glyphicon-usd', stateOff: 'glyphicon-usd'}
       ]
 
-      $scope.sendTextMessage = function(name, address) {
-
-        var sms = {
-          number: '', 
-          message: name + " :" + address
-        }
+      document.addEventListener("deviceready", function() {
 
         var options = {
-          replaceLineBreaks: false
+          replaceLineBreaks: false, // true to replace \n by a new line, false by default
+        };
+       
+        $scope.sendTextMessage = function(name, address) {
+
+          var sms = {
+            number: '', 
+            message: name + "\n" + address
+          }
+       
+          $cordovaSms
+            .send(sms.number, sms.message, options)
+            .then(function() {
+
+            }, function(error) {
+
+            });
         }
-
-        $cordovaSms.send(sms.number, sms.message, options).then(function() {
-          // Success! SMS was sent
-          console.log('message sent!');
-
-          $cordovaToast.show('Your message was sent!', 'short', 'center').then(function(){
-            console.log('toast message sent success!');
-          })
-        }, function(error) {
-          // An error occurred
-          console.log('message failed');
-        });
-
-      };
+      });
 
         
 
@@ -163,11 +160,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SettingsCtrl', function($scope, localStorageService, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
-
-
-  $scope.goBack = function() {
-    $location.url('/tabs/settings');
-  }
 
   // Save Work and Home Address
 
@@ -229,6 +221,8 @@ angular.module('starter.controllers', [])
     console.log(range);
     localStorageService.set('radiusRange', range);
   }
+
+  $scope.radiusRange = localStorageService.get('radiusRange') !== null ? localStorageService.get('radiusRange') : 800;
 
 
   // Rate the App

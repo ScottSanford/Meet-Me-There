@@ -62,6 +62,20 @@ module.exports = [
         "clobbers": [
             "console"
         ]
+    },
+    {
+        "file": "plugins/com.cordova.plugins.sms/www/sms.js",
+        "id": "com.cordova.plugins.sms.Sms",
+        "clobbers": [
+            "window.sms"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-appavailability/www/AppAvailability.js",
+        "id": "cordova-plugin-appavailability.AppAvailability",
+        "clobbers": [
+            "appAvailability"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -72,7 +86,9 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "2.1.0",
     "com.ionic.keyboard": "1.0.4",
     "cordova-plugin-geolocation": "1.0.2-dev",
-    "cordova-plugin-console": "1.0.1"
+    "cordova-plugin-console": "1.0.1",
+    "com.cordova.plugins.sms": "0.1.6",
+    "cordova-plugin-appavailability": "0.4.2"
 }
 // BOTTOM OF METADATA
 });

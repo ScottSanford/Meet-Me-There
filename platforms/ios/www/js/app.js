@@ -93,6 +93,15 @@ angular.module('mmtApp', [
         }
       }
     })
+    .state('tabs.radius', {
+      url: '/radius',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'templates/radius-range.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
+    })
     .state('tabs.favorites', {
       url: '/favorites',
       views: {

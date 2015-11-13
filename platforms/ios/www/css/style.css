@@ -227,6 +227,7 @@ ion-content.meeting-places {
 
 .meeting-places:first-of-type {
 	border-top:none;
+	margin-top:40px;
 }
 
 .back-button {
@@ -245,4 +246,21 @@ ion-content.meeting-places {
 .favorites-description {
 	padding:0 20px;
 	font-size:11pt;
+}
+
+/*===============================================================
+						Radius Range Tab
+================================================================*/
+.radius-range-container {
+	margin-top:75px;
+}
+
+.range-balance {
+	background:#10C49D;
+}
+
+.range-result {
+	text-align: center;
+	margin-top:15px;
+	font-size: 17pt;
 }
