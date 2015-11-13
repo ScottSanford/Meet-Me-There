@@ -4,9 +4,9 @@ angular.module('EmailComposerService', [])
   
   var email = {
     to: 'ssanford@mediafly.com',
-    cc: 'nmehta@mediafly.com',
+    cc: '',
     subject: 'Feedback for Meet Me There App',
-    body: 'To Developing Team:',
+    body: 'Dear App Developers,',
     isHtml: true
   } 
 

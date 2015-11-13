@@ -50,6 +50,11 @@
 		BB152F41C7BA43BCBE4FD457 /* Sms.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D4A06421414ABEAE71749C /* Sms.m */; };
 		DE83A61C1DA04A43A45080C7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7122893D99492B91452FB1 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EBD3B7E19C6A4AC39A8BA5E3 /* AppAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4492EFE64E03420087588E6D /* AppAvailability.m */; };
+		6C748FE5441D4C08B688D4FD /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D535EB197D46DDBA8B2E2A /* Toast+UIView.m */; };
+		FFDD824536354EEB9A33DF6E /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBE172B40D34E7DAC0787C0 /* Toast.m */; };
+		6B4F5BB2351B4D5A8C30E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ADF9E07084090A4F392B1 /* QuartzCore.framework */; };
+		AB0BBB3801B3449DB5E606A4 /* APPEmailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE09E6B436474A5592BCFDB7 /* APPEmailComposer.m */; };
+		4CFE34C5A60A447C9ED0F980 /* APPEmailComposerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0544A4F5B7A42CE9009352C /* APPEmailComposerImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +140,15 @@
 		9A7122893D99492B91452FB1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		4492EFE64E03420087588E6D /* AppAvailability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppAvailability.m"; path = "cordova-plugin-appavailability/AppAvailability.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		55C3CC9C7D674D68AC78E36D /* AppAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppAvailability.h"; path = "cordova-plugin-appavailability/AppAvailability.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		58D535EB197D46DDBA8B2E2A /* Toast+UIView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		6EBE172B40D34E7DAC0787C0 /* Toast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast.m"; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		BFD346E6BE57458E81EBEEB4 /* Toast+UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1B3D6F50CE0F44D89FCB481A /* Toast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		839ADF9E07084090A4F392B1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		CE09E6B436474A5592BCFDB7 /* APPEmailComposer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "APPEmailComposer.m"; path = "de.appplant.cordova.plugin.email-composer/APPEmailComposer.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		B0544A4F5B7A42CE9009352C /* APPEmailComposerImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "APPEmailComposerImpl.m"; path = "de.appplant.cordova.plugin.email-composer/APPEmailComposerImpl.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		0D3C9DB14E3C4181BE1FE29E /* APPEmailComposer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "APPEmailComposer.h"; path = "de.appplant.cordova.plugin.email-composer/APPEmailComposer.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		055E31190EED4052B779C304 /* APPEmailComposerImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "APPEmailComposerImpl.h"; path = "de.appplant.cordova.plugin.email-composer/APPEmailComposerImpl.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +162,7 @@
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				AB64AE6D432044C8A61256A5 /* CoreLocation.framework in Frameworks */,
 				DE83A61C1DA04A43A45080C7 /* MessageUI.framework in Frameworks */,
+				6B4F5BB2351B4D5A8C30E490 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +237,7 @@
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
 				205B258DF7BB4F17BD8B59CA /* CoreLocation.framework */,
 				9A7122893D99492B91452FB1 /* MessageUI.framework */,
+				839ADF9E07084090A4F392B1 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,6 +271,14 @@
 				1867108777A54F10B35BB6B4 /* Sms.h */,
 				4492EFE64E03420087588E6D /* AppAvailability.m */,
 				55C3CC9C7D674D68AC78E36D /* AppAvailability.h */,
+				58D535EB197D46DDBA8B2E2A /* Toast+UIView.m */,
+				6EBE172B40D34E7DAC0787C0 /* Toast.m */,
+				BFD346E6BE57458E81EBEEB4 /* Toast+UIView.h */,
+				1B3D6F50CE0F44D89FCB481A /* Toast.h */,
+				CE09E6B436474A5592BCFDB7 /* APPEmailComposer.m */,
+				B0544A4F5B7A42CE9009352C /* APPEmailComposerImpl.m */,
+				0D3C9DB14E3C4181BE1FE29E /* APPEmailComposer.h */,
+				055E31190EED4052B779C304 /* APPEmailComposerImpl.h */,
 			);
 			name = Plugins;
 			path = "Meet Me There/Plugins";
@@ -448,6 +472,10 @@
 				1E37670D51A7421D970F2263 /* CDVLogger.m in Sources */,
 				BB152F41C7BA43BCBE4FD457 /* Sms.m in Sources */,
 				EBD3B7E19C6A4AC39A8BA5E3 /* AppAvailability.m in Sources */,
+				6C748FE5441D4C08B688D4FD /* Toast+UIView.m in Sources */,
+				FFDD824536354EEB9A33DF6E /* Toast.m in Sources */,
+				AB0BBB3801B3449DB5E606A4 /* APPEmailComposer.m in Sources */,
+				4CFE34C5A60A447C9ED0F980 /* APPEmailComposerImpl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -76,6 +76,25 @@ module.exports = [
         "clobbers": [
             "appAvailability"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+        "id": "cordova-plugin-x-toast.Toast",
+        "clobbers": [
+            "window.plugins.toast"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/test/tests.js",
+        "id": "cordova-plugin-x-toast.tests"
+    },
+    {
+        "file": "plugins/de.appplant.cordova.plugin.email-composer/www/email_composer.js",
+        "id": "de.appplant.cordova.plugin.email-composer.EmailComposer",
+        "clobbers": [
+            "cordova.plugins.email",
+            "plugin.email"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -88,7 +107,9 @@ module.exports.metadata =
     "cordova-plugin-geolocation": "1.0.2-dev",
     "cordova-plugin-console": "1.0.1",
     "com.cordova.plugins.sms": "0.1.6",
-    "cordova-plugin-appavailability": "0.4.2"
+    "cordova-plugin-appavailability": "0.4.2",
+    "cordova-plugin-x-toast": "2.2.1",
+    "de.appplant.cordova.plugin.email-composer": "0.8.3dev"
 }
 // BOTTOM OF METADATA
 });

@@ -101,22 +101,20 @@ angular.module('starter.controllers', [])
 
             // $ionicLoading.hide(); 
 
+            // document.addEventListener("deviceready", function() {
 
-            $scope.openGoogleMapsApp = function(address) {
+              $scope.openGoogleMapsApp = function(address) {
 
-              document.addEventListener("deviceready, function()")
+                  var scheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + address + '&directionsmode=driving';
+                  console.log(scheme);
 
-                console.log('userLocation :: ' , userLocation);
+                  $cordovaAppAvailability.check(scheme).then(function(){
+                    console.log('open Google Maps Success!');
+                  });
 
-                var scheme = {
-                  url: 'comgooglemaps://?saddr=' + userLocation + '&daddr=' + address + '&directionsmode=driving'  
-                }
-
-                $cordovaAppAvailability.check(scheme.url).then(function(){
-                  console.log('open Google Maps Success!');
-                });
-
-            };
+              };
+              
+            // });
 
         });
       };
@@ -140,7 +138,7 @@ angular.module('starter.controllers', [])
 
           var sms = {
             number: '', 
-            message: name + "\n" + address
+            message: "Meet Me There:" + "\n" + name + "\n" + address
           }
        
           $cordovaSms
@@ -238,17 +236,24 @@ angular.module('starter.controllers', [])
   }
 
 
-  // Give Feedback 
-  $scope.giveFeedback = function() {
+  document.addEventListener('deviceready', function(){
 
-    $cordovaEmailComposer.isAvailable().then(function(){
-      console.log('Success, the plugin is available!');
-      $cordovaEmailComposer.open(EmailComposer);
-    }, function(){
-      console.log('Error, the plugin is not available');
-    })
+    // Give Feedback 
+    $scope.giveFeedback = function() {
 
-  }
+      $cordovaEmailComposer.isAvailable().then(function(){
+
+        $cordovaEmailComposer.open(EmailComposer).then(function(){
+          
+        });
+
+      }, function(){
+        console.log('Error, the plugin is not available');
+      });
+
+    }
+
+  });
 
 
 });

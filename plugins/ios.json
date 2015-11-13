@@ -35,6 +35,14 @@
                         {
                             "xml": "<feature name=\"AppAvailability\"><param name=\"ios-package\" value=\"AppAvailability\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"ios-package\" value=\"Toast\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"EmailComposer\"><param name=\"ios-package\" value=\"APPEmailComposer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -56,6 +64,12 @@
                     "MessageUI.framework": [
                         {
                             "xml": true,
+                            "count": 2
+                        }
+                    ],
+                    "QuartzCore.framework": [
+                        {
+                            "xml": false,
                             "count": 1
                         }
                     ]
@@ -96,6 +110,12 @@
             "PACKAGE_NAME": "com.ionicframework.app749812"
         },
         "cordova-plugin-appavailability": {
+            "PACKAGE_NAME": "com.ionicframework.app749812"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.ionicframework.app749812"
+        },
+        "de.appplant.cordova.plugin.email-composer": {
             "PACKAGE_NAME": "com.ionicframework.app749812"
         }
     },
