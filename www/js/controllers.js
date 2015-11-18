@@ -83,38 +83,34 @@ angular.module('starter.controllers', [])
 
               // Calculate route, midpoint, all that jazz!
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
+
                 $scope.results = results;
 
-                function displayOnlyActiveMeetups() {
-                  return localStorageService.get('meetupList').filter(function(meetup){
-                    return meetup.checked;
-                  });
-                }
-
-                $scope.titles = displayOnlyActiveMeetups();
               }, function(error){
                 console.log(error);
-                $scope.noresults = "Sorry, there were no close meet up locations. Please try again!";
               }); 
 
             }
 
+            $scope.noresults = 'Sorry, no meetups found! Try expanding the search radius under the Settings tab.';
+
             // $ionicLoading.hide(); 
 
-            // document.addEventListener("deviceready", function() {
+            document.addEventListener("deviceready", function() {
 
               $scope.openGoogleMapsApp = function(address) {
 
-                  var scheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + address + '&directionsmode=driving';
-                  console.log(scheme);
+                  var stringAddress = address.split(' ').join('+');
 
-                  $cordovaAppAvailability.check(scheme).then(function(){
-                    console.log('open Google Maps Success!');
+                  var scheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&directionsmode=driving';
+
+                  navigator.startApp.start(scheme, function(message){
+                    console.log(message);
                   });
 
               };
               
-            // });
+            });
 
         });
       };
@@ -216,24 +212,29 @@ angular.module('starter.controllers', [])
   }
   
   $scope.changedRadiusRange = function(range) {
-    console.log(range);
+
     localStorageService.set('radiusRange', range);
+    
   }
 
   $scope.radiusRange = localStorageService.get('radiusRange') !== null ? localStorageService.get('radiusRange') : 800;
 
 
-  // Rate the App
-  $scope.rateApp = function() {
-    console.log(AppRate);
-    $cordovaAppRate.promptForRating(true).then(function(){
+    document.addEventListener('deviceready', function(){
 
-      $cordovaAppRate.setPreferences(AppRate);
+      // Rate the App
+      $scope.rateApp = function() {
+        
+        $cordovaAppRate.promptForRating(true).then(function(){
 
-    }, function() {
-      console.log('Oops! Something went wrong :(');
+          $cordovaAppRate.setPreferences(AppRate);
+
+        }, function() {
+          console.log('Oops! Something went wrong :(');
+        });
+      }
+
     });
-  }
 
 
   document.addEventListener('deviceready', function(){
@@ -244,7 +245,7 @@ angular.module('starter.controllers', [])
       $cordovaEmailComposer.isAvailable().then(function(){
 
         $cordovaEmailComposer.open(EmailComposer).then(function(){
-          
+
         });
 
       }, function(){

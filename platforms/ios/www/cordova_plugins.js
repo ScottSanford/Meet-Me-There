@@ -95,6 +95,61 @@ module.exports = [
             "cordova.plugins.email",
             "plugin.email"
         ]
+    },
+    {
+        "file": "plugins/org.pushandplay.cordova.apprate/www/AppRate.js",
+        "id": "org.pushandplay.cordova.apprate.AppRate",
+        "clobbers": [
+            "AppRate"
+        ]
+    },
+    {
+        "file": "plugins/org.pushandplay.cordova.apprate/www/locales.js",
+        "id": "org.pushandplay.cordova.apprate.locales",
+        "runs": true
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/network.js",
+        "id": "org.apache.cordova.network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
+        "id": "org.apache.cordova.network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/com.lampa.startapp/www/startApp.js",
+        "id": "com.lampa.startapp.startapp",
+        "merges": [
+            "navigator.startApp"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
+        "id": "org.apache.cordova.dialogs.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.globalization/www/GlobalizationError.js",
+        "id": "org.apache.cordova.globalization.GlobalizationError",
+        "clobbers": [
+            "window.GlobalizationError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.globalization/www/globalization.js",
+        "id": "org.apache.cordova.globalization.globalization",
+        "clobbers": [
+            "navigator.globalization"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -109,7 +164,12 @@ module.exports.metadata =
     "com.cordova.plugins.sms": "0.1.6",
     "cordova-plugin-appavailability": "0.4.2",
     "cordova-plugin-x-toast": "2.2.1",
-    "de.appplant.cordova.plugin.email-composer": "0.8.3dev"
+    "de.appplant.cordova.plugin.email-composer": "0.8.3dev",
+    "org.pushandplay.cordova.apprate": "1.1.7",
+    "org.apache.cordova.network-information": "0.2.15",
+    "com.lampa.startapp": "0.0.5",
+    "org.apache.cordova.dialogs": "0.3.0",
+    "org.apache.cordova.globalization": "0.3.4"
 }
 // BOTTOM OF METADATA
 });

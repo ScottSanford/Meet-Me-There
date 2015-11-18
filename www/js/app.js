@@ -18,17 +18,15 @@ angular.module('mmtApp', [
   'ngAnimate', 
   'ionic.contrib.drawer.vertical', 
   'LocalStorageModule', 
-  'localstorage', 
   'ngCordova.plugins.appRate', 
   'queryString', 
   'meetups', 
   'ngMessages',
-  'ngIOS9UIWebViewPatch', 
-  'starter.directives'
+  'ngIOS9UIWebViewPatch'
 ])
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPopup) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -37,10 +35,26 @@ angular.module('mmtApp', [
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+
+    if(window.Connection) {
+        if(navigator.connection.type == Connection.NONE) {
+            $ionicPopup.confirm({
+                title: "Internet Disconnected",
+                content: "The internet is disconnected on your device."
+            })
+            .then(function(result) {
+                if(!result) {
+                    ionic.Platform.exitApp();
+                }
+            });
+        }
+    }
+
   });
 })
 

@@ -25,7 +25,8 @@ angular.module('GoogleMapsService', [])
             mapTypeControlOptions: {
             mapTypeId: [google.maps.MapTypeId.ROADMAP,'map_style']
             },
-            center: userLocation
+            center: userLocation, 
+            disableDefaultUI: true
           }
 
           // google map
@@ -122,6 +123,7 @@ angular.module('GoogleMapsService', [])
             title: label,
             zIndex: Math.round(latlng.lat()*-100000)<<5, 
             icon: 'img/marker.png'
+
         });
         marker.myname  = label;
         var infowindow = new google.maps.InfoWindow();
@@ -205,9 +207,16 @@ angular.module('GoogleMapsService', [])
             map: map,
             position: placeLoc,
             icon: {
-              url: POI.icon,
-              scaledSize: new google.maps.Size(25, 25)
+              url: GoogleMaps.customMarker(POI)
             }
+            // icon: {
+            //   path: SQUARE_PIN,
+            //   fillColor: '#ff0000',
+            //   fillOpacity: 1,
+            //   strokeColor: '',
+            //   strokeWeight: 0
+            // },
+            // map_icon_label: '<span class="map-icon map-icon-bar"></span>'
           });
           infowindow = new google.maps.InfoWindow();
 
@@ -222,6 +231,68 @@ angular.module('GoogleMapsService', [])
       GoogleMaps.midPoint = function(midpoint) {
         return midpoint;
       };
+
+      GoogleMaps.customMarker = function(POI, fillcolor) {
+          for (var i = 0; i < POI.types.length; i++) {
+            if (POI.types[i] === 'restaurant') {
+              return 'img/restaurant.png';
+            } 
+            else if (POI.types[i] === 'meal_takeaway') {
+              return 'img/restaurant.png';
+            }             
+            else if (POI.types[i] === 'meal_delivery') {
+              return 'img/restaurant.png';
+            }              
+            else if (POI.types[i] === 'food') {
+              return 'img/restaurant.png';
+            }             
+            else if (POI.types[i] === 'cafe') {
+              return 'img/cafe.png';
+            } 
+            else if (POI.types[i] === 'bakery') {
+              return 'img/cafe.png';
+            }               
+            else if (POI.types[i] === 'grocery_or_supermarket') {
+              return 'img/grocery.png';
+            } 
+            else if (POI.types[i] === 'liquor_store') {
+              return 'img/grocery.png';
+            }             
+            else if (POI.types[i] === 'store') {
+              return 'img/grocery.png';
+            } 
+            else if (POI.types[i] === 'home_goods_store') {
+              return 'img/grocery.png';
+            }            
+            else if (POI.types[i] === 'jewelry_store') {
+              return 'img/grocery.png';
+            }             
+            else if (POI.types[i] === 'gym') {
+              return 'img/gym.png';
+            } 
+            else if (POI.types[i] === 'health') {
+              return 'img/gym.png';
+            }
+            else if (POI.types[i] === 'movie_theater') {
+              return 'img/movies.png';
+            } 
+            else if (POI.types[i] === 'movie_rental') {
+              return 'img/movies.png';
+            } 
+            else if (POI.types[i] === 'bar') {
+              return 'img/bar.png';
+            } 
+            else if (POI.types[i] === 'night_club') {
+              return 'img/bar.png';
+            }                
+            else if (POI.types[i] === 'bowling_alley') {
+              return 'img/bowling.png';
+            }             
+            else if (POI.types[i] === 'amusement_park') {
+              return 'img/themepark.png';
+            }            
+          };
+      }
 
   return GoogleMaps;
 

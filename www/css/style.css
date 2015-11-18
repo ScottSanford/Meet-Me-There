@@ -170,7 +170,7 @@ ion-content.meeting-places {
     -o-text-overflow: ellipsis;
 }
 
-.share-icon, .map-icon {
+.share-icon, .directions-icon {
 	display: block;
 	text-align: center;
 	font-size: 1.7em;
@@ -195,6 +195,29 @@ ion-content.meeting-places {
 .glyphicon-usd {
 	letter-spacing: -7px;
 	font-size:.8em;
+}
+
+.col.activated {
+	color:#10C49D;
+}
+
+.noresults-container {
+	height:50vh;
+}
+
+.sad-face {
+	width:150px;
+	height: auto;
+	display: block;
+	margin:50px auto;
+}
+
+.noresults {
+	font-size:17pt;
+	text-align: center;
+	margin-top:15px;
+	overflow: initial;
+    white-space: initial;
 }
 /*===============================================================
 						Settings Tab

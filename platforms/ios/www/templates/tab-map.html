@@ -11,11 +11,8 @@
         <ion-scroll direction="y" style="height:50vh">
         <div>
           <div class="list">
-          <div class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results</div>
-<!--             <div class="item item-divider" ng-repeat="title in titles">
-              {{title.plural}}
-            </div> -->
-            <div class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
+          <div ng-show="results.length > 0" class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results</div>
+            <div ng-show="results.length > 0" class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
                 <div class="col col-50">
                   <div class="ellipsis">{{result.name}}</div> 
@@ -35,14 +32,19 @@
                   <div class="icon-text">Share</div>
                 </div>
                 <div class="col" ng-click="openGoogleMapsApp(result.vicinity)">
-                  <span class="icon ion-map map-icon"></span>
+                  <span class="icon ion-map directions-icon"></span>
                   <div class="icon-text">Directions</div>
                 </div>
               </div>
-              <div class="row">
-                  {{noresults}}
+            </div>
+
+            <div ng-show="results === undefined" class="item padding-right noresults-container">
+              <img class="sad-face" src="img/sad-face.png">
+              <div class="row ">
+                <div class="col padding-horizontal noresults">{{noresults}}</div>
               </div>
             </div>
+
           </div>
         </div>
         </ion-scroll>
