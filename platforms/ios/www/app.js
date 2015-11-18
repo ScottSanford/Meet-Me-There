@@ -7,7 +7,9 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('mmtApp', [
   'ionic', 
-  'starter.controllers', 
+  'SearchController',
+  'MapController',
+  'SettingsController',
   'GoogleMapsService', 
   'AppRateService',
   'EmailComposerService',
@@ -76,14 +78,14 @@ angular.module('mmtApp', [
     .state('tabs', {
       url:'/tabs',
       abstract: true,
-      templateUrl: 'templates/tabs.html'
+      templateUrl: 'common/tabs.html'
     })
     .state('tabs.search', {
       cache: false,
       url: '/search',
       views: {
         'tabs-search': {
-          templateUrl: 'templates/tab-search.html',
+          templateUrl: 'search/tab-search.html',
           controller: 'SearchCtrl'
         }
       }
@@ -93,7 +95,7 @@ angular.module('mmtApp', [
         url: '/map?pointA&pointB&typeID',
         views: {
           'tabs-map': {
-            templateUrl: 'templates/tab-map.html',
+            templateUrl: 'map/tab-map.html',
             controller: 'GoogleMapCtrl'
           }
         }
@@ -102,7 +104,7 @@ angular.module('mmtApp', [
       url: '/meetups',
       views: {
         'tabs-settings': {
-          templateUrl: 'templates/meetups.html', 
+          templateUrl: 'settings/meetups.html', 
           controller: 'SettingsCtrl'
         }
       }
@@ -111,7 +113,7 @@ angular.module('mmtApp', [
       url: '/radius',
       views: {
         'tabs-settings': {
-          templateUrl: 'templates/radius-range.html', 
+          templateUrl: 'settings/radius-range.html', 
           controller: 'SettingsCtrl'
         }
       }
@@ -120,7 +122,7 @@ angular.module('mmtApp', [
       url: '/favorites',
       views: {
         'tabs-settings': {
-          templateUrl: 'templates/favorites.html', 
+          templateUrl: 'settings/favorites.html', 
           controller: 'SettingsCtrl'
         }
       }
@@ -129,7 +131,7 @@ angular.module('mmtApp', [
       url: '/settings',
       views: {
         'tabs-settings': {
-          templateUrl: 'templates/tab-settings.html',
+          templateUrl: 'settings/tab-settings.html',
           controller: 'SettingsCtrl'
         }
       }

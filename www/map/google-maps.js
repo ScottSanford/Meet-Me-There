@@ -122,7 +122,7 @@ angular.module('GoogleMapsService', [])
             map: map,
             title: label,
             zIndex: Math.round(latlng.lat()*-100000)<<5, 
-            icon: 'img/marker.png'
+            icon: 'common/img/marker.png'
 
         });
         marker.myname  = label;
@@ -235,61 +235,61 @@ angular.module('GoogleMapsService', [])
       GoogleMaps.customMarker = function(POI, fillcolor) {
           for (var i = 0; i < POI.types.length; i++) {
             if (POI.types[i] === 'restaurant') {
-              return 'img/restaurant.png';
+              return 'common/img/restaurant.png';
             } 
             else if (POI.types[i] === 'meal_takeaway') {
-              return 'img/restaurant.png';
+              return 'common/img/restaurant.png';
             }             
             else if (POI.types[i] === 'meal_delivery') {
-              return 'img/restaurant.png';
+              return 'common/img/restaurant.png';
             }              
             else if (POI.types[i] === 'food') {
-              return 'img/restaurant.png';
+              return 'common/img/restaurant.png';
             }             
             else if (POI.types[i] === 'cafe') {
-              return 'img/cafe.png';
+              return 'common/img/cafe.png';
             } 
             else if (POI.types[i] === 'bakery') {
-              return 'img/cafe.png';
+              return 'common/img/cafe.png';
             }               
             else if (POI.types[i] === 'grocery_or_supermarket') {
-              return 'img/grocery.png';
+              return 'common/img/grocery.png';
             } 
             else if (POI.types[i] === 'liquor_store') {
-              return 'img/grocery.png';
+              return 'common/img/grocery.png';
             }             
             else if (POI.types[i] === 'store') {
-              return 'img/grocery.png';
+              return 'common/img/grocery.png';
             } 
             else if (POI.types[i] === 'home_goods_store') {
-              return 'img/grocery.png';
+              return 'common/img/grocery.png';
             }            
             else if (POI.types[i] === 'jewelry_store') {
-              return 'img/grocery.png';
+              return 'common/img/grocery.png';
             }             
             else if (POI.types[i] === 'gym') {
-              return 'img/gym.png';
+              return 'common/img/gym.png';
             } 
             else if (POI.types[i] === 'health') {
-              return 'img/gym.png';
+              return 'common/img/gym.png';
             }
             else if (POI.types[i] === 'movie_theater') {
-              return 'img/movies.png';
+              return 'common/img/movies.png';
             } 
             else if (POI.types[i] === 'movie_rental') {
-              return 'img/movies.png';
+              return 'common/img/movies.png';
             } 
             else if (POI.types[i] === 'bar') {
-              return 'img/bar.png';
+              return 'common/img/bar.png';
             } 
             else if (POI.types[i] === 'night_club') {
-              return 'img/bar.png';
+              return 'common/img/bar.png';
             }                
             else if (POI.types[i] === 'bowling_alley') {
-              return 'img/bowling.png';
+              return 'common/img/bowling.png';
             }             
             else if (POI.types[i] === 'amusement_park') {
-              return 'img/themepark.png';
+              return 'common/img/themepark.png';
             }            
           };
       }
