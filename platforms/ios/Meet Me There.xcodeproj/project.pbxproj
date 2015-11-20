@@ -65,6 +65,7 @@
 		AE6D547A94C84AAB8BB6873D /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FADDEEBDDCE48F3B6C23A8D /* CDVReachability.m */; };
 		22E9D205334E4CB0890E8340 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99FAB684479544229518A933 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C31B892AFF82469B93FE017B /* startApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A8F7D92C9846EBAAE2BD0A /* startApp.m */; };
+		D1F5255A2E86417AB829EFA6 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EED63F547A8A43499D943AF0 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,8 @@
 		99FAB684479544229518A933 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		78A8F7D92C9846EBAAE2BD0A /* startApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "startApp.m"; path = "com.lampa.startapp/startApp.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		799379F100BB4A4CAC8F52E3 /* startApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "startApp.h"; path = "com.lampa.startapp/startApp.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		EED63F547A8A43499D943AF0 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		289256E107334FA79B077B89 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +327,8 @@
 				486FA3BC861748CDBA89CAF3 /* CDVReachability.h */,
 				78A8F7D92C9846EBAAE2BD0A /* startApp.m */,
 				799379F100BB4A4CAC8F52E3 /* startApp.h */,
+				EED63F547A8A43499D943AF0 /* CDVInAppBrowser.m */,
+				289256E107334FA79B077B89 /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = "Meet Me There/Plugins";
@@ -528,6 +533,7 @@
 				5C8D91844C0143D18AD5A357 /* CDVConnection.m in Sources */,
 				AE6D547A94C84AAB8BB6873D /* CDVReachability.m in Sources */,
 				C31B892AFF82469B93FE017B /* startApp.m in Sources */,
+				D1F5255A2E86417AB829EFA6 /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -101,6 +101,10 @@ ion-content.meeting-places {
 	font-size:15pt;
 }
 
+.button-container {
+	padding-bottom: 50px;
+}
+
 .button.button-positive {
 	background-color:#10C49D;
 	border-color:#10C49D;
@@ -168,6 +172,10 @@ ion-content.meeting-places {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+}
+
+.more-info {
+	font-style: italic
 }
 
 .share-icon, .directions-icon {

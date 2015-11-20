@@ -131,6 +131,14 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
         "id": "org.apache.cordova.dialogs.notification",
         "merges": [
@@ -168,6 +176,7 @@ module.exports.metadata =
     "org.pushandplay.cordova.apprate": "1.1.7",
     "org.apache.cordova.network-information": "0.2.15",
     "com.lampa.startapp": "0.0.5",
+    "cordova-plugin-inappbrowser": "1.0.1",
     "org.apache.cordova.dialogs": "0.3.0",
     "org.apache.cordova.globalization": "0.3.4"
 }

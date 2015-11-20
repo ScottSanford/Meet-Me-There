@@ -15,7 +15,7 @@
             <div ng-show="results.length > 0" class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
                 <div class="col col-50">
-                  <div class="ellipsis">{{result.name}}</div> 
+                  <div class="ellipsis" ng-click="getMoreInfo(result.url)">{{result.name}}</div> 
                   <rating 
                       ng-model="result.rating" 
                       readonly="true">
@@ -26,12 +26,13 @@
                       state-on="'glyphicon-usd'" 
                       state-off="'null'">
                   </rating>
+                  <p class="more-info" ng-click="getMoreInfo(result.url)">More info...</p>
                 </div>
-                <div class="col" ng-click="sendTextMessage(result.name,result.vicinity)">
+                <div class="col" ng-click="sendTextMessage(result.name,result.formatted_address)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>
                   <div class="icon-text">Share</div>
                 </div>
-                <div class="col" ng-click="openGoogleMapsApp(result.vicinity)">
+                <div class="col" ng-click="openGoogleMapsApp(result.formatted_address)">
                   <span class="icon ion-map directions-icon"></span>
                   <div class="icon-text">Directions</div>
                 </div>

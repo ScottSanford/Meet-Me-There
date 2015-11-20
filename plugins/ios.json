@@ -63,6 +63,10 @@
                         {
                             "xml": "<feature name=\"startApp\"><param name=\"ios-package\" value=\"startApp\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -72,7 +76,7 @@
                     "CoreGraphics.framework": [
                         {
                             "xml": false,
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "CoreLocation.framework": [
@@ -163,6 +167,9 @@
             "PACKAGE_NAME": "com.ionicframework.app749812"
         },
         "com.lampa.startapp": {
+            "PACKAGE_NAME": "com.ionicframework.app749812"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ionicframework.app749812"
         }
     },

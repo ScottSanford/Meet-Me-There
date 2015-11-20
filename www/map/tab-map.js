@@ -3,7 +3,7 @@ angular.module('MapController', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, localStorageService,
-  $cordovaSms, $cordovaToast, $cordovaAppAvailability) {
+  $cordovaSms, $cordovaToast, $cordovaAppAvailability, $cordovaInAppBrowser) {
 
       var directionsDisplay;
       var map;
@@ -45,10 +45,11 @@ angular.module('MapController', [])
 
               var typeID = queryString.selectedTypeArray();
 
-              // Calculate route, midpoint, all that jazz!
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
 
+                console.log(results);
                 $scope.results = results;
+
 
               }, function(error){
                 console.log(error);
@@ -59,6 +60,29 @@ angular.module('MapController', [])
             $scope.noresults = 'Sorry, no meetups found! Try expanding the search radius under the Settings tab.';
 
             // $ionicLoading.hide(); 
+
+            document.addEventListener("deviceready", function() {
+
+              $scope.getMoreInfo = function(url) {
+
+                var options = {
+                  location: 'yes',
+                  clearcache: 'yes',
+                  toolbarposition: 'top',
+                  closebuttoncaption: 'Close'
+                };
+
+                $cordovaInAppBrowser.open(url, '_blank', options)
+                      .then(function(event) {
+                        // success
+                      })
+                      .catch(function(event) {
+                        // error
+                      });
+                
+            };
+
+            }, false);
 
             document.addEventListener("deviceready", function() {
 

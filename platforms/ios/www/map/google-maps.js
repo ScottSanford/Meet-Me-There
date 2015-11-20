@@ -157,18 +157,18 @@ angular.module('GoogleMapsService', [])
         if (!marker) {
 
             marker = GoogleMaps.createMarker(midpoint,"Midpoint","This is the midpoint of the locations.", map);
-            return GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
+            return GoogleMaps.googleNearbySearch(midpoint, map, typeID);
 
         } else {                
 
             marker.setPosition(midpoint);
-            return GoogleMaps.googlePlaceSearch(midpoint, map, typeID);
+            return GoogleMaps.googleNearbySearch(midpoint, map, typeID);
 
         }
       };
 
-      GoogleMaps.googlePlaceSearch = function(midpoint, map, typeID) {
-        var deffered = $q.defer();
+      GoogleMaps.googleNearbySearch = function(midpoint, map, typeID) {
+        var deferred = $q.defer();
         var service;
         var lsRadius = localStorageService.get('radiusRange');
         var request = {
@@ -176,47 +176,71 @@ angular.module('GoogleMapsService', [])
           radius: lsRadius != null ? lsRadius : 800, // .50 mile radius
           types: typeID
         }
+        // var POI;
+        var placesArray = [];
 
         service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, function(results, status) {
+        service.radarSearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-              
-              var POI = results[i];
               var scopePOI = results;
+              // console.log(scopePOI);
+            
+            for (var i = 0; i <= 25; i++) {
+              console.log(results[i].place_id);
+                      
+              // var POI = results[i];
+              var request = {
+                placeId: results[i].place_id
+              }
+             
+              // placeIDArray.push(request);
+              service.getDetails(request, function(place, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                  // console.log(place);
+                  placesArray.push(place);
+                  GoogleMaps.addPOIMarker(place, map);
 
-              deffered.resolve(scopePOI);
-              
-              GoogleMaps.addPOIMarker(POI, map);
+                }
+              });
+
             }
+
           }
+          
+          deferred.resolve(placesArray);
 
         });
-        return deffered.promise;
+
+        return deferred.promise;
+      };
+
+      GoogleMaps.googleGetPlaceDetails = function(request) {
+        var array = [];
+        for (var i = 0; i < results.length; i++) {
+
+          service = new google.maps.places.PlacesService(googleMap.map);
+            
+          service.getDetails(results[i], function(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+              array.push(place);
+                
+            }
+          });
+          console.log(array);
+        }
       };
 
       GoogleMaps.addPOIMarker = function(POI, map) {
           var marker;
-          // var markers = [];
           var placeLoc = POI.geometry.location;
-          // if (marker) {
-          //   setMapOnAll(null);
-          //   markers = [];
-          // }
+
           marker   = new google.maps.Marker({
             map: map,
             position: placeLoc,
             icon: {
               url: GoogleMaps.customMarker(POI)
             }
-            // icon: {
-            //   path: SQUARE_PIN,
-            //   fillColor: '#ff0000',
-            //   fillOpacity: 1,
-            //   strokeColor: '',
-            //   strokeWeight: 0
-            // },
-            // map_icon_label: '<span class="map-icon map-icon-bar"></span>'
           });
           infowindow = new google.maps.InfoWindow();
 
@@ -227,6 +251,7 @@ angular.module('GoogleMapsService', [])
           });
 
       };
+
 
       GoogleMaps.midPoint = function(midpoint) {
         return midpoint;

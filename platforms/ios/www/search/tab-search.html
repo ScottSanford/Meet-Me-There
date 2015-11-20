@@ -22,10 +22,12 @@
         	<ion-toggle class="meeting-places" ng-repeat="place in places | orderBy: 'name'" ng-model="place.checked">
           	{{place.name}}
           </ion-toggle>          
-
-          <button class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointA, pointB)">
-            Meet Me There
-          </button>
+    
+          <div class="button-container">
+            <button class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointA, pointB)">
+              Meet Me There
+            </button>
+          </div>
   </ion-content>
 
 </ion-view>
