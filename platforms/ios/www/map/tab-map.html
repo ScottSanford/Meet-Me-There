@@ -36,7 +36,12 @@
                       state-on="'glyphicon-usd'" 
                       state-off="'null'">
                   </rating>
+  
+                  <div>
+                    <img class="thumb-icon" ng-src="{{result.thumbIcon}}">
+                  </div>
                   <p class="more-info" ng-click="getMoreInfo(result.place_id)">More info...</p>
+
                 </div>
                 <div class="col" ng-click="sendTextMessage(result.name,result.formatted_address)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>

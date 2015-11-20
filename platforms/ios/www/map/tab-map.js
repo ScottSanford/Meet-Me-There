@@ -53,6 +53,13 @@ angular.module('MapController', [])
 
                 $scope.results = results;
 
+                results.forEach(function(value,i){
+                  console.log(GoogleMaps.customMarker(value).thumb);
+                  var thumbIcon = 'thumbIcon';
+                  value[thumbIcon] = GoogleMaps.customMarker(value).thumb;
+                });
+
+
 
               }, function(error){
                 console.log(error);
@@ -84,11 +91,10 @@ angular.module('MapController', [])
                         .catch(function(event) {
                           // error
                         });
-                        
-                });
 
-                
-            };
+                });
+          
+              };
 
             }, false);
 
