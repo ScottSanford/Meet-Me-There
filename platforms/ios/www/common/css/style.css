@@ -209,6 +209,14 @@ ion-content.meeting-places {
 	color:#10C49D;
 }
 
+.spinner-energized svg {
+	display: block;
+	margin: 25px auto;
+	width:50px;
+	height:auto;
+	fill: #10C49D;
+}
+
 .noresults-container {
 	height:50vh;
 }
@@ -223,7 +231,7 @@ ion-content.meeting-places {
 .noresults {
 	font-size:17pt;
 	text-align: center;
-	margin-top:15px;
+	margin-top:10px;
 	overflow: initial;
     white-space: initial;
 }

@@ -11,6 +11,16 @@
         <ion-scroll direction="y" style="height:50vh">
         <div>
           <div class="list">
+
+          <!-- Loading Data -->
+<!--           <div ng-hide="dataLoaded" class="dataLoaded">
+            <ion-spinner icon="ios" class="spinner-energized"></ion-spinner>
+            <div class="row">
+              <div class="col padding-horizontal noresults">Finding Search Results...</div>
+            </div>
+          </div> -->
+
+          <!-- Yay, found search results -->
           <div ng-show="results.length > 0" class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results</div>
             <div ng-show="results.length > 0" class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
@@ -26,7 +36,7 @@
                       state-on="'glyphicon-usd'" 
                       state-off="'null'">
                   </rating>
-                  <p class="more-info" ng-click="getMoreInfo(result.url)">More info...</p>
+                  <p class="more-info" ng-click="getMoreInfo(result.place_id)">More info...</p>
                 </div>
                 <div class="col" ng-click="sendTextMessage(result.name,result.formatted_address)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>
@@ -39,9 +49,10 @@
               </div>
             </div>
 
+            <!-- Sorry, no search results could be found -->
             <div ng-show="results === undefined" class="item padding-right noresults-container">
               <img class="sad-face" src="common/img/sad-face.png">
-              <div class="row ">
+              <div class="row">
                 <div class="col padding-horizontal noresults">{{noresults}}</div>
               </div>
             </div>

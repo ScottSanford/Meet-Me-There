@@ -176,59 +176,43 @@ angular.module('GoogleMapsService', [])
           radius: lsRadius != null ? lsRadius : 800, // .50 mile radius
           types: typeID
         }
-        // var POI;
-        var placesArray = [];
 
         service = new google.maps.places.PlacesService(map);
-        service.radarSearch(request, function(results, status) {
+        service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              
+              var POI = results[i];
               var scopePOI = results;
-              // console.log(scopePOI);
-            
-            for (var i = 0; i <= 25; i++) {
-              console.log(results[i].place_id);
-                      
-              // var POI = results[i];
-              var request = {
-                placeId: results[i].place_id
-              }
-             
-              // placeIDArray.push(request);
-              service.getDetails(request, function(place, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                  // console.log(place);
-                  placesArray.push(place);
-                  GoogleMaps.addPOIMarker(place, map);
 
-                }
-              });
-
+              deferred.resolve(scopePOI);
+              
+              GoogleMaps.addPOIMarker(POI, map);
             }
-
           }
-          
-          deferred.resolve(placesArray);
 
         });
-
         return deferred.promise;
+
       };
 
-      GoogleMaps.googleGetPlaceDetails = function(request) {
-        var array = [];
-        for (var i = 0; i < results.length; i++) {
-
-          service = new google.maps.places.PlacesService(googleMap.map);
-            
-          service.getDetails(results[i], function(place, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-              array.push(place);
-                
-            }
-          });
-          console.log(array);
+      GoogleMaps.googleGetPlaceDetails = function(id, map) {
+        var deferred = $q.defer();
+        
+        var request = {
+          placeId: id
         }
+
+        service = new google.maps.places.PlacesService(map);
+
+        service.getDetails(request, function(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          
+          deferred.resolve(place.url);
+
+        }
+        });
+        return deferred.promise;
       };
 
       GoogleMaps.addPOIMarker = function(POI, map) {

@@ -3,7 +3,7 @@ angular.module('MapController', [])
 .controller('GoogleMapCtrl', function(
   $scope, $state, $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, localStorageService,
-  $cordovaSms, $cordovaToast, $cordovaAppAvailability, $cordovaInAppBrowser) {
+  $cordovaSms, $cordovaToast, $cordovaAppAvailability, $cordovaInAppBrowser, $timeout) {
 
       var directionsDisplay;
       var map;
@@ -47,7 +47,10 @@ angular.module('MapController', [])
 
               GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
 
-                console.log(results);
+                // $scope.dataLoaded = false;
+
+                // $scope.dataLoaded = true;
+
                 $scope.results = results;
 
 
@@ -63,24 +66,28 @@ angular.module('MapController', [])
 
             document.addEventListener("deviceready", function() {
 
-              $scope.getMoreInfo = function(url) {
-
-                var options = {
-                  location: 'yes',
-                  clearcache: 'yes',
-                  toolbarposition: 'top',
-                  closebuttoncaption: 'Close'
-                };
-
-                $cordovaInAppBrowser.open(url, '_blank', options)
-                      .then(function(event) {
-                        // success
-                      })
-                      .catch(function(event) {
-                        // error
-                      });
+              $scope.getMoreInfo = function(placeId) {
                 
-            };
+                GoogleMaps.googleGetPlaceDetails(placeId, googleMap.map).then(function(url) {
+
+                  var options = {
+                    location: 'yes',
+                    clearcache: 'yes',
+                    toolbarposition: 'top',
+                    closebuttoncaption: 'Close'
+                  };
+
+                  $cordovaInAppBrowser.open(url, '_blank', options)
+                        .then(function(event) {
+                          // success
+                        })
+                        .catch(function(event) {
+                          // error
+                        });
+
+                });
+          
+              };
 
             }, false);
 
