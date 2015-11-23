@@ -5,13 +5,31 @@
              Locations
           </div>
         <!-- Your Location -->
-          <div class="list list-inset">
-            <ion-google-place placeholder="Your Location" ng-model="pointA" class="your-location"/>
+          <div class="list list-inset" data-tap-disabled="true">
+            <!-- <ion-google-place placeholder="Your Location" ng-model="pointA" class="your-location"/> -->
+            <input ion-autocomplete id="pointB" class="ion-autocomplete" type="text" readonly="readonly" placeholder="Your Location"
+              ng-model="pointA"
+              item-value-key="description"
+              item-view-value-key="description"
+              items-method="getPlaces(query)"
+              items-method-value-key="results"
+              max-selected-items="1"
+              select-items-label="Select a location..."
+              />
           </div>        
 
           <!-- Second Location -->
-          <div class="list list-inset">
-            <ion-google-place placeholder="Point B" ng-model="pointB" name="pointBinput" required/>
+          <div class="list list-inset" data-tap-disabled="true">
+            <!-- <ion-google-place placeholder="Point B" ng-model="pointB" name="pointBinput" required/> -->
+            <input ion-autocomplete id="pointB" class="ion-autocomplete" type="text" readonly="readonly" placeholder="Point B"
+              ng-model="pointB"
+              item-value-key="description"
+              item-view-value-key="description"
+              items-method="getPlaces(query)"
+              items-method-value-key="results"
+              max-selected-items="1"
+              select-items-label="Select a location..."
+              />
           </div>
 
           <!--  Meeting Places -->

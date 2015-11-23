@@ -119,6 +119,12 @@ ion-content.meeting-places {
 .meet-me-there-btn {
 	font-family: 'SF-UI-Display-Semibold';
 }
+
+#pointA, #pointB {
+	margin-left: 7px;
+	padding-left: 7px;
+	width:95%;
+}
 /*===============================================================
 						Map Tab
 ================================================================*/

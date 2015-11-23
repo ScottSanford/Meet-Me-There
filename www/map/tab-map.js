@@ -54,7 +54,6 @@ angular.module('MapController', [])
                 $scope.results = results;
 
                 results.forEach(function(value,i){
-                  console.log(GoogleMaps.customMarker(value).thumb);
                   var thumbIcon = 'thumbIcon';
                   value[thumbIcon] = GoogleMaps.customMarker(value).thumb;
                 });
@@ -104,12 +103,19 @@ angular.module('MapController', [])
 
                   var stringAddress = address.split(' ').join('+');
 
-                  var scheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&directionsmode=driving';
+                  var googleScheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&directionsmode=driving';
+                  var appleScheme  = 'http://maps.apple.com/?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&dirflg=d';
 
-                  navigator.startApp.start(scheme, function(message){
-                    console.log(message);
-                  });
-
+                  $cordovaAppAvailability.check('comgooglemaps://')
+                    .then(function(){
+                        navigator.startApp.start(googleScheme, function(message){
+                          console.log(message);
+                        });
+                    }, function(){
+                        navigator.startApp.start(appleScheme, function(message){
+                          console.log(message);
+                        });
+                    });
               };
               
             });

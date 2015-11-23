@@ -43,11 +43,11 @@
                   <p class="more-info" ng-click="getMoreInfo(result.place_id)">More info...</p>
 
                 </div>
-                <div class="col" ng-click="sendTextMessage(result.name,result.formatted_address)">
+                <div class="col" ng-click="sendTextMessage(result.name,result.vicinity)">
                   <span class="icon ion-ios-upload-outline share-icon"></span>
                   <div class="icon-text">Share</div>
                 </div>
-                <div class="col" ng-click="openGoogleMapsApp(result.formatted_address)">
+                <div class="col" ng-click="openGoogleMapsApp(result.vicinity)">
                   <span class="icon ion-map directions-icon"></span>
                   <div class="icon-text">Directions</div>
                 </div>

@@ -24,7 +24,9 @@ angular.module('mmtApp', [
   'queryString', 
   'meetups', 
   'ngMessages',
-  'ngIOS9UIWebViewPatch'
+  'ngIOS9UIWebViewPatch', 
+  'ngAutocomplete', 
+  'ion-autocomplete'
 ])
 
 

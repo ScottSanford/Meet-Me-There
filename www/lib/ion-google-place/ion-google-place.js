@@ -65,6 +65,7 @@ angular.module('ion-google-place', [])
                                 geocoder.geocode({ address: query }, function(results, status) {
                                     if (status == google.maps.GeocoderStatus.OK) {
                                         scope.$apply(function(){
+                                            console.log(results);
                                             scope.locations = results;
                                         });
                                     } else {
