@@ -74,11 +74,17 @@ angular.module('GoogleMapsService', [])
           var directionsService = new google.maps.DirectionsService();
           var start = pointA != "undefined" ? pointA : userLocation;
           var end = pointB;
-          var travelMode = google.maps.DirectionsTravelMode.DRIVING
+
+          var driving = google.maps.DirectionsTravelMode.DRIVING
+          var travelLocalStorage = localStorageService.get('travelMode');
+          
+          var travelType = travelLocalStorage != null ? travelLocalStorage : driving
+
+          console.log("Travel :: ", travelLocalStorage);
           var request = {
               origin: start,
               destination: end,
-              travelMode: travelMode
+              travelMode: travelType
           };
 
           directionsService.route(request, function(response, status) {
@@ -130,7 +136,6 @@ angular.module('GoogleMapsService', [])
 
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(contentString+"<br>"); 
-            console.log(marker);
             infowindow.open(map,marker);
             });
         return marker;
@@ -143,7 +148,13 @@ angular.module('GoogleMapsService', [])
           for (i = 0; i < myroute.legs.length; i++) {
             totalDist += myroute.legs[i].distance.value;
           }
-          return GoogleMaps.putMarkerOnRoute(pLine, 50, map, typeID);
+
+          var midpointPercentage = localStorageService.get('midpointPercentage');
+          console.log(midpointPercentage);
+
+          var percentage = midpointPercentage !== null ? midpointPercentage : 50;
+
+          return GoogleMaps.putMarkerOnRoute(pLine, percentage, map, typeID);
 
           // totalDist = totalDist / 1000;
       };

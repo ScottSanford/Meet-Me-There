@@ -66,28 +66,30 @@ angular.module('SettingsController', [])
   $scope.travelModes = [
     {
       text: 'Driving', 
-      value: google.maps.TravelMode.DRIVING, 
-      checked: true
+      value: google.maps.TravelMode.DRIVING
     },
     {
       text: 'Transit', 
-      value: google.maps.TravelMode.TRANSIT, 
-      checked: false
+      value: google.maps.TravelMode.TRANSIT
     },    
     {
       text: 'Walking', 
-      value: google.maps.TravelMode.WALKING, 
-      checked: false
+      value: google.maps.TravelMode.WALKING
     },
     {
       text: 'Bicycling', 
-      value: google.maps.TravelMode.BICYCLING, 
-      checked: false
+      value: google.maps.TravelMode.BICYCLING
     }
   ];
-
+  var travelLS = localStorageService.get('travelMode');
   $scope.radio = {
-    checked: google.maps.TravelMode.DRIVING
+    checked: travelLS !== null ? travelLS : google.maps.TravelMode.DRIVING 
+  }
+
+  $scope.changedTravelMode = function(mode) {
+      
+    localStorageService.set('travelMode', mode);
+
   }
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -99,11 +101,27 @@ angular.module('SettingsController', [])
     
   }
 
-  $scope.radiusRange = localStorageService.get('radiusRange') !== null ? localStorageService.get('radiusRange') : 800;
+  var rRange = localStorageService.get('radiusRange');
 
-  /////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////// RATE APP /////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////
+  $scope.radiusRange = rRange !== null ? rRange : 800;
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// CUSTOMIZE MIDPOINT VIEW //////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+  $scope.changedMidpoint = function(midpoint) {
+
+    localStorageService.set('midpointPercentage', midpoint);
+
+  }
+
+  var mpPercentage = localStorageService.get('midpointPercentage');
+
+  $scope.midpointPercentage = mpPercentage !== null ? mpPercentage : 50;
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// RATE APP /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
     document.addEventListener('deviceready', function(){
 

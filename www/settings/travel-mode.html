@@ -9,7 +9,8 @@
 			class="travelmode-radio"
 			ng-repeat="travel in travelModes"
             ng-value="travel.value"
-            ng-model="radio.checked">
+            ng-model="radio.checked"
+            ng-change="changedTravelMode(travel.value)">
           {{ travel.text }}
         </ion-radio>
 

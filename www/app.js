@@ -117,6 +117,15 @@ angular.module('mmtApp', [
           controller: 'SettingsCtrl'
         }
       }
+    })    
+    .state('tabs.change', {
+      url: '/change',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'settings/midpoint-change.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
     })
     .state('tabs.radius', {
       url: '/radius',
