@@ -142,7 +142,7 @@ angular.module('MapController', [])
 
           var sms = {
             number: '', 
-            message: "Meet Me There:" + "\n" + name + "\n" + address
+            message: "Meet You There:" + "\n" + name + "\n" + address
           }
        
           $cordovaSms

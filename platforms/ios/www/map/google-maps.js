@@ -228,6 +228,15 @@ angular.module('GoogleMapsService', [])
           });
           infowindow = new google.maps.InfoWindow();
 
+          // var popupContent = '<div class="list">' +
+          //                       '<a class="item item-thumbnail-left" href="#">' + 
+          //                         '<img src="common/img/marker.png" />' +
+          //                         '<h2>' + POI.name + '</h2>' +
+          //                         '<p ng-click="getMoreInfo(POI.place_id)"> more info... </p>' +
+          //                       '</a>' + 
+          //                     '</div>';
+
+
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.close();
               infowindow.setContent(POI.name);

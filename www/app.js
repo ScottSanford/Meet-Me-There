@@ -15,7 +15,6 @@ angular.module('mmtApp', [
   'EmailComposerService',
   'uiGmapgoogle-maps',
   'ngCordova', 
-  'ion-google-place',
   'ui.bootstrap', 
   'ngAnimate', 
   'ionic.contrib.drawer.vertical', 
@@ -25,7 +24,6 @@ angular.module('mmtApp', [
   'meetups', 
   'ngMessages',
   'ngIOS9UIWebViewPatch', 
-  'ngAutocomplete', 
   'ion-autocomplete'
 ])
 
@@ -110,6 +108,15 @@ angular.module('mmtApp', [
           controller: 'SettingsCtrl'
         }
       }
+    })    
+    .state('tabs.travel', {
+      url: '/travel',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'settings/travel-mode.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
     })
     .state('tabs.radius', {
       url: '/radius',
@@ -140,7 +147,8 @@ angular.module('mmtApp', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tabs/search');
+  // default to map view to initiate GeoLocation
+  $urlRouterProvider.otherwise('/tabs/map');
 
   document.addEventListener("deviceready", function () {
 

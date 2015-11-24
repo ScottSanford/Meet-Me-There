@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.app749812" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Meet Me There</name>
+  <name>Meet You There</name>
   <description>
         An app that takes the user's location and your friend's location and finds places to meet up in the middle.
     </description>

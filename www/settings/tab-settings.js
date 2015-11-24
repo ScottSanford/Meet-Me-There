@@ -32,6 +32,7 @@ angular.module('SettingsController', [])
 
 
   // Meetup Logic Starts here
+  // Meetup View
 
   function initMeetupList() {
     var lsKeys = localStorageService.deriveKey();
@@ -57,7 +58,41 @@ angular.module('SettingsController', [])
     })
     localStorageService.set('meetupList', meetupList);
   }
-  
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// TRAVEL MODE VIEW /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+  $scope.travelModes = [
+    {
+      text: 'Driving', 
+      value: google.maps.TravelMode.DRIVING, 
+      checked: true
+    },
+    {
+      text: 'Transit', 
+      value: google.maps.TravelMode.TRANSIT, 
+      checked: false
+    },    
+    {
+      text: 'Walking', 
+      value: google.maps.TravelMode.WALKING, 
+      checked: false
+    },
+    {
+      text: 'Bicycling', 
+      value: google.maps.TravelMode.BICYCLING, 
+      checked: false
+    }
+  ];
+
+  $scope.radio = {
+    checked: google.maps.TravelMode.DRIVING
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// RADIUS RANGE  VIEW ///////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
   $scope.changedRadiusRange = function(range) {
 
     localStorageService.set('radiusRange', range);
@@ -66,6 +101,9 @@ angular.module('SettingsController', [])
 
   $scope.radiusRange = localStorageService.get('radiusRange') !== null ? localStorageService.get('radiusRange') : 800;
 
+  /////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// RATE APP /////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
 
     document.addEventListener('deviceready', function(){
 
@@ -82,6 +120,10 @@ angular.module('SettingsController', [])
       }
 
     });
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// EMAIL VIEW ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 
   document.addEventListener('deviceready', function(){

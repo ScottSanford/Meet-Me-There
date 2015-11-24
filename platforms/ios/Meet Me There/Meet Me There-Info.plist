@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>comgooglemaps</string>
-      <string>sms</string>
-    </array>
     <key>CFBundleDevelopmentRegion</key>
     <string>English</string>
     <key>CFBundleDisplayName</key>
@@ -61,15 +56,20 @@
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>0.0.1</string>
-    <key>CFBundleShortVersionString</key>
-    <string>0.0.1</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>comgooglemaps</string>
+      <string>sms</string>
+    </array>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-    <key>NSMainNibFile</key>
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
     <key>NSMainNibFile~ipad</key>
     <string></string>
@@ -176,7 +176,5 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
   </dict>
 </plist>

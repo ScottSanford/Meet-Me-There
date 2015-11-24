@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "Meet Me There.app"
+               BuildableName = "Meet You There.app"
                BlueprintName = "Meet Me There"
                ReferencedContainer = "container:Meet Me There.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "Meet Me There.app"
+            BuildableName = "Meet You There.app"
             BlueprintName = "Meet Me There"
             ReferencedContainer = "container:Meet Me There.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "Meet Me There.app"
+            BuildableName = "Meet You There.app"
             BlueprintName = "Meet Me There"
             ReferencedContainer = "container:Meet Me There.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "Meet Me There.app"
+            BuildableName = "Meet You There.app"
             BlueprintName = "Meet Me There"
             ReferencedContainer = "container:Meet Me There.xcodeproj">
          </BuildableReference>

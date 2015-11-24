@@ -234,18 +234,24 @@ ion-content.meeting-places {
 }
 
 .sad-face {
-	width:150px;
+	width:100px;
 	height: auto;
 	display: block;
-	margin:50px auto;
+	margin:20px auto;
 }
 
 .noresults {
 	font-size:17pt;
 	text-align: center;
-	margin-top:10px;
+	margin:10px auto;
 	overflow: initial;
     white-space: initial;
+    width:75%;
+}
+
+.window-name {
+	float:right;
+	margin:3px 0 0 10px;
 }
 /*===============================================================
 						Settings Tab

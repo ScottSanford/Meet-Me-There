@@ -234,18 +234,24 @@ ion-content.meeting-places {
 }
 
 .sad-face {
-	width:150px;
+	width:100px;
 	height: auto;
 	display: block;
-	margin:50px auto;
+	margin:20px auto;
 }
 
 .noresults {
 	font-size:17pt;
 	text-align: center;
-	margin-top:10px;
+	margin:10px auto;
 	overflow: initial;
     white-space: initial;
+    width:75%;
+}
+
+.window-name {
+	float:right;
+	margin:3px 0 0 10px;
 }
 /*===============================================================
 						Settings Tab
@@ -314,4 +320,20 @@ ion-content.meeting-places {
 	text-align: center;
 	margin-top:15px;
 	font-size: 17pt;
+}
+
+/*===============================================================
+						Travel Mode Tab
+================================================================*/
+.travelmode-radio {
+	font-weight: 300;
+}
+
+.item {
+	border-bottom:1px;
+	border-right: 0px;
+}
+
+.item:last-of-type {
+	border-bottom: 1px solid #ddd;
 }

@@ -1,4 +1,4 @@
-<ion-view view-title="Meet Me There" hide-nav-bar="true">
+<ion-view view-title="Meet You There" hide-nav-bar="true">
 
     <ion-content>
         <div id="map" data-tap-disabled="true"></div>
@@ -57,9 +57,7 @@
             <!-- Sorry, no search results could be found -->
             <div ng-show="results === undefined" class="item padding-right noresults-container">
               <img class="sad-face" src="common/img/sad-face.png">
-              <div class="row">
-                <div class="col padding-horizontal noresults">{{noresults}}</div>
-              </div>
+                <div class="noresults">{{noresults}}</div>
             </div>
 
           </div>
