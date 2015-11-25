@@ -66,19 +66,23 @@ angular.module('SettingsController', [])
   $scope.travelModes = [
     {
       text: 'Driving', 
-      value: google.maps.TravelMode.DRIVING
+      value: google.maps.TravelMode.DRIVING,
+      appleValue: 'd'
     },
     {
       text: 'Transit', 
-      value: google.maps.TravelMode.TRANSIT
+      value: google.maps.TravelMode.TRANSIT,
+      appleValue: 'r'
     },    
     {
       text: 'Walking', 
-      value: google.maps.TravelMode.WALKING
+      value: google.maps.TravelMode.WALKING,
+      appleValue: 'w'
     },
     {
       text: 'Bicycling', 
-      value: google.maps.TravelMode.BICYCLING
+      value: google.maps.TravelMode.BICYCLING, 
+      appleValue: 'd'
     }
   ];
   var travelLS = localStorageService.get('travelMode');
@@ -86,9 +90,10 @@ angular.module('SettingsController', [])
     checked: travelLS !== null ? travelLS : google.maps.TravelMode.DRIVING 
   }
 
-  $scope.changedTravelMode = function(mode) {
-      
+  $scope.changedTravelMode = function(mode, apple) {
+    
     localStorageService.set('travelMode', mode);
+    localStorageService.set('appleMode', apple);
 
   }
 

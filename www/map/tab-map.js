@@ -133,9 +133,15 @@ angular.module('MapController', [])
 
                   var stringAddress = address.split(' ').join('+');
 
-                  var googleScheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&directionsmode=driving';
-                  var appleScheme  = 'http://maps.apple.com/?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&dirflg=d';
+                  var googleTravel = localStorageService.get('travelMode');
+                  var appleTravel = localStorageService.get('appleMode');
 
+                  var googleMode = googleTravel != null ? googleTravel : 'driving';
+                  var appleMode = appleTravel != null ? appleTravel : 'd';
+
+                  var googleScheme = 'comgooglemaps://?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&directionsmode=' + googleMode;
+                  var appleScheme  = 'http://maps.apple.com/?saddr=' + userLocation.lat + ',' + userLocation.lng + '&daddr=' + stringAddress + '&dirflg=' + appleMode;
+                  
                   $cordovaAppAvailability.check('comgooglemaps://')
                     .then(function(){
                         navigator.startApp.start(googleScheme, function(message){
