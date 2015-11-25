@@ -21,7 +21,7 @@
           </div> -->
 
           <!-- Yay, found search results -->
-          <div ng-show="results.length > 0" class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results</div>
+          <div ng-show="results.length > 0" class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results     <p>ETA to Midpoint - {{eta}}<p></div>
             <div ng-show="results.length > 0" class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
                 <div class="col col-50">

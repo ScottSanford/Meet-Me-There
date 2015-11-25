@@ -169,6 +169,10 @@ ion-content.meeting-places {
 	padding-right: 0;
 }
 
+.eta {
+	float:right;
+}
+
 .nearby-locations {
 	font-size:17pt;
 }
@@ -336,4 +340,13 @@ ion-content.meeting-places {
 
 .item:last-of-type {
 	border-bottom: 1px solid #ddd;
+}
+
+/*===============================================================
+						Customize Midpoint Tab
+================================================================*/
+
+.custom-marker {
+	margin:15px auto;
+	display: block;
 }

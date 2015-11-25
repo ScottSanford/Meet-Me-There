@@ -80,7 +80,6 @@ angular.module('GoogleMapsService', [])
           
           var travelType = travelLocalStorage != null ? travelLocalStorage : driving
 
-          console.log("Travel :: ", travelLocalStorage);
           var request = {
               origin: start,
               destination: end,
@@ -150,7 +149,6 @@ angular.module('GoogleMapsService', [])
           }
 
           var midpointPercentage = localStorageService.get('midpointPercentage');
-          console.log(midpointPercentage);
 
           var percentage = midpointPercentage !== null ? midpointPercentage : 50;
 
@@ -192,8 +190,14 @@ angular.module('GoogleMapsService', [])
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
+
+              var mLocation = 'mLocation';
               
               var POI = results[i];
+
+              // push midpoint location into object
+              POI[mLocation] = request.location;
+
               var scopePOI = results;
 
               deferred.resolve(scopePOI);

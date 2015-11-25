@@ -51,6 +51,9 @@ angular.module('MapController', [])
 
                 // $scope.dataLoaded = true;
 
+                var mLocation = results[0].mLocation;
+
+                getETA(mLocation); 
                 $scope.results = results;
 
                 results.forEach(function(value,i){
@@ -64,6 +67,33 @@ angular.module('MapController', [])
                 console.log(error);
               }); 
 
+            }
+
+
+            function getETA (midpoint) {
+                var directionsService = new google.maps.DirectionsService();
+                var start = pointA != "undefined" ? pointA : userLocation;
+                var end = midpoint;
+
+                var driving = google.maps.DirectionsTravelMode.DRIVING
+                var travelLocalStorage = localStorageService.get('travelMode');
+                
+                var travelType = travelLocalStorage != null ? travelLocalStorage : driving
+
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: travelType
+                };
+
+                directionsService.route(request, function(response, status) {
+                  if (status == google.maps.DirectionsStatus.OK) {
+
+                    var eta = response.routes[ 0 ].legs[ 0 ].duration.text;
+                    $scope.eta = eta;
+                    
+                  }
+                });
             }
 
             $scope.noresults = 'Sorry, no meetups found! Try expanding the search radius under the Settings tab.';
