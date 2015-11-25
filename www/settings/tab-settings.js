@@ -130,17 +130,12 @@ angular.module('SettingsController', [])
 
     document.addEventListener('deviceready', function(){
 
-      // Rate the App
-      $scope.rateApp = function() {
-        
-        $cordovaAppRate.promptForRating(true).then(function(){
+        // Rate the App
+        $scope.rateApp = function() {
 
-          $cordovaAppRate.setPreferences(AppRate);
+            $cordovaAppRate.setPreferences(AppRate);
 
-        }, function() {
-          console.log('Oops! Something went wrong :(');
-        });
-      }
+        }
 
     });
 

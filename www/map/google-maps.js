@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function($q, localStorageService) {
+.factory('GoogleMaps', function($q, localStorageService, $ionDrawerVerticalDelegate) {
   
   var totalDist = 0;
 
@@ -242,19 +242,12 @@ angular.module('GoogleMapsService', [])
             }
           });
           infowindow = new google.maps.InfoWindow();
-
-          // var popupContent = '<div class="list">' +
-          //                       '<a class="item item-thumbnail-left" href="#">' + 
-          //                         '<img src="common/img/marker.png" />' +
-          //                         '<h2>' + POI.name + '</h2>' +
-          //                         '<p ng-click="getMoreInfo(POI.place_id)"> more info... </p>' +
-          //                       '</a>' + 
-          //                     '</div>';
-
+          
+          var popupContent =  '<div onClick="$ionDrawerVerticalDelegate.openDrawer()">' + POI.name + '</div>';
 
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.close();
-              infowindow.setContent(POI.name);
+              infowindow.setContent(popupContent);
               infowindow.open(map, this);
           });
 

@@ -62,7 +62,6 @@ angular.module('MapController', [])
                 });
 
 
-
               }, function(error){
                 console.log(error);
               }); 

@@ -159,16 +159,5 @@ angular.module('mmtApp', [
   // default to map view to initiate GeoLocation
   $urlRouterProvider.otherwise('/tabs/map');
 
-  document.addEventListener("deviceready", function () {
-
-   var prefs = {
-     language: 'en',
-     appName: 'MY APP',
-     iosURL: '<my_app_id>'
-   };
-
-   $cordovaAppRateProvider.setPreferences(prefs)
-
- }, false);
 
 });
