@@ -108,6 +108,24 @@ angular.module('mmtApp', [
           controller: 'SettingsCtrl'
         }
       }
+    })    
+    .state('tabs.travel', {
+      url: '/travel',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'settings/travel-mode.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
+    })    
+    .state('tabs.change', {
+      url: '/change',
+      views: {
+        'tabs-settings': {
+          templateUrl: 'settings/midpoint-change.html', 
+          controller: 'SettingsCtrl'
+        }
+      }
     })
     .state('tabs.radius', {
       url: '/radius',
@@ -141,16 +159,5 @@ angular.module('mmtApp', [
   // default to map view to initiate GeoLocation
   $urlRouterProvider.otherwise('/tabs/map');
 
-  document.addEventListener("deviceready", function () {
-
-   var prefs = {
-     language: 'en',
-     appName: 'MY APP',
-     iosURL: '<my_app_id>'
-   };
-
-   $cordovaAppRateProvider.setPreferences(prefs)
-
- }, false);
 
 });

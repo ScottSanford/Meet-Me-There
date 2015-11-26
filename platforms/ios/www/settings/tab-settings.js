@@ -32,6 +32,7 @@ angular.module('SettingsController', [])
 
 
   // Meetup Logic Starts here
+  // Meetup View
 
   function initMeetupList() {
     var lsKeys = localStorageService.deriveKey();
@@ -57,31 +58,97 @@ angular.module('SettingsController', [])
     })
     localStorageService.set('meetupList', meetupList);
   }
-  
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// TRAVEL MODE VIEW /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+  $scope.travelModes = [
+    {
+      text: 'Driving', 
+      value: google.maps.TravelMode.DRIVING,
+      appleValue: 'd'
+    },
+    {
+      text: 'Transit', 
+      value: google.maps.TravelMode.TRANSIT,
+      appleValue: 'r'
+    },    
+    {
+      text: 'Walking', 
+      value: google.maps.TravelMode.WALKING,
+      appleValue: 'w'
+    },
+    {
+      text: 'Bicycling', 
+      value: google.maps.TravelMode.BICYCLING, 
+      appleValue: 'd'
+    }
+  ];
+  var travelLS = localStorageService.get('travelMode');
+  $scope.radio = {
+    checked: travelLS !== null ? travelLS : google.maps.TravelMode.DRIVING 
+  }
+
+  $scope.changedTravelMode = function(mode, apple) {
+    
+    localStorageService.set('travelMode', mode);
+    localStorageService.set('appleMode', apple);
+
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// RADIUS RANGE  VIEW ///////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
   $scope.changedRadiusRange = function(range) {
 
     localStorageService.set('radiusRange', range);
     
   }
 
-  $scope.radiusRange = localStorageService.get('radiusRange') !== null ? localStorageService.get('radiusRange') : 800;
+  var rRange = localStorageService.get('radiusRange');
+
+  $scope.radiusRange = rRange !== null ? rRange : 800;
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// CUSTOMIZE MIDPOINT VIEW //////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+  $scope.changedMidpoint = function(midpoint) {
+
+    localStorageService.set('midpointPercentage', midpoint);
+
+  }
+
+  var mpPercentage = localStorageService.get('midpointPercentage');
+
+  $scope.midpointPercentage = mpPercentage !== null ? mpPercentage : 50;
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// RATE APP /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+    // document.addEventListener('deviceready', function(){
+
+        // Rate the App
+        $scope.rateApp = function() {
+
+          $cordovaAppRate.promptForRating(true).then(function(){
+
+            $cordovaAppRate.setPreferences(AppRate);
+
+          }, function(){
+            console.log('Oops! Something went wrong :(');
+          });
 
 
-    document.addEventListener('deviceready', function(){
+        }
 
-      // Rate the App
-      $scope.rateApp = function() {
-        
-        $cordovaAppRate.promptForRating(true).then(function(){
+    // });
 
-          $cordovaAppRate.setPreferences(AppRate);
-
-        }, function() {
-          console.log('Oops! Something went wrong :(');
-        });
-      }
-
-    });
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// EMAIL VIEW ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 
   document.addEventListener('deviceready', function(){
@@ -104,6 +171,52 @@ angular.module('SettingsController', [])
   });
 
 
+})
+.directive('ionRadioFix', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    require: '?ngModel',
+    transclude: true,
+    template:
+      '<label class="item item-radio">' +
+        '<input type="radio" name="radio-group">' +
+        '<div class="radio-content">' +
+          '<div class="item-content disable-pointer-events" ng-transclude></div>' +
+          '<i class="radio-icon disable-pointer-events icon ion-checkmark"></i>' +
+        '</div>' +
+      '</label>',
+
+    compile: function(element, attr) {
+      if (attr.icon) {
+        var iconElm = element.find('i');
+        iconElm.removeClass('ion-checkmark').addClass(attr.icon);
+      }
+
+      var input = element.find('input');
+      angular.forEach({
+          'name': attr.name,
+          'value': attr.value,
+          'disabled': attr.disabled,
+          'ng-value': attr.ngValue,
+          'ng-model': attr.ngModel,
+          'ng-disabled': attr.ngDisabled,
+          'ng-change': attr.ngChange,
+          'ng-required': attr.ngRequired,
+          'required': attr.required
+      }, function(value, name) {
+        if (angular.isDefined(value)) {
+            input.attr(name, value);
+          }
+      });
+
+      return function(scope, element, attr) {
+        scope.getValue = function() {
+          return scope.ngValue || attr.value;
+        };
+      };
+    }
+  };
 });
 
 

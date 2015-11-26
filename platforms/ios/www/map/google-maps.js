@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function($q, localStorageService) {
+.factory('GoogleMaps', function($q, localStorageService, $ionDrawerVerticalDelegate) {
   
   var totalDist = 0;
 
@@ -72,13 +72,18 @@ angular.module('GoogleMapsService', [])
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
           var deferred = $q.defer();
           var directionsService = new google.maps.DirectionsService();
-          var start = pointA != "undefined" ? pointA : userLocation;
+          var start = pointA !== 'undefined' ? pointA : userLocation;
           var end = pointB;
-          var travelMode = google.maps.DirectionsTravelMode.DRIVING
+
+          var driving = google.maps.DirectionsTravelMode.DRIVING
+          var travelLocalStorage = localStorageService.get('travelMode');
+          
+          var travelType = travelLocalStorage != null ? travelLocalStorage : driving
+
           var request = {
               origin: start,
               destination: end,
-              travelMode: travelMode
+              travelMode: travelType
           };
 
           directionsService.route(request, function(response, status) {
@@ -107,7 +112,8 @@ angular.module('GoogleMapsService', [])
 
               deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
 
-            } else {
+            } else if (status == ''){
+              deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
               console.log("Directions query failed: " + status, request);
             } 
           });    
@@ -130,7 +136,6 @@ angular.module('GoogleMapsService', [])
 
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(contentString+"<br>"); 
-            console.log(marker);
             infowindow.open(map,marker);
             });
         return marker;
@@ -143,7 +148,12 @@ angular.module('GoogleMapsService', [])
           for (i = 0; i < myroute.legs.length; i++) {
             totalDist += myroute.legs[i].distance.value;
           }
-          return GoogleMaps.putMarkerOnRoute(pLine, 50, map, typeID);
+
+          var midpointPercentage = localStorageService.get('midpointPercentage');
+
+          var percentage = midpointPercentage !== null ? midpointPercentage : 50;
+
+          return GoogleMaps.putMarkerOnRoute(pLine, percentage, map, typeID);
 
           // totalDist = totalDist / 1000;
       };
@@ -181,8 +191,14 @@ angular.module('GoogleMapsService', [])
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
+
+              var mLocation = 'mLocation';
               
               var POI = results[i];
+
+              // push midpoint location into object
+              POI[mLocation] = request.location;
+
               var scopePOI = results;
 
               deferred.resolve(scopePOI);
@@ -227,19 +243,12 @@ angular.module('GoogleMapsService', [])
             }
           });
           infowindow = new google.maps.InfoWindow();
-
-          // var popupContent = '<div class="list">' +
-          //                       '<a class="item item-thumbnail-left" href="#">' + 
-          //                         '<img src="common/img/marker.png" />' +
-          //                         '<h2>' + POI.name + '</h2>' +
-          //                         '<p ng-click="getMoreInfo(POI.place_id)"> more info... </p>' +
-          //                       '</a>' + 
-          //                     '</div>';
-
+          
+          var popupContent =  '<div onClick="$ionDrawerVerticalDelegate.openDrawer()">' + POI.name + '</div>';
 
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.close();
-              infowindow.setContent(POI.name);
+              infowindow.setContent(popupContent);
               infowindow.open(map, this);
           });
 

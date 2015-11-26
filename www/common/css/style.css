@@ -169,6 +169,11 @@ ion-content.meeting-places {
 	padding-right: 0;
 }
 
+.eta-marker {
+	width:15px;
+	margin: 0 10px 0 0;
+}
+
 .eta {
 	float:right;
 }
@@ -192,6 +197,10 @@ ion-content.meeting-places {
 
 .more-info {
 	font-style: italic
+}
+
+.more-info-active:active {
+	color:#10C49D;
 }
 
 .share-icon, .directions-icon {
@@ -329,6 +338,10 @@ ion-content.meeting-places {
 /*===============================================================
 						Travel Mode Tab
 ================================================================*/
+.travel-mode {
+	margin-top:63px;
+}
+
 .travelmode-radio {
 	font-weight: 300;
 }
@@ -340,6 +353,20 @@ ion-content.meeting-places {
 
 .item:last-of-type {
 	border-bottom: 1px solid #ddd;
+}
+
+
+/* iOS 9 radio button issue <ion-radio-fix> directive*/
+.item-radio input:checked + .radio-content .item-content {
+/* style the item content when its checked */
+background: #f7f7f7; 
+
+}
+
+.item-radio input:checked + .radio-content .radio-icon {
+/* show the checkmark icon when its checked */
+visibility: visible;
+
 }
 
 /*===============================================================

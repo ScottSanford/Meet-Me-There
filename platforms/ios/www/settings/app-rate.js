@@ -5,7 +5,7 @@ angular.module('AppRateService', [])
   var prefs = {
      language: 'en',
      appName: 'Meet Me There',
-     iosURL: '<my_app_id>', 
+     iosURL: '1061762897', 
      openStoreInApp: true
   } 
 

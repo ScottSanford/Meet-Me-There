@@ -72,7 +72,7 @@ angular.module('GoogleMapsService', [])
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
           var deferred = $q.defer();
           var directionsService = new google.maps.DirectionsService();
-          var start = pointA != "undefined" ? pointA : userLocation;
+          var start = pointA !== 'undefined' ? pointA : userLocation;
           var end = pointB;
 
           var driving = google.maps.DirectionsTravelMode.DRIVING
@@ -112,7 +112,8 @@ angular.module('GoogleMapsService', [])
 
               deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
 
-            } else {
+            } else if (status == ''){
+              deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
               console.log("Directions query failed: " + status, request);
             } 
           });    

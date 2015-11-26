@@ -1,6 +1,6 @@
 angular.module('SearchController', [])
 
-.controller('SearchCtrl', function($scope, $location, localStorageService) {
+.controller('SearchCtrl', function($scope, $location, localStorageService, Meetups) {
 
     $scope.pointB = '';
     var places;
@@ -57,7 +57,26 @@ angular.module('SearchController', [])
       }
     }
 
+    function initLocalStorageMeetupPlaces() {
+
+        localStorageService.set('meetupList', Meetups.types);
+        getLSItems();
+
+    }
+
+    function getLSItems() {
+        localStorageService.get('meetupList').filter(function(meetup){
+          return meetup.checked;
+        });
+    }
+
+    initLocalStorageMeetupPlaces();
+
     function displayOnlyActiveMeetups() {
+      var meetupPlaces = localStorageService.get('meetupList');
+      if (meetupPlaces == null) {
+        return initLocalStorageMeetupPlaces();
+      }
       return localStorageService.get('meetupList').filter(function(meetup){
         return meetup.checked;
       });
@@ -66,6 +85,7 @@ angular.module('SearchController', [])
     $scope.places = displayOnlyActiveMeetups();
 
     $scope.getDirections = function(pointA, pointB) {
+
       // obj for meetups on Search View
       var placesObj = $scope.places;
 
@@ -81,10 +101,12 @@ angular.module('SearchController', [])
         return place.id;
       });
 
+      console.log(pointA);
       // reroute user to map page with query string
-      if (pointA === undefined) {
-        $location.url('/tabs/map?pointA=' + pointA + '&pointB=' + pointB + '&typeID=' + typeID);
-      } else {
+      if (pointA === undefined || pointA.length === 0) {
+        $location.url('/tabs/map?pointA=undefined&pointB=' + pointB + '&typeID=' + typeID);
+      } 
+      else {
         $location.url('/tabs/map?pointA=' + pointA + '&pointB=' + pointB + '&typeID=' + typeID); 
       }
     };
