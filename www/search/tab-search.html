@@ -7,7 +7,7 @@
         <!-- Your Location -->
           <div class="list list-inset" data-tap-disabled="true">
             <!-- <ion-google-place placeholder="Your Location" ng-model="pointA" class="your-location"/> -->
-            <input ion-autocomplete id="pointB" class="ion-autocomplete" type="text" readonly="readonly" placeholder="Your Location"
+            <input ion-autocomplete id="pointB" class="ion-autocomplete" type="text" placeholder="{{userLocation}}"
               ng-model="pointA"
               item-value-key="description"
               item-view-value-key="description"

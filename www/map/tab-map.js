@@ -35,6 +35,8 @@ angular.module('MapController', [])
                   lng: position.coords.longitude
               };
 
+              localStorageService.set('userLocation', userLocation);
+
               // $scope.loading = $ionicLoading.show({
               //   template: '<img src="img/icon.png" class="loading-icon">' +
               //            '<p class="loading-text">Finding meetups...</p>'
