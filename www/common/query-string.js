@@ -2,13 +2,13 @@ angular.module('queryString', [])
 
 .factory('queryString', ['$window', function($window) {
   return {
-
-        selectedTypeArray: function selectedTypeArray() {
+        selectedTypeArray: function() {
 
           var query_string = QueryStringToJSON();
           var placeArray = query_string.typeID.split(',');
+
           return placeArray;
-         
+
         }
   }
 

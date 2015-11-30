@@ -70,6 +70,7 @@ angular.module('GoogleMapsService', [])
       };
 
       GoogleMaps.calcRoute = function (pLine, userLocation, map, pointA, pointB, typeID) {
+
           var deferred = $q.defer();
           var directionsService = new google.maps.DirectionsService();
           var start = pointA !== 'undefined' ? pointA : userLocation;
@@ -87,6 +88,7 @@ angular.module('GoogleMapsService', [])
           };
 
           directionsService.route(request, function(response, status) {
+            console.log("status ==> ", status);
             if (status == google.maps.DirectionsStatus.OK) {
               pLine.setPath([]);
               var bounds = new google.maps.LatLngBounds();
@@ -112,10 +114,8 @@ angular.module('GoogleMapsService', [])
 
               deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
 
-            } else if (status == ''){
-              deferred.resolve(GoogleMaps.computeTotalDistance(pLine, response, map, typeID));
-              console.log("Directions query failed: " + status, request);
             } 
+
           });    
           return deferred.promise;                 
       };

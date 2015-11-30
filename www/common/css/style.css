@@ -129,13 +129,14 @@ ion-content.meeting-places {
 						Map Tab
 ================================================================*/
 .loading-container .loading {
-	padding:10px 15px 0 15px;
+	padding:10px 15px 15px 15px;
 	background-color: #10C49D;
 	opacity: .9;
+
 }
 
 .loading-icon {
-	width:100px;
+	width:75px;
 	height:auto;
 }
 

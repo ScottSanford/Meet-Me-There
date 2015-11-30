@@ -19,13 +19,16 @@ angular.module('MapController', [])
           initialize(userLocation);
       });
 
+      console.log($stateParams);
 
-      function getUserLocation(userLocation) {
+
+      function getUserLocation() {
         // add loading icon
-       //  $scope.loading = $ionicLoading.show({
-       //      template: '<img src="common/img/icon.png" class="loading-icon">' +
-       //                '<p class="loading-text">Creating cool map...</p>' 
-       // });
+        $scope.loading = $ionicLoading.show({
+            template: '<img src="common/img/coffee.GIF" class="loading-icon">' 
+                        // '<p ng-if="$stateParams" class="loading-text">Creating cool map...</p>' +
+                        // '<p class="loading-text">Finding cool hangouts...</p>' 
+        });
 
         var deferred = $q.defer();
           $ionicPlatform.ready(function(){
@@ -53,30 +56,31 @@ angular.module('MapController', [])
         var pointA = $stateParams.pointA;
         var pointB = $stateParams.pointB;
 
+        // fix bug issue when pointA=?pointB
+        if (typeof pointA === 'undefined') {
+          pointA = 'undefined';
+        }
+
         $scope.pointB = pointB;
 
         // get position of user and then set the center of the map to that position
 
               if (!$stateParams.pointB) {
                 GoogleMaps.initGoogleMap(userLocation);
-                // $ionicLoading.hide();     
+                $ionicLoading.hide();     
               }
 
 
               if ($stateParams.pointB) {
+                
+                var stringIDs    = $stateParams.typeID;
+                var typeID       = stringIDs.split(',');
+                 
                 GoogleMaps.initGoogleMap(userLocation);
-
-                // fix bug issue when pointA=?pointB
-                if (typeof pointA === 'undefined') {
-                  pointA = 'undefined';
-                }
-
-                var typeID = queryString.selectedTypeArray();
 
                 GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
 
                   // $scope.dataLoaded = false;
-                  console.log(results);
 
                   // $scope.dataLoaded = true;
 
@@ -90,13 +94,15 @@ angular.module('MapController', [])
                     value[thumbIcon] = GoogleMaps.customMarker(value).thumb;
                   });
 
+                  $ionicLoading.hide();
 
                 }, function(error){
                   console.log(error);
 
-                }); 
+                });
 
-                // $ionicLoading.hide();
+                $ionicLoading.hide();
+
                 
               }
 
@@ -127,7 +133,7 @@ angular.module('MapController', [])
                   });
               }
 
-              $scope.noresults = 'Sorry, no meetups found! Try expanding the search radius under the Settings tab.';
+              $scope.noresults = 'Sorry, no meetups found! Try adjusting the MeetPoint or search radius under the Settings tab.';
 
               // $ionicLoading.hide(); 
 
