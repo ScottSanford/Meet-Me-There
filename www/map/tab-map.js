@@ -1,9 +1,10 @@
 angular.module('MapController', [])
 
 .controller('GoogleMapCtrl', function(
-  $scope, $state, $q, $stateParams, $cordovaGeolocation, $ionicLoading, 
-  GoogleMaps, Meetups, queryString, localStorageService,
-  $cordovaSms, $cordovaToast, $cordovaAppAvailability, $cordovaInAppBrowser, $timeout, $ionicPlatform) {
+  $scope, $state, $q, $stateParams, $ionicLoading, 
+  GoogleMaps, localStorageService, 
+  $cordovaSms, $cordovaToast, $cordovaAppAvailability, 
+  $cordovaInAppBrowser, $ionicPlatform, $cordovaGeolocation) {
 
       var directionsDisplay;
       var map;
@@ -13,14 +14,9 @@ angular.module('MapController', [])
       var polyline = null;
       var userLocation;
 
-
-
       getUserLocation().then(function(userLocation){
           initialize(userLocation);
       });
-
-      console.log($stateParams);
-
 
       function getUserLocation() {
         // add loading icon
