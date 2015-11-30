@@ -1,7 +1,7 @@
 angular.module('MapController', [])
 
 .controller('GoogleMapCtrl', function(
-  $scope, $state, $stateParams, $cordovaGeolocation, $ionicLoading, 
+  $scope, $state, $q, $stateParams, $cordovaGeolocation, $ionicLoading, 
   GoogleMaps, Meetups, queryString, localStorageService,
   $cordovaSms, $cordovaToast, $cordovaAppAvailability, $cordovaInAppBrowser, $timeout, $ionicPlatform) {
 
@@ -11,10 +11,43 @@ angular.module('MapController', [])
       var service;
       var infowindow;
       var polyline = null;
+      var userLocation;
 
-      initialize();
 
-      function initialize() {
+
+      getUserLocation().then(function(userLocation){
+          initialize(userLocation);
+      });
+
+
+      function getUserLocation(userLocation) {
+        // add loading icon
+       //  $scope.loading = $ionicLoading.show({
+       //      template: '<img src="common/img/icon.png" class="loading-icon">' +
+       //                '<p class="loading-text">Creating cool map...</p>' 
+       // });
+
+        var deferred = $q.defer();
+          $ionicPlatform.ready(function(){
+              $cordovaGeolocation
+                .getCurrentPosition()
+                .then(function (position) {
+
+                  userLocation = {
+                      lat: position.coords.latitude, 
+                      lng: position.coords.longitude
+                  };
+
+                  localStorageService.set('userLocation', userLocation);
+
+                  deferred.resolve(userLocation);
+
+              });
+          });
+          return deferred.promise;
+      }
+
+      function initialize(userLocation) {
 
         // set variables for parameters
         var pointA = $stateParams.pointA;
@@ -22,29 +55,16 @@ angular.module('MapController', [])
 
         $scope.pointB = pointB;
 
-
         // get position of user and then set the center of the map to that position
-        $ionicPlatform.ready(function(){
 
-          $cordovaGeolocation
-            .getCurrentPosition()
-            .then(function (position) {
+              if (!$stateParams.pointB) {
+                GoogleMaps.initGoogleMap(userLocation);
+                // $ionicLoading.hide();     
+              }
 
-              var userLocation = {
-                  lat: position.coords.latitude, 
-                  lng: position.coords.longitude
-              };
-
-              localStorageService.set('userLocation', userLocation);
-
-              // $scope.loading = $ionicLoading.show({
-              //   template: '<img src="img/icon.png" class="loading-icon">' +
-              //            '<p class="loading-text">Finding meetups...</p>'
-              // });
-
-              GoogleMaps.initGoogleMap(userLocation);
 
               if ($stateParams.pointB) {
+                GoogleMaps.initGoogleMap(userLocation);
 
                 // fix bug issue when pointA=?pointB
                 if (typeof pointA === 'undefined') {
@@ -56,6 +76,7 @@ angular.module('MapController', [])
                 GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
 
                   // $scope.dataLoaded = false;
+                  console.log(results);
 
                   // $scope.dataLoaded = true;
 
@@ -72,8 +93,11 @@ angular.module('MapController', [])
 
                 }, function(error){
                   console.log(error);
+
                 }); 
 
+                // $ionicLoading.hide();
+                
               }
 
 
@@ -162,9 +186,6 @@ angular.module('MapController', [])
                 };
                 
               });
-
-          });
-        });
       };
 
       // $$ expensive ratings (put in service)

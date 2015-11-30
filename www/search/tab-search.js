@@ -1,9 +1,12 @@
 angular.module('SearchController', [])
 
-.controller('SearchCtrl', function($scope, $location, localStorageService, Meetups, $cordovaGeolocation) {
+.controller('SearchCtrl', function($scope, $q, $location, localStorageService, Meetups, $cordovaGeolocation) {
 
-    displayUserAddress();
+    displayUserAddress().then(function(address){
+      $scope.userLocation = address;
+    })
     function displayUserAddress() {
+      var deferred = $q.defer();
       var geocoder = new google.maps.Geocoder;
 
       var lsUserLocation = localStorageService.get('userLocation');
@@ -19,10 +22,11 @@ angular.module('SearchController', [])
                       var address = results[0].formatted_address;                
                     }
                   }
-                    $scope.userLocation = address;
-                    return address;
+                    deferred.resolve(address);
                }
             });
+
+      return deferred.promise;
 
     }
 
