@@ -38,7 +38,19 @@ angular.module('meetups', [])
           "plural": "Bars",
           "id": "bar",
            "checked": true, 
-         }, 
+         },        
+         {
+          "name": "Police",
+          "plural": "Bars",
+          "id": "police",
+           "checked": false, 
+         },        
+         {
+          "name": "ATM",
+          "plural": "ATMs",
+          "id": "atm",
+           "checked": false, 
+         }
         ] 
   }
 });

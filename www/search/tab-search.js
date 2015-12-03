@@ -95,21 +95,21 @@ angular.module('SearchController', [])
     }
 
     function getLSItems() {
-        localStorageService.get('meetupList').filter(function(meetup){
+        return localStorageService.get('meetupList').filter(function(meetup){
           return meetup.checked;
         });
     }
 
-    initLocalStorageMeetupPlaces();
 
     function displayOnlyActiveMeetups() {
+
       var meetupPlaces = localStorageService.get('meetupList');
+      
       if (meetupPlaces == null) {
         return initLocalStorageMeetupPlaces();
       }
-      return localStorageService.get('meetupList').filter(function(meetup){
-        return meetup.checked;
-      });
+      return getLSItems();
+
     }
 
     $scope.places = displayOnlyActiveMeetups();
@@ -131,7 +131,6 @@ angular.module('SearchController', [])
         return place.id;
       });
 
-      console.log(pointA);
       // reroute user to map page with query string
       if (pointA === undefined || pointA.length === 0) {
         $location.url('/tabs/map?pointA=undefined&pointB=' + pointB + '&typeID=' + typeID);

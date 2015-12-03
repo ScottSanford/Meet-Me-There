@@ -120,14 +120,14 @@ angular.module('GoogleMapsService', [])
           return deferred.promise;                 
       };
 
-      GoogleMaps.createMarker = function(latlng, label, html, map) {
+      GoogleMaps.createMarker = function(latlng, label, map) {
         // console.log(latlng+", " + label + ", " + html + ")");
-        var contentString = '<b>'+label+'</b><br>'+ html;
+        var contentString = '<b>'+label+'</b>';
         var marker        = new google.maps.Marker({
             position: latlng,
             map: map,
             title: label,
-            zIndex: Math.round(latlng.lat()*-100000)<<5, 
+            zIndex: 100000000, 
             icon: 'common/img/marker.png'
 
         });
@@ -166,7 +166,7 @@ angular.module('GoogleMapsService', [])
 
         if (!marker) {
 
-            marker = GoogleMaps.createMarker(midpoint,"Midpoint","This is the midpoint of the locations.", map);
+            marker = GoogleMaps.createMarker(midpoint,"MeetPoint", map);
             return GoogleMaps.googleNearbySearch(midpoint, map, typeID);
 
         } else {                
@@ -240,7 +240,8 @@ angular.module('GoogleMapsService', [])
             position: placeLoc,
             icon: {
               url: GoogleMaps.customMarker(POI).marker
-            }
+            }, 
+            zIndex: 1
           });
           infowindow = new google.maps.InfoWindow();
           
@@ -327,7 +328,20 @@ angular.module('GoogleMapsService', [])
               images.marker = 'common/img/themepark.png';
               images.thumb = 'common/img/thumb_themepark.png'
               return images;
-            }            
+            }
+            else if (
+              (POI.types[i] === 'atm') ||
+              (POI.types[i] === 'bank')
+              ) {
+                images.marker = 'common/img/atm.png';
+                images.thumb = 'common/img/thumb_atm.png'
+                return images;
+            }              
+            else if (POI.types[i] === 'police') {
+                images.marker = 'common/img/police.png';
+                images.thumb = 'common/img/thumb_police.png'
+                return images;
+            }         
           };
       }
 

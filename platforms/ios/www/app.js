@@ -13,6 +13,7 @@ angular.module('mmtApp', [
   'GoogleMapsService', 
   'AppRateService',
   'EmailComposerService',
+  'meetups', 
   'uiGmapgoogle-maps',
   'ngCordova', 
   'ui.bootstrap', 
@@ -20,9 +21,6 @@ angular.module('mmtApp', [
   'ionic.contrib.drawer.vertical', 
   'LocalStorageModule', 
   'ngCordova.plugins.appRate', 
-  'queryString', 
-  'meetups', 
-  'ngMessages',
   'ngIOS9UIWebViewPatch', 
   'ion-autocomplete'
 ])

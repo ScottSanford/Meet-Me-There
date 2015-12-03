@@ -319,6 +319,11 @@ ion-content.meeting-places {
 	font-size:11pt;
 }
 
+.police-warning {
+	font-size:11pt;
+	padding:10px 10px;
+}
+
 /*===============================================================
 						Radius Range Tab
 ================================================================*/
