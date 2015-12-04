@@ -88,7 +88,6 @@ angular.module('GoogleMapsService', [])
           };
 
           directionsService.route(request, function(response, status) {
-            console.log("status ==> ", status);
             if (status == google.maps.DirectionsStatus.OK) {
               pLine.setPath([]);
               var bounds = new google.maps.LatLngBounds();
@@ -340,6 +339,11 @@ angular.module('GoogleMapsService', [])
             else if (POI.types[i] === 'police') {
                 images.marker = 'common/img/police.png';
                 images.thumb = 'common/img/thumb_police.png'
+                return images;
+            }             
+            else if (POI.types[i] === 'gas_station') {
+                images.marker = 'common/img/gas.png';
+                images.thumb = 'common/img/thumb_gas.png'
                 return images;
             }         
           };

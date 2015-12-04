@@ -37,8 +37,6 @@ angular.module('SettingsController', [])
   function initMeetupList() {
     var lsKeys = localStorageService.deriveKey();
     var meetupPlaces = localStorageService.get('meetupList');
-    console.log('meetupPlaces :: ', meetupPlaces);
-    // console.log('lsKeys', lsKeys);
     for (var i=0; i< lsKeys.length; i++) {
       if (meetupPlaces) {
         var lsList = localStorageService.get('meetupList');
