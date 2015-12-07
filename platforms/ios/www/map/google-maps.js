@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function($q, localStorageService, $ionDrawerVerticalDelegate) {
+.factory('GoogleMaps', function($q, localStorageService) {
   
   var totalDist = 0;
 
@@ -88,7 +88,6 @@ angular.module('GoogleMapsService', [])
           };
 
           directionsService.route(request, function(response, status) {
-            console.log("status ==> ", status);
             if (status == google.maps.DirectionsStatus.OK) {
               pLine.setPath([]);
               var bounds = new google.maps.LatLngBounds();
@@ -120,14 +119,14 @@ angular.module('GoogleMapsService', [])
           return deferred.promise;                 
       };
 
-      GoogleMaps.createMarker = function(latlng, label, html, map) {
+      GoogleMaps.createMarker = function(latlng, label, map) {
         // console.log(latlng+", " + label + ", " + html + ")");
-        var contentString = '<b>'+label+'</b><br>'+ html;
+        var contentString = '<b>'+label+'</b>';
         var marker        = new google.maps.Marker({
             position: latlng,
             map: map,
             title: label,
-            zIndex: Math.round(latlng.lat()*-100000)<<5, 
+            zIndex: 100000000, 
             icon: 'common/img/marker.png'
 
         });
@@ -166,7 +165,7 @@ angular.module('GoogleMapsService', [])
 
         if (!marker) {
 
-            marker = GoogleMaps.createMarker(midpoint,"Midpoint","This is the midpoint of the locations.", map);
+            marker = GoogleMaps.createMarker(midpoint,"MeetPoint", map);
             return GoogleMaps.googleNearbySearch(midpoint, map, typeID);
 
         } else {                
@@ -223,7 +222,7 @@ angular.module('GoogleMapsService', [])
 
         service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          
+          console.log(place);
           deferred.resolve(place.url);
 
         }
@@ -240,17 +239,25 @@ angular.module('GoogleMapsService', [])
             position: placeLoc,
             icon: {
               url: GoogleMaps.customMarker(POI).marker
-            }
+            }, 
+            zIndex: 1
           });
           infowindow = new google.maps.InfoWindow();
-          
-          var popupContent =  '<div onClick="$ionDrawerVerticalDelegate.openDrawer()">' + POI.name + '</div>';
 
-          google.maps.event.addListener(marker, 'click', function() {
-              infowindow.close();
-              infowindow.setContent(popupContent);
-              infowindow.open(map, this);
-          });
+          
+  
+              google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.close();
+                  var link = GoogleMaps.googleGetPlaceDetails(POI.place_id, map).then(function(url){
+               
+                      var popupContent = '<a class="marker-name" href="' + url + '">' + POI.name + '</a>' + 
+                                         '<rating ng-model="POI.rating" readonly="true"></rating>';
+                                         // '- <rating ng-model="result.price_level" readonly="true" state-on="glyphicon-usd" state-off="'null'">;
+                      infowindow.setContent(popupContent);
+                  });
+                  infowindow.open(map, this);
+              });
+
 
       };
 
@@ -327,7 +334,25 @@ angular.module('GoogleMapsService', [])
               images.marker = 'common/img/themepark.png';
               images.thumb = 'common/img/thumb_themepark.png'
               return images;
-            }            
+            }
+            else if (
+              (POI.types[i] === 'atm') ||
+              (POI.types[i] === 'bank')
+              ) {
+                images.marker = 'common/img/atm.png';
+                images.thumb = 'common/img/thumb_atm.png'
+                return images;
+            }              
+            else if (POI.types[i] === 'police') {
+                images.marker = 'common/img/police.png';
+                images.thumb = 'common/img/thumb_police.png'
+                return images;
+            }             
+            else if (POI.types[i] === 'gas_station') {
+                images.marker = 'common/img/gas.png';
+                images.thumb = 'common/img/thumb_gas.png'
+                return images;
+            }         
           };
       }
 

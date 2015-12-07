@@ -1,6 +1,6 @@
 angular.module('SearchController', [])
 
-.controller('SearchCtrl', function($scope, $q, $location, localStorageService, Meetups, $cordovaGeolocation) {
+.controller('SearchCtrl', function($scope, $q, $location, localStorageService, Meetups, $cordovaGeolocation, GoogleMaps) {
 
     displayUserAddress().then(function(address){
       $scope.userLocation = address;
@@ -50,7 +50,7 @@ angular.module('SearchController', [])
     $scope.getPlaces = function(query) {
       var service = new google.maps.places.AutocompleteService();
       service.getPlacePredictions({ input: query || 'ch' }, displaySuggestions);
-
+      
       if (query) {
         return {
           results: places
@@ -60,9 +60,6 @@ angular.module('SearchController', [])
         results: displayUserAddress()
       };
     };
-
-
-
 
     function fillInAddress() {
 
@@ -95,27 +92,26 @@ angular.module('SearchController', [])
     }
 
     function getLSItems() {
-        localStorageService.get('meetupList').filter(function(meetup){
+        return localStorageService.get('meetupList').filter(function(meetup){
           return meetup.checked;
         });
     }
 
-    initLocalStorageMeetupPlaces();
 
     function displayOnlyActiveMeetups() {
+
       var meetupPlaces = localStorageService.get('meetupList');
+      
       if (meetupPlaces == null) {
         return initLocalStorageMeetupPlaces();
       }
-      return localStorageService.get('meetupList').filter(function(meetup){
-        return meetup.checked;
-      });
+      return getLSItems();
+
     }
 
     $scope.places = displayOnlyActiveMeetups();
 
     $scope.getDirections = function(pointA, pointB) {
-
       // obj for meetups on Search View
       var placesObj = $scope.places;
 
@@ -131,14 +127,23 @@ angular.module('SearchController', [])
         return place.id;
       });
 
-      console.log(pointA);
+      // clear alert message when there is an option 
+      if (pointB.length > 0) {
+        $scope.alertMessage = '';
+      }
+
       // reroute user to map page with query string
-      if (pointA === undefined || pointA.length === 0) {
+      if (pointB.length == 0) {
+        $scope.error = true;
+        $scope.alertMessage = 'Please type in a Point B location.';
+        return;
+      }
+      else if (pointA === undefined || pointA.length === 0) {
         $location.url('/tabs/map?pointA=undefined&pointB=' + pointB + '&typeID=' + typeID);
       } 
       else {
         $location.url('/tabs/map?pointA=' + pointA + '&pointB=' + pointB + '&typeID=' + typeID); 
-      }
+      } 
     };
 
 });

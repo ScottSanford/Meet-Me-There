@@ -1,6 +1,7 @@
 <ion-view view-title="Meet You There" hide-nav-bar="true">
 
     <ion-content>
+        <img src="common/img/coffee_transparant.png" class="coffee-transparant" ng-show="results.length > 0">
         <div id="map" data-tap-disabled="true"></div>
     </ion-content>
 
@@ -64,7 +65,7 @@
         </div>
         </ion-scroll>
       </ion-drawer-vertical-content>
-      <ion-drawer-vertical-handle />
+      <ion-drawer-vertical-handle ng-click="toggleDrawer()"/>
     </ion-drawer-vertical-wrapper>
 
     

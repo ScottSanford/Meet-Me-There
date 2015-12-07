@@ -2,9 +2,12 @@ angular.module('MapController', [])
 
 .controller('GoogleMapCtrl', function(
   $scope, $state, $q, $stateParams, $ionicLoading, 
-  GoogleMaps, localStorageService, 
+  GoogleMaps, localStorageService, $ionDrawerVerticalDelegate, 
   $cordovaSms, $cordovaToast, $cordovaAppAvailability, 
-  $cordovaInAppBrowser, $ionicPlatform, $cordovaGeolocation) {
+  $cordovaInAppBrowser, $ionicPlatform, $cordovaGeolocation, $rootScope) {
+
+  console.log('firing!');
+  console.log(window.location.href);
 
       var directionsDisplay;
       var map;
@@ -22,9 +25,9 @@ angular.module('MapController', [])
         // add loading icon
         $scope.loading = $ionicLoading.show({
             template: '<img src="common/img/coffee.GIF" class="loading-icon">' 
-                        // '<p ng-if="$stateParams" class="loading-text">Creating cool map...</p>' +
-                        // '<p class="loading-text">Finding cool hangouts...</p>' 
         });
+
+        console.log('getUserLocation()');
 
         var deferred = $q.defer();
           $ionicPlatform.ready(function(){
@@ -75,10 +78,6 @@ angular.module('MapController', [])
                 GoogleMaps.initGoogleMap(userLocation);
 
                 GoogleMaps.calcRoute(pLine, userLocation, googleMap.map, pointA, pointB, typeID).then(function(results){
-
-                  // $scope.dataLoaded = false;
-
-                  // $scope.dataLoaded = true;
 
                   var mLocation = results[0].mLocation;
 
@@ -133,11 +132,12 @@ angular.module('MapController', [])
 
               // $ionicLoading.hide(); 
 
-              document.addEventListener("deviceready", function() {
+              // document.addEventListener("deviceready", function() {
 
                 $scope.getMoreInfo = function(placeId) {
                   
                   GoogleMaps.googleGetPlaceDetails(placeId, googleMap.map).then(function(url) {
+                    console.log(url);
 
                     var options = {
                       location: 'yes',
@@ -158,7 +158,7 @@ angular.module('MapController', [])
             
                 };
 
-              }, false);
+              // }, false);
 
               document.addEventListener("deviceready", function() {
 
@@ -189,6 +189,10 @@ angular.module('MapController', [])
                 
               });
       };
+
+      $scope.toggleDrawer = function() {
+        $ionDrawerVerticalDelegate.toggleDrawer();
+      }
 
       // $$ expensive ratings (put in service)
       $scope.ratingStates = [

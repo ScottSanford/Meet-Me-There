@@ -31,6 +31,13 @@
               select-items-label="Select a location..."
               />
           </div>
+        
+          <div class="list card alert-message" ng-show="error">
+            <span class="item item-icon-left alert-message">
+              <i class="icon ion-alert alert-icon"></i>
+              {{alertMessage}}
+            </span>
+          </div>
 
           <!--  Meeting Places -->
           <div class="item item-divider meetup-places">
@@ -42,7 +49,7 @@
           </ion-toggle>          
     
           <div class="button-container">
-            <button class="button button-full button-positive meet-me-there-btn" ng-click="getDirections(pointA, pointB)">
+            <button class="button button-full button-positive meet-me-there-btn" ng-class="{{send}}" ng-click="getDirections(pointA, pointB)">
               Meet You There
             </button>
           </div>

@@ -85,6 +85,16 @@ input.ion-google-place[readonly] {
 	width:100%;
 }
 
+.alert-message.item:last-child, .alert-message.item:last-child i {
+	color:#ff0000;
+	font-family:'SF-UI-Display-Semibold';
+	font-size:11pt;
+}
+
+.alert-icon {
+	font-size:.7em;
+}
+
 .meetup-places {
 	margin-bottom: 10px;
 }
@@ -120,6 +130,7 @@ ion-content.meeting-places {
 	font-family: 'SF-UI-Display-Semibold';
 }
 
+
 #pointA, #pointB {
 	margin-left: 7px;
 	padding-left: 7px;
@@ -128,6 +139,15 @@ ion-content.meeting-places {
 /*===============================================================
 						Map Tab
 ================================================================*/
+.coffee-transparant {
+	position: absolute;
+	top:5px;
+	left:0;
+	z-index: 200;
+	width:50px;
+	height:auto;
+}
+
 .loading-container .loading {
 	padding:10px 15px 15px 15px;
 	background-color: #10C49D;
@@ -267,6 +287,11 @@ ion-content.meeting-places {
 	float:right;
 	margin:3px 0 0 10px;
 }
+
+.marker-name {
+	text-decoration: none;
+	color:#000;
+}
 /*===============================================================
 						Settings Tab
 ================================================================*/
@@ -317,6 +342,11 @@ ion-content.meeting-places {
 .favorites-description {
 	padding:0 20px;
 	font-size:11pt;
+}
+
+.police-warning {
+	font-size:11pt;
+	padding:10px 10px;
 }
 
 /*===============================================================

@@ -1,6 +1,6 @@
 angular.module('GoogleMapsService', [])
 
-.factory('GoogleMaps', function($q, localStorageService, $ionDrawerVerticalDelegate) {
+.factory('GoogleMaps', function($q, localStorageService) {
   
   var totalDist = 0;
 
@@ -222,7 +222,7 @@ angular.module('GoogleMapsService', [])
 
         service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          
+          console.log(place);
           deferred.resolve(place.url);
 
         }
@@ -243,14 +243,21 @@ angular.module('GoogleMapsService', [])
             zIndex: 1
           });
           infowindow = new google.maps.InfoWindow();
-          
-          var popupContent =  '<div onClick="$ionDrawerVerticalDelegate.openDrawer()">' + POI.name + '</div>';
 
-          google.maps.event.addListener(marker, 'click', function() {
-              infowindow.close();
-              infowindow.setContent(popupContent);
-              infowindow.open(map, this);
-          });
+          
+  
+              google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.close();
+                  var link = GoogleMaps.googleGetPlaceDetails(POI.place_id, map).then(function(url){
+               
+                      var popupContent = '<a class="marker-name" href="' + url + '">' + POI.name + '</a>' + 
+                                         '<rating ng-model="POI.rating" readonly="true"></rating>';
+                                         // '- <rating ng-model="result.price_level" readonly="true" state-on="glyphicon-usd" state-off="'null'">;
+                      infowindow.setContent(popupContent);
+                  });
+                  infowindow.open(map, this);
+              });
+
 
       };
 
