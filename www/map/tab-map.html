@@ -13,15 +13,7 @@
         <div>
           <div class="list">
 
-          <!-- Loading Data -->
-<!--           <div ng-hide="dataLoaded" class="dataLoaded">
-            <ion-spinner icon="ios" class="spinner-energized"></ion-spinner>
-            <div class="row">
-              <div class="col padding-horizontal noresults">Finding Search Results...</div>
-            </div>
-          </div> -->
-
-          <!-- Yay, found search results -->
+          <!-- Happy, found search results -->
           <div ng-show="results.length > 0" class="item item-divider nearby-locations">Nearby Locations - {{results.length}} results     <p><img class="eta-marker" src="common/img/marker.png">ETA to MeetPoint - {{eta}}<p></div>
             <div ng-show="results.length > 0" class="item padding-right" ng-repeat="result in results |  orderBy:'name'">
               <div class="row">
@@ -55,7 +47,7 @@
               </div>
             </div>
 
-            <!-- Sorry, no search results could be found -->
+            <!-- Sad, no search results could be found -->
             <div ng-show="results === undefined" class="item padding-right noresults-container">
               <img class="sad-face" src="common/img/sad-face.png">
                 <div class="noresults">{{noresults}}</div>

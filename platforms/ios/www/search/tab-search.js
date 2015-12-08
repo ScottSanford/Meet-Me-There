@@ -1,6 +1,11 @@
 angular.module('SearchController', [])
 
-.controller('SearchCtrl', function($scope, $q, $location, localStorageService, Meetups, $cordovaGeolocation, GoogleMaps) {
+.controller('SearchCtrl', function($scope, $state, $rootScope, $q, $location, localStorageService, Meetups, $cordovaGeolocation, GoogleMaps) {
+
+
+    $rootScope.clickMap = function() {
+      $location.url('/tabs/map');
+    } 
 
     displayUserAddress().then(function(address){
       $scope.userLocation = address;

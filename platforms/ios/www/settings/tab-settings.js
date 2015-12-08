@@ -1,7 +1,10 @@
 angular.module('SettingsController', [])
 
-.controller('SettingsCtrl', function($scope, localStorageService, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
+.controller('SettingsCtrl', function($scope, $state, $rootScope, $location, localStorageService, $cordovaEmailComposer, EmailComposer, $cordovaAppRate, $cordovaDialogs, Meetups, AppRate) {
 
+    $rootScope.clickMap = function() {
+      $location.url('/tabs/map');
+    } 
   // Save Work and Home Address
 
   var home = localStorageService.get('home');

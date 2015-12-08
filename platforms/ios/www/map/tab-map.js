@@ -1,13 +1,16 @@
 angular.module('MapController', [])
 
 .controller('GoogleMapCtrl', function(
-  $scope, $state, $q, $stateParams, $ionicLoading, 
+  $scope, $rootScope, $state, $q, $stateParams, $ionicLoading, 
   GoogleMaps, localStorageService, $ionDrawerVerticalDelegate, 
   $cordovaSms, $cordovaToast, $cordovaAppAvailability, 
   $cordovaInAppBrowser, $ionicPlatform, $cordovaGeolocation, $rootScope) {
 
-  console.log('firing!');
-  console.log(window.location.href);
+      if ($state.current.name == 'tabs.map') {
+        $rootScope.clickMap = function() {
+          return;
+        }
+      }
 
       var directionsDisplay;
       var map;
@@ -26,8 +29,6 @@ angular.module('MapController', [])
         $scope.loading = $ionicLoading.show({
             template: '<img src="common/img/coffee.GIF" class="loading-icon">' 
         });
-
-        console.log('getUserLocation()');
 
         var deferred = $q.defer();
           $ionicPlatform.ready(function(){
@@ -137,7 +138,6 @@ angular.module('MapController', [])
                 $scope.getMoreInfo = function(placeId) {
                   
                   GoogleMaps.googleGetPlaceDetails(placeId, googleMap.map).then(function(url) {
-                    console.log(url);
 
                     var options = {
                       location: 'yes',

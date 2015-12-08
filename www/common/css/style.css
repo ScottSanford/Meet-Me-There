@@ -27,6 +27,19 @@ body {
 	font-family: 'SF-UI-Display-Regular';
 }
 
+ng:cloak], 
+[ng-cloak], 
+[data-ng-cloak], 
+[x-ng-cloak], 
+.ng-cloak, 
+.x-ng-cloak {
+    display: none !important;
+}
+
+.ng-hide-add, .ng-hide-remove {
+    display: none !important;
+}
+
 .item-divider {
 	border-top:none;
 	border-left:none;
@@ -216,8 +229,40 @@ ion-content.meeting-places {
 	margin:-15px 0 0 -5px;
 }
 
+.marker-name {
+	text-decoration: none;
+	color:#000;
+	font-family: 'SF-UI-Display-Semibold';
+	display: block;;
+}
+
+.left {
+	float:left;
+}
+
 .more-info {
-	font-style: italic
+	font-style: italic;
+}
+
+.more-info i {
+	font-size:20pt;
+	color:#10C49D;
+	display: block;
+} 
+
+.more-info i:active {
+	color:#10C49D;
+}
+
+.right {
+	margin:3px 0 0 5px;
+}
+
+.gmap-icon {
+	width:25px;
+	height:auto;
+	display: block;
+	float:left;
 }
 
 .more-info-active:active {
@@ -286,11 +331,6 @@ ion-content.meeting-places {
 .window-name {
 	float:right;
 	margin:3px 0 0 10px;
-}
-
-.marker-name {
-	text-decoration: none;
-	color:#000;
 }
 /*===============================================================
 						Settings Tab

@@ -145,6 +145,7 @@ angular.module('mmtApp', [
     })
     .state('tabs.settings', {
       url: '/settings',
+      cache: false,
       views: {
         'tabs-settings': {
           templateUrl: 'settings/tab-settings.html',

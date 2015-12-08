@@ -120,7 +120,6 @@ angular.module('GoogleMapsService', [])
       };
 
       GoogleMaps.createMarker = function(latlng, label, map) {
-        // console.log(latlng+", " + label + ", " + html + ")");
         var contentString = '<b>'+label+'</b>';
         var marker        = new google.maps.Marker({
             position: latlng,
@@ -222,7 +221,6 @@ angular.module('GoogleMapsService', [])
 
         service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          console.log(place);
           deferred.resolve(place.url);
 
         }
@@ -249,10 +247,12 @@ angular.module('GoogleMapsService', [])
               google.maps.event.addListener(marker, 'click', function() {
                   infowindow.close();
                   var link = GoogleMaps.googleGetPlaceDetails(POI.place_id, map).then(function(url){
-               
-                      var popupContent = '<a class="marker-name" href="' + url + '">' + POI.name + '</a>' + 
-                                         '<rating ng-model="POI.rating" readonly="true"></rating>';
-                                         // '- <rating ng-model="result.price_level" readonly="true" state-on="glyphicon-usd" state-off="'null'">;
+                      console.log(POI.name, POI.formatted_phone_number);
+                      var popupContent =  '<div class="marker-container">' + 
+                                            '<div class="marker-name">' + POI.name + '</div>' +   
+                                            '<div class="ellipsis">' + POI.vicinity + '</div>' +
+                                            '<a class="more-info" href="' + url + '"><i class="ion ion-ios-information"></i></a>' +
+                                          '</div>';
                       infowindow.setContent(popupContent);
                   });
                   infowindow.open(map, this);

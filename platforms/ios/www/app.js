@@ -77,6 +77,7 @@ angular.module('mmtApp', [
       url:'/tabs',
       abstract: true,
       templateUrl: 'common/tabs.html'
+      // controller: 'TabsCtrl'
     })
     .state('tabs.search', {
       cache: false,
@@ -145,6 +146,7 @@ angular.module('mmtApp', [
     })
     .state('tabs.settings', {
       url: '/settings',
+      cache: false,
       views: {
         'tabs-settings': {
           templateUrl: 'settings/tab-settings.html',
